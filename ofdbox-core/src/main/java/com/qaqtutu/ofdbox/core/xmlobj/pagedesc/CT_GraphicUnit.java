@@ -1,0 +1,76 @@
+package com.qaqtutu.ofdbox.core.xmlobj.pagedesc;
+
+import com.qaqtutu.ofdbox.core.contance.Const;
+import com.qaqtutu.ofdbox.core.xmlobj.base.document.NActions;
+import com.qaqtutu.ofdbox.core.xmlobj.enums.LineCapStyle;
+import com.qaqtutu.ofdbox.core.xmlobj.enums.LineJoinStyle;
+import com.qaqtutu.ofdbox.core.xmlobj.st.ST_Box;
+import com.qaqtutu.ofdbox.core.xmlobj.st.ST_RefID;
+import com.qaqtutu.ofdbox.core.xmlobj.adapter.DoubleArrayAdapter;
+import com.qaqtutu.ofdbox.core.xmlobj.adapter.StBoxAdapter;
+import com.qaqtutu.ofdbox.core.xmlobj.adapter.StRefIdAdapter;
+import lombok.Data;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+@Data
+@XmlAccessorType(value = XmlAccessType.FIELD)
+public class CT_GraphicUnit {
+
+    @NotNull
+    @Valid
+    @XmlJavaTypeAdapter(value = StBoxAdapter.class)
+    @XmlAttribute(name = "Boundary")
+    private ST_Box boundary;
+
+    @XmlAttribute(name = "Name")
+    private String name;
+
+    @XmlAttribute(name = "Visible")
+    private Boolean visible;
+
+    @XmlJavaTypeAdapter(value = DoubleArrayAdapter.class)
+    @XmlAttribute(name = "CTM")
+    private Double[] ctm;
+
+    @Valid
+    @XmlJavaTypeAdapter(value = StRefIdAdapter.class)
+    @XmlAttribute(name = "DrawParam")
+    private ST_RefID drawParam;
+
+    @XmlAttribute(name = "LineWidth")
+    private Double lineWidth;
+
+    @XmlAttribute(name = "Cap")
+    private LineCapStyle cap;
+
+    @XmlAttribute(name = "Join")
+    private LineJoinStyle join;
+
+    @XmlAttribute(name = "MiterLimit")
+    private Double miterLimit;
+
+    @XmlAttribute(name = "DashOffset")
+    private Double dashOffset;
+
+    @XmlJavaTypeAdapter(value = DoubleArrayAdapter.class)
+    @XmlAttribute(name = "DashPattern")
+    private Double[] dashPattern;
+
+    @XmlAttribute(name = "Alpha")
+    private Integer alpha;
+
+    @Valid
+    @XmlElement(name = "Actions",namespace = Const.NAMESPACE_URI)
+    private NActions actions;
+
+    @Valid
+    @XmlElement(name = "Clips",namespace = Const.NAMESPACE_URI)
+    private NClips clips;
+}
