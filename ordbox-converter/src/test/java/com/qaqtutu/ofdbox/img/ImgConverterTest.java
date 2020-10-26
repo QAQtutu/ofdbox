@@ -24,7 +24,7 @@ public class ImgConverterTest {
     }
 
     @Test
-    public void toPdf() throws IOException {
+    public void toImg() throws IOException {
 
         OFDReader reader = new OFDReader();
         OFD ofd = reader.read(new File("src/test/resources/发票.ofd"));

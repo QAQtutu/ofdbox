@@ -1,11 +1,10 @@
 package com.qaqtutu.ofdbox.convertor.pdf;
 
 import com.qaqtutu.ofdbox.convertor.utils.ImageUtils;
+import com.qaqtutu.ofdbox.core.*;
+import com.qaqtutu.ofdbox.core.utils.MatrixUtils;
 import com.qaqtutu.ofdbox.core.utils.Tuple2;
 import com.qaqtutu.ofdbox.core.utils.Tuple3;
-import com.qaqtutu.ofdbox.core.*;
-import com.qaqtutu.ofdbox.core.utils.CTMUtils;
-import com.qaqtutu.ofdbox.core.utils.MatrixUtils;
 import com.qaqtutu.ofdbox.core.xmlobj.base.page.CT_PageBlock;
 import com.qaqtutu.ofdbox.core.xmlobj.base.page.NLayer;
 import com.qaqtutu.ofdbox.core.xmlobj.base.page.NTemplate;
@@ -178,9 +177,9 @@ public class Ofd2pdf {
                             String s=String.valueOf(nTextCode.getContent().charAt(i));
 
                             Matrix matrix= MatrixUtils.base();
-                            matrix=matrix.mtimes(CTMUtils.imageMatrix(0,1,0));
+                            matrix=MatrixUtils.imageMatrix(matrix,0,1,0);
                             if(nTextObject.getCtm()!=null){
-                                Matrix ctm=CTMUtils.ctm(nTextObject.getCtm());
+                                Matrix ctm=MatrixUtils.ctm(nTextObject.getCtm());
                                 matrix=matrix.mtimes(ctm);
 
                             }
@@ -190,7 +189,7 @@ public class Ofd2pdf {
                             }
                             matrix=matrix.mtimes(MatrixUtils.create(1,0,0,1,dx,dy));
                             matrix=matrix.mtimes(MatrixUtils.create(1,0,0,1,boundary.getX(),boundary.getY()));
-                            matrix=matrix.mtimes(CTMUtils.imageMatrix(0,1,0));
+                            matrix=MatrixUtils.imageMatrix(matrix,0,1,0);
                             matrix=matrix.mtimes(MatrixUtils.create(1,0,0,1,0,pageBox.getH()));
                             matrix=matrix.mtimes(MatrixUtils.create(mm2pt,0,0,mm2pt,0,0));
 
@@ -247,26 +246,34 @@ public class Ofd2pdf {
                     PDImageXObject pdImage = PDImageXObject.createFromByteArray(document, image.getFirst(), ofdFile.getLoc());
 
                     Matrix matrix= MatrixUtils.base();
-                    //x轴镜像
-                    matrix=matrix.mtimes(CTMUtils.imageMatrix(0,1,0));
+                    matrix=MatrixUtils.imageMatrix(matrix,0,1,0);
                     if(nImageObject.getCtm()!=null){
-                        Matrix ctm=CTMUtils.ctm(nImageObject.getCtm());
+                        Matrix ctm= MatrixUtils.base();
+                        ctm=ctm.mtimes(MatrixUtils.ctm(nImageObject.getCtm()));
+                        Tuple2<Double,Double> tuple2=MatrixUtils.leftTop(ctm);
+                        ctm = ctm.mtimes(MatrixUtils.create(1, 0, 0, 1, tuple2.getFirst().floatValue(),tuple2.getSecond().floatValue()));
+
                         matrix=matrix.mtimes(ctm);
 
                     }
+
+
                     ST_Box boundary = nImageObject.getBoundary();
                     if(boundary==null){
                         boundary=pageBox;
                     }
-                    Tuple2<Double,Double> tuple2=MatrixUtils.leftTop(matrix);
 
-                    matrix=matrix.mtimes(MatrixUtils.create(1,0,0,1,boundary.getX()*mm2pt,boundary.getY()*mm2pt));
-//                    matrix = matrix.mtimes(MatrixUtils.create(1, 0, 0, 1, tuple2.getFirst().floatValue() , tuple2.getSecond().floatValue() ));
-                    matrix=matrix.mtimes(CTMUtils.imageMatrix(0,1,0));
-                    matrix=matrix.mtimes(MatrixUtils.create(1,0,0,1,0,-boundary.getH()*mm2pt));
-                    matrix=matrix.mtimes(MatrixUtils.create(1,0,0,1,0,pageBox.getH()*mm2pt));
+                    matrix=matrix.mtimes(MatrixUtils.create(1,0,0,1,boundary.getX(),boundary.getY()));
+                    matrix=matrix.mtimes(MatrixUtils.create(1,0,0,1,0,-boundary.getH()));
+
+                    matrix=MatrixUtils.imageMatrix(matrix,0,1,0);
+                    matrix=matrix.mtimes(MatrixUtils.create(1,0,0,1,0,pageBox.getH()));
 
                     matrix=matrix.mtimes(MatrixUtils.create(mm2pt,0,0,mm2pt,0,0));
+
+
+
+
 
 
                     contStr.drawImage(pdImage,toPFMatrix(matrix));

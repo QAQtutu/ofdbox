@@ -217,15 +217,24 @@ public class Ofd2Img {
                     graphics.setTransform(MatrixUtils.createAffineTransform(MatrixUtils.base()));
                     //把图片还原成1*1
                     Matrix matrix = MatrixUtils.create(Double.valueOf(1.0 / targetImg.getWidth()).floatValue(), 0, 0, Double.valueOf(1.0 / targetImg.getHeight()).floatValue(), 0, 0);
+
                     //CTM
                     matrix = matrix.mtimes(MatrixUtils.create(ctm[0].floatValue(), ctm[1].floatValue(), ctm[2].floatValue(), ctm[3].floatValue(), ctm[4].floatValue(), ctm[5].floatValue()));
                     Tuple2<Double,Double> tuple2=MatrixUtils.leftTop(matrix);
-                    //转换到世界坐标系
-                    matrix = matrix.mtimes(MatrixUtils.create(1, 0, 0, 1, boundary.getX().floatValue()*dpi , boundary.getY().floatValue()*dpi));
 
-                    matrix = matrix.mtimes(MatrixUtils.create(1, 0, 0, 1, tuple2.getFirst().floatValue()*dpi , tuple2.getSecond().floatValue()*dpi ));
+
+                    //转换到世界坐标系
+                    matrix = matrix.mtimes(MatrixUtils.create(1, 0, 0, 1, boundary.getX().floatValue() , boundary.getY().floatValue()));
+
+                    matrix = matrix.mtimes(MatrixUtils.create(dpi, 0, 0, dpi, 0 , 0 ));
+
+                    matrix = matrix.mtimes(MatrixUtils.create(1, 0, 0, 1, tuple2.getFirst().floatValue() , tuple2.getSecond().floatValue() ));
+
+
+
+
                     //单位毫米转换成像素
-                    matrix=MatrixUtils.scale(matrix,dpi, dpi);
+//                    matrix=MatrixUtils.scale(matrix,dpi, dpi);
 
 
                     graphics.drawImage(targetImg, MatrixUtils.createAffineTransform(matrix), null);

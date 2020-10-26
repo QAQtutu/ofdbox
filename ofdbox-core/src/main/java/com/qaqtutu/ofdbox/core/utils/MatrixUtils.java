@@ -26,8 +26,35 @@ public class MatrixUtils {
         return matrix;
     }
 
-    public static Matrix scale(Matrix matrix,double x,double y){
-        return MatrixUtils.create(x,0,0,y,0,0).mtimes(matrix);
+    public static Matrix scale(Matrix matrix, double x, double y) {
+        return create(x, 0, 0, y, 0, 0).mtimes(matrix);
+    }
+
+    public static Matrix move(Matrix matrix, double x, double y) {
+        return matrix.mtimes(create(1, 0, 0, 1, x, y));
+    }
+
+    public static Matrix ctm(Double... ctm) {
+        return create(ctm[0],ctm[1],ctm[2],ctm[3],ctm[4],ctm[5]);
+    }
+
+    /*
+     * 镜像
+     * */
+    //aX+bY+c=0
+    public static Matrix imageMatrix(Matrix matrix,double a, double b, double c) {
+        Matrix image = DenseMatrix.Factory.zeros(3, 3);
+        image.setAsDouble(a * a - b * b, 0, 0);
+        image.setAsDouble(2 * a * b, 0, 1);
+        image.setAsDouble(2 * a * b, 1, 0);
+        image.setAsDouble(-(a * a - b * b), 1, 1);
+        image.setAsDouble(2 * a * c, 2, 0);
+        image.setAsDouble(2 * b * c, 2, 1);
+        image.setAsDouble(-(a * a + b * b), 2, 2);
+
+        image=image.times(-1 / (a * a + b * b));
+
+        return matrix.mtimes(image);
     }
 
     public static AffineTransform createAffineTransform(Matrix matrix) {
