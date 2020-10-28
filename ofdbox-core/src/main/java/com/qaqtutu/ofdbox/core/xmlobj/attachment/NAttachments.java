@@ -13,7 +13,7 @@ import java.util.List;
 public class NAttachments {
 
 
-    @XmlElement(name = "Attachment",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Attachment")
     private List<CT_Attachment> list;
 
 }

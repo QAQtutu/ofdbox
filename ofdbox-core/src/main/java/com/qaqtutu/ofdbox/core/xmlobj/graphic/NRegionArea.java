@@ -25,12 +25,12 @@ public class NRegionArea {
 
     @Size(min = 1)
     @XmlElements({
-            @XmlElement(name = "Move",namespace = Const.NAMESPACE_URI,type = Move.class),
-            @XmlElement(name = "Line",namespace = Const.NAMESPACE_URI,type = Line.class),
-            @XmlElement(name = "QuadraticBezier",namespace = Const.NAMESPACE_URI,type = QuadraticBezier.class),
-            @XmlElement(name = "CubicBezier",namespace = Const.NAMESPACE_URI,type = CubicBezier.class),
-            @XmlElement(name = "Arc",namespace = Const.NAMESPACE_URI,type = Arc.class),
-            @XmlElement(name = "Close",namespace = Const.NAMESPACE_URI,type = Close.class)
+            @XmlElement(name = "ofd:Move",type = Move.class),
+            @XmlElement(name = "ofd:Line",type = Line.class),
+            @XmlElement(name = "ofd:QuadraticBezier",type = QuadraticBezier.class),
+            @XmlElement(name = "ofd:CubicBezier",type = CubicBezier.class),
+            @XmlElement(name = "ofd:Arc",type = Arc.class),
+            @XmlElement(name = "ofd:Close",type = Close.class)
     })
     private List<PathOperator> operators;
 }

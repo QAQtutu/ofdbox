@@ -28,6 +28,6 @@ public class CT_Bookmark {
     * */
     @Valid
     @NotNull
-    @XmlElement(name = "Dest", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Dest")
     private CT_Dest dest;
 }

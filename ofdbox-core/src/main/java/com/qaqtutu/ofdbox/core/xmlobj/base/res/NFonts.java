@@ -17,6 +17,6 @@ public class NFonts {
 
     @Valid
     @Size(min = 1)
-    @XmlElement(name = "Font",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Font")
     private List<CT_Font> list;
 }

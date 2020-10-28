@@ -35,9 +35,9 @@ public class XDocVersion {
 
     @NotNull
     @Valid
-    @XmlElement(name = "FileList",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:FileList")
     private NFileList fileList;
 
-    @XmlElement(name = "DocRoot",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:DocRoot")
     private ST_Loc docRoot;
 }

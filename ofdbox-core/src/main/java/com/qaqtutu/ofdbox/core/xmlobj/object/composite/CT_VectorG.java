@@ -35,20 +35,20 @@ public class CT_VectorG {
     * 缩略图
     * */
     @XmlJavaTypeAdapter(value = StRefIdAdapter.class)
-    @XmlElement(name = "Thumbnail",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Thumbnail")
     private ST_RefID thumbnail;
 
     /*
     * 替换图像
     * */
     @XmlJavaTypeAdapter(value = StRefIdAdapter.class)
-    @XmlElement(name = "Substitution",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Substitution")
     private ST_RefID substitution;
 
     /*
     * 内容矢量描述
     * */
     @NotNull
-    @XmlElement(name = "Content",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Content")
     private CT_PageBlock content;
 }

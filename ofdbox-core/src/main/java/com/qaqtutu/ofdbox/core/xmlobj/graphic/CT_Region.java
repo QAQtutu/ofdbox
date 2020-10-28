@@ -21,7 +21,7 @@ public class CT_Region {
 
     @NotNull
     @Valid
-    @XmlElement(name = "Area",namespace = Const.NAMESPACE_URI,type = NRegionArea.class)
+    @XmlElement(name = "ofd:Area",type = NRegionArea.class)
     private List<NRegionArea> areas;
 
     public static void main(String[] args) {

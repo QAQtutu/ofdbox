@@ -12,7 +12,7 @@ import java.util.List;
 
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "OFD", namespace = Const.NAMESPACE_URI)
+@XmlRootElement(name = "ofd:OFD")
 public class XOFD {
 
     /*
@@ -34,13 +34,13 @@ public class XOFD {
     * */
     @Size(min = 1)
     @Valid
-    @XmlElement(name = "DocBody", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:DocBody")
     private List<NDocBody> docBodys;
 
     /*
     * 指向该文档中签名和签章结构
     * */
     @Valid
-    @XmlElement(name = "Signatures", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Signatures")
     private ST_Loc signatures;
 }

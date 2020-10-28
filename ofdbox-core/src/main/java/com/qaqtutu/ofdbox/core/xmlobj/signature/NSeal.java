@@ -18,6 +18,6 @@ public class NSeal {
     @NotNull
     @Valid
     @XmlJavaTypeAdapter(value = StLocAdapter.class)
-    @XmlElement(name = "BaseLoc")
+    @XmlElement(name = "ofd:BaseLoc")
     private ST_Loc baseLoc;
 }

@@ -15,11 +15,11 @@ import javax.xml.bind.annotation.XmlElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Goto extends ActionType{
 
-    @XmlElement(name = "Dest", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Dest")
     private CT_Dest dest;
 
     @Valid
-    @XmlElement(name = "Bookmark", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Bookmark")
     private Bookmark bookmark;
 
     @Data

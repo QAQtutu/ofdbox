@@ -34,11 +34,11 @@ public class CT_Color {
     * 填充类型
     * */
     @XmlElements({
-            @XmlElement(name = "Pattern",namespace = Const.NAMESPACE_URI,type = CT_Pattern.class),
-            @XmlElement(name = "AxialShd",namespace = Const.NAMESPACE_URI,type = CT_AxialShd.class),
-            @XmlElement(name = "RadialShd",namespace = Const.NAMESPACE_URI,type = CT_RadialShd.class),
-            @XmlElement(name = "GouraudShd",namespace = Const.NAMESPACE_URI,type = CT_GouraudShd.class),
-            @XmlElement(name = "LaGouraudShd",namespace = Const.NAMESPACE_URI,type = CT_LaGouraudShd.class)
+            @XmlElement(name = "ofd:Pattern",type = CT_Pattern.class),
+            @XmlElement(name = "ofd:AxialShd",type = CT_AxialShd.class),
+            @XmlElement(name = "ofd:RadialShd",type = CT_RadialShd.class),
+            @XmlElement(name = "ofd:GouraudShd",type = CT_GouraudShd.class),
+            @XmlElement(name = "ofd:LaGouraudShd",type = CT_LaGouraudShd.class)
     })
     private ComplexColor complexColor;
 }

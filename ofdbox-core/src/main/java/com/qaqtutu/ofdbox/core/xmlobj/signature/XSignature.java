@@ -17,7 +17,7 @@ import java.io.ByteArrayInputStream;
 
 @Data
 @XmlAccessorType(value = XmlAccessType.FIELD)
-@XmlRootElement(name = "Signature",namespace = Const.NAMESPACE_URI)
+@XmlRootElement(name = "ofd:Signature")
 public class XSignature {
 
     /*
@@ -25,7 +25,7 @@ public class XSignature {
     * */
     @NotNull
     @Valid
-    @XmlElement(name = "SignedInfo",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:SignedInfo")
     private NSignedInfo signedInfo;
 
     /*
@@ -34,7 +34,7 @@ public class XSignature {
     @Valid
     @NotNull
     @XmlJavaTypeAdapter(value = StLocAdapter.class)
-    @XmlElement(name = "SignedValue",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:SignedValue")
     private ST_Loc signedValue;
 
 

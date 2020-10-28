@@ -11,6 +11,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "PathObject",namespace = Const.NAMESPACE_URI)
+@XmlRootElement(name = "ofd:PathObject")
 public class NPathObject extends CT_Path implements NObject {
 }

@@ -21,22 +21,24 @@ public class Document {
     private List<Page> pages=new ArrayList<>();
     private List<Template> templates=new ArrayList<>();
 
-    private XRes xRes;
+    private List<XRes> publicResList;
+    private List<XRes> res;
 
     public OFDFile getMultiMedia(Integer id){
-        if(xRes.getMultiMedias()==null)return null;
-        for(NMultiMedias nMultiMedias:xRes.getMultiMedias()){
-            for(NMultiMedia nMultiMedia:nMultiMedias.getList()){
-                if(nMultiMedia.getId().getId().equals(id)){
-                    ST_Loc mediaLoc=new ST_Loc();
-                    mediaLoc.setParent(xRes.getBaseLoc());
-                    mediaLoc.setLoc(nMultiMedia.getMediaFile().getLoc());
-                    byte[] bytes=ofd.getFileManager().readBytes(mediaLoc.getFullLoc());
+        for(XRes xRes:allRes()){
+            for(NMultiMedias nMultiMedias:xRes.getMultiMedias()){
+                for(NMultiMedia nMultiMedia:nMultiMedias.getList()){
+                    if(nMultiMedia.getId().getId().equals(id)){
+                        ST_Loc mediaLoc=new ST_Loc();
+                        mediaLoc.setParent(xRes.getBaseLoc());
+                        mediaLoc.setLoc(nMultiMedia.getMediaFile().getLoc());
+                        byte[] bytes=ofd.getFileManager().readBytes(mediaLoc.getFullLoc());
 
-                    OFDFile ofdFile=new OFDFile();
-                    ofdFile.setLoc(mediaLoc.getFullLoc());
-                    ofdFile.setBytes(bytes);
-                    return ofdFile;
+                        OFDFile ofdFile=new OFDFile();
+                        ofdFile.setLoc(mediaLoc.getFullLoc());
+                        ofdFile.setBytes(bytes);
+                        return ofdFile;
+                    }
                 }
             }
         }
@@ -50,5 +52,14 @@ public class Document {
             }
         }
         return null;
+    }
+
+    public List<XRes> allRes(){
+        List<XRes> all=new ArrayList<>();
+        if(this.publicResList!=null)
+             all.addAll(this.publicResList);
+        if(this.res!=null)
+            all.addAll(this.res);
+        return all;
     }
 }

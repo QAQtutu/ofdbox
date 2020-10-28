@@ -16,6 +16,6 @@ public class NOutlines {
 
     @Size(min = 1)
     @Valid
-    @XmlElement(name = "OutlineElem", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:OutlineElem")
     private List<CT_OutlineElem> list;
 }

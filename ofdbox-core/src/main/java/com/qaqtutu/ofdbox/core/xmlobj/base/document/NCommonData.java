@@ -18,28 +18,28 @@ public class NCommonData {
 
     @Valid
     @NotNull
-    @XmlElement(name = "PageArea", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:PageArea")
     private CT_PageArea pageArea;
 
     @NotBlank
-    @XmlElement(name = "MaxUnitID", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:MaxUnitID")
     private String maxUnitId;
 
     @Valid
     @XmlJavaTypeAdapter(value = StLocAdapter.class)
-    @XmlElement(name = "PublicRes", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:PublicRes")
     private  List<ST_Loc> publicRes;
 
     @Valid
     @XmlJavaTypeAdapter(value = StLocAdapter.class)
-    @XmlElement(name = "DocumentRes", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:DocumentRes")
     private List<ST_Loc> documentRes;
 
     @Valid
-    @XmlElement(name = "TemplatePage", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:TemplatePage")
     private List<CT_TemplatePage> templatePages;
 
-    @XmlAttribute(name = "DefaultCS", namespace = Const.NAMESPACE_URI)
+    @XmlAttribute(name = "DefaultCS")
     private Integer defaultCS;
 
 }

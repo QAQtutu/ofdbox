@@ -11,12 +11,12 @@ import java.util.List;
 
 @Data
 @XmlAccessorType(value = XmlAccessType.FIELD)
-@XmlRootElement(name = "Signatures",namespace = Const.NAMESPACE_URI)
+@XmlRootElement(name = "ofd:Signatures")
 public class XSignatures {
 
-    @XmlElement(name = "MaxSignId",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:MaxSignId")
     private String id;
 
-    @XmlElement(name = "Signature",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Signature")
     private List<NSignature> signatures;
 }

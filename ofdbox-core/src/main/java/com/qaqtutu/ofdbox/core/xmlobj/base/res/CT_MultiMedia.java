@@ -24,7 +24,7 @@ public class CT_MultiMedia {
     private String format;
 
     @XmlJavaTypeAdapter(value = StLocAdapter.class)
-    @XmlElement(name="MediaFile",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name="MediaFile")
     private ST_Loc mediaFile;
 
 }

@@ -46,6 +46,6 @@ public class CT_Image extends CT_GraphicUnit {
     * 图像边框设置
     * */
     @Valid
-    @XmlElement(name = "Border",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Border")
     private NImageBorder border;
 }

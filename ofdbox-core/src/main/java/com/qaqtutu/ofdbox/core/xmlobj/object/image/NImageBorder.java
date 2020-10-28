@@ -49,6 +49,6 @@ public class NImageBorder {
     /*
     * 边框颜色
     * */
-    @XmlElement(name = "BorderColor",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:BorderColor")
     private CT_Color borderColor;
 }

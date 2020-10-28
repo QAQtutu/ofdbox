@@ -25,9 +25,9 @@ public class CT_OutlineElem {
     private Boolean expanded;
 
     @Valid
-    @XmlElement(name = "Actions",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Actions")
     private NActions actions;
 
-    @XmlElement(name="OutlineElem",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name="OutlineElem")
     private List<CT_OutlineElem> outlineElems;
 }

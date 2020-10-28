@@ -16,6 +16,6 @@ public class NPages {
 
     @Valid
     @Size(min = 1)
-    @XmlElement(name = "Page",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Page")
     List<NPage> list;
 }

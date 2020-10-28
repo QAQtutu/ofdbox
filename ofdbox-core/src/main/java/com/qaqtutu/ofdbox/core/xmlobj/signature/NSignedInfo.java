@@ -16,27 +16,27 @@ public class NSignedInfo {
 
     @NotNull
     @Valid
-    @XmlElement(name = "Provider",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Provider")
     private NProvider provider;
 
     @NotNull
     @Valid
-    @XmlElement(name = "SignatureMethod",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:SignatureMethod")
     private String signatureMethod;
 
     @NotNull
     @Valid
-    @XmlElement(name = "SignatureDateTime",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:SignatureDateTime")
     private String signatureDateTime;
 
     @NotNull
     @Valid
-    @XmlElement(name = "References",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:References")
     private NReferences references;
 
-    @XmlElement(name = "StampAnnot",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:StampAnnot")
     private List<NStampAnnot> stampAnnots;
 
-    @XmlElement(name = "Seal",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Seal")
     private NSeal seal;
 }

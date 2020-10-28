@@ -17,6 +17,6 @@ public class NReferences {
     private String checkMethod;
 
     @Size(min = 1)
-    @XmlElement(name = "Reference")
+    @XmlElement(name = "ofd:Reference")
     private List<NReference> list;
 }

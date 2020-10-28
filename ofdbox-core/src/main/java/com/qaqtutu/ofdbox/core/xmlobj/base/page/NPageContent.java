@@ -10,11 +10,11 @@ import java.util.List;
 
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "Content",namespace = Const.NAMESPACE_URI)
+@XmlRootElement(name = "ofd:Content")
 public class NPageContent {
 
     @Valid
     @Size(min = 1)
-    @XmlElement(name = "Layer",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Layer")
     private List<NLayer> layers;
 }

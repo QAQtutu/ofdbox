@@ -16,11 +16,11 @@ import java.util.List;
 public class CT_PageBlock {
 
     @XmlElements({
-            @XmlElement(name = "PageBlock",namespace = Const.NAMESPACE_URI,type = NPageBlock.class),
-            @XmlElement(name = "PathObject",namespace = Const.NAMESPACE_URI,type = NPathObject.class),
-            @XmlElement(name = "ImageObject",namespace = Const.NAMESPACE_URI,type = NImageObject.class),
-            @XmlElement(name = "TextObject",namespace = Const.NAMESPACE_URI,type = NTextObject.class),
-            @XmlElement(name = "CompositeObject",namespace = Const.NAMESPACE_URI,type = NCompositeObject.class)
+            @XmlElement(name = "ofd:PageBlock",type = NPageBlock.class),
+            @XmlElement(name = "ofd:PathObject",type = NPathObject.class),
+            @XmlElement(name = "ofd:ImageObject",type = NImageObject.class),
+            @XmlElement(name = "ofd:TextObject",type = NTextObject.class),
+            @XmlElement(name = "ofd:CompositeObject",type = NCompositeObject.class)
     })
     @Valid
     private List<NObject> content;

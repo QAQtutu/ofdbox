@@ -16,6 +16,6 @@ public class NFileList {
 
     @Size(min = 1)
     @Valid
-    @XmlElement(name = "File",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:File")
     private List<NFile> files;
 }

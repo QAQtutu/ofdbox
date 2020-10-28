@@ -17,6 +17,6 @@ import java.util.List;
 public class NKeywords {
 
     @Size(min = 1)
-    @XmlElement(name = "Keyword", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Keyword")
     private List<String> list;
 }

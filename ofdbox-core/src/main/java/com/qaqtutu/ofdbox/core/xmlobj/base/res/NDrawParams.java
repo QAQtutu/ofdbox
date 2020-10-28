@@ -17,6 +17,6 @@ public class NDrawParams {
 
     @Valid
     @Size(min = 1)
-    @XmlElement(name = "DrawParam",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:DrawParam")
     private List<CT_DrawParam> list;
 }

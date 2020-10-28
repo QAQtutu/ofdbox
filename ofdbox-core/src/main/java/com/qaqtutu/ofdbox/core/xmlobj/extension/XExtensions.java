@@ -12,10 +12,10 @@ import java.util.List;
 
 @Data
 @XmlAccessorType(value = XmlAccessType.FIELD)
-@XmlRootElement(name = "Extensions",namespace = Const.NAMESPACE_URI)
+@XmlRootElement(name = "ofd:Extensions")
 public class XExtensions {
 
     @Valid
-    @XmlElement(name = "Extension",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Extension")
     private List<CT_Extension> extensions;
 }

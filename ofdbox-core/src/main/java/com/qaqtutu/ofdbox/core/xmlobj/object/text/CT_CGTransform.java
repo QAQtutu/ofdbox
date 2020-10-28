@@ -39,6 +39,6 @@ public class CT_CGTransform {
     * */
     @NotNull
     @XmlJavaTypeAdapter(value = StringArrayAdapter.class)
-    @XmlElement(name = "Glyphs",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Glyphs")
     private String[] glyphs;
 }

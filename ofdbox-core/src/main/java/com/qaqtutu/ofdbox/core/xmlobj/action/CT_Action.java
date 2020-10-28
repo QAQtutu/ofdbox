@@ -7,7 +7,7 @@ import lombok.Data;
 import javax.xml.bind.annotation.*;
 
 @Data
-@XmlRootElement(name = "CT_Action")
+@XmlRootElement(name = "ofd:CT_Action")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CT_Action {
 
@@ -16,10 +16,10 @@ public class CT_Action {
 
 
     @XmlElements({
-            @XmlElement(name = "Goto", namespace = Const.NAMESPACE_URI, type = Goto.class),
-            @XmlElement(name = "Movie", namespace = Const.NAMESPACE_URI, type = Movie.class),
-            @XmlElement(name = "Sound", namespace = Const.NAMESPACE_URI, type = Sound.class),
-            @XmlElement(name = "GotoA", namespace = Const.NAMESPACE_URI, type = GotoA.class)
+            @XmlElement(name = "ofd:Goto", type = Goto.class),
+            @XmlElement(name = "ofd:Movie", type = Movie.class),
+            @XmlElement(name = "ofd:Sound", type = Sound.class),
+            @XmlElement(name = "ofd:GotoA", type = GotoA.class)
     })
     private ActionType action;
 }

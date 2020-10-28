@@ -25,19 +25,19 @@ public class CT_GouraudShd extends ComplexColor {
     * 渐变控制点
     * */
     @Size(min = 3)
-    @XmlElement(name = "Point",namespace = Const.NAMESPACE_URI,type = NPoint.class)
+    @XmlElement(name = "ofd:Point",type = NPoint.class)
     private List<NPoint> points;
 
     /*
     * 渐变范围外的填充颜色
     * */
-    @XmlElement(name = "BackColor",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:BackColor")
     private CT_Color backColor;
 
 
     @Data
     @XmlAccessorType(value = XmlAccessType.FIELD)
-    @XmlRootElement(name = "NPoint")
+    @XmlRootElement(name = "ofd:NPoint")
     public static class NPoint{
 
         /*
@@ -64,7 +64,7 @@ public class CT_GouraudShd extends ComplexColor {
         * 控制点对应的颜色
         * */
         @NotNull
-        @XmlElement(name = "Color",namespace = Const.NAMESPACE_URI)
+        @XmlElement(name = "ofd:Color")
         private CT_Color color;
     }
 }

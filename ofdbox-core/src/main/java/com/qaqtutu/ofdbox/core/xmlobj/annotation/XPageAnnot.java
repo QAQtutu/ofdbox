@@ -13,11 +13,11 @@ import java.util.List;
 
 @Data
 @XmlAccessorType(value = XmlAccessType.FIELD)
-@XmlRootElement(name = "PageAnnot",namespace = Const.NAMESPACE_URI)
+@XmlRootElement(name = "ofd:PageAnnot")
 public class XPageAnnot {
 
     @Size(min = 1)
     @Valid
-    @XmlElement(name = "Annot",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Annot")
     private List<NAnnot> annots;
 }

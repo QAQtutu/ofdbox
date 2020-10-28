@@ -12,10 +12,10 @@ import java.util.List;
 
 @Data
 @XmlAccessorType(value = XmlAccessType.FIELD)
-@XmlRootElement(name = "Annotations",namespace = Const.NAMESPACE_URI)
+@XmlRootElement(name = "ofd:Annotations")
 public class XAnnotations {
 
     @Valid
-    @XmlElement(name = "Page",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Page")
     private List<NAnnotationPage> pages;
 }

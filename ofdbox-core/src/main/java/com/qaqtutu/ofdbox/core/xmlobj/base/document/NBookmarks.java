@@ -14,6 +14,6 @@ import java.util.List;
 public class NBookmarks {
 
     @NotNull
-    @XmlElement(name = "Bootmark",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Bootmark")
     List<CT_Bookmark> list;
 }

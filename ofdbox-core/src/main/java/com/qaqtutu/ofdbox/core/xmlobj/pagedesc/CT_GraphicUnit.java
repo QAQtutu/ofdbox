@@ -67,10 +67,10 @@ public class CT_GraphicUnit {
     private Integer alpha;
 
     @Valid
-    @XmlElement(name = "Actions",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Actions")
     private NActions actions;
 
     @Valid
-    @XmlElement(name = "Clips",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Clips")
     private NClips clips;
 }

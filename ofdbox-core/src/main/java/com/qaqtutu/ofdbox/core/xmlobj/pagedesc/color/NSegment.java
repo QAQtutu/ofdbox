@@ -16,6 +16,6 @@ public class NSegment{
     private Double position;
 
     @NotNull
-    @XmlElement(name = "Color",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Color")
     private CT_Color color;
 }

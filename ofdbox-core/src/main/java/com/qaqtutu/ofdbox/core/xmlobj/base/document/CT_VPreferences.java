@@ -17,49 +17,49 @@ public class CT_VPreferences {
     /*
      * 窗口模式
      * */
-    @XmlElement(name = "PageMode")
+    @XmlElement(name = "ofd:PageMode")
     private String pageMode;
 
     /*
      * 页面布局模式
      * */
-    @XmlElement(name = "PageLayout", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:PageLayout")
     private String pageLayout;
 
     /*
      * 标题栏显示模式
      * */
-    @XmlElement(name = "TabDisplay", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:TabDisplay")
     private String tabDisplay;
 
     /*
      * 是否隐藏工具栏
      * */
-    @XmlElement(name = "HideToolbar", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:HideToolbar")
     private Boolean hideToolbar;
 
     /*
      * 是否隐藏菜单栏
      * */
-    @XmlElement(name = "HideMenubar", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:HideMenubar")
     private Boolean hideMenubar;
 
     /*
      * 是否隐藏主窗口之外的其他窗体组件
      * */
-    @XmlElement(name = "HideWindowUI", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:HideWindowUI")
     private Boolean hideWindowUI;
 
     /*
      * 自动缩放模式
      * */
-    @XmlElement(name = "ZoomMode", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:ZoomMode")
     private String zoomMode;
 
     /*
      * 文档的缩放率
      * */
-    @XmlElement(name = "Zoom", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Zoom")
     private Double zoom;
 
 }

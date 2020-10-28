@@ -75,25 +75,25 @@ public class CT_Text extends PathOrText {
     /*
     * 填充颜色
     * */
-    @XmlElement(name="FillColor",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name="FillColor")
     private CT_Color fillColor;
 
     /*
     * 勾边颜色
     * */
-    @XmlElement(name = "StrokeColor",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:StrokeColor")
     private CT_Color strokeColor;
 
     /*
     * 指定字符编码到字符索引的变换关系
     * */
-    @XmlElement(name = "CGTransform",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:CGTransform")
     private List<CT_CGTransform> transforms;
 
     /*
     * 文字内容
     * */
-    @XmlElement(name = "TextCode",namespace = Const.NAMESPACE_URI,type = NTextCode.class)
+    @XmlElement(name = "ofd:TextCode",type = NTextCode.class)
     private List<NTextCode> textCodes;
 
 

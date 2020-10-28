@@ -72,7 +72,7 @@ public class CT_Pattern extends ComplexColor {
     * */
     @NotNull
     @Valid
-    @XmlElement(name = "CellContent",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:CellContent")
     private NCellContent cellContent;
 
 

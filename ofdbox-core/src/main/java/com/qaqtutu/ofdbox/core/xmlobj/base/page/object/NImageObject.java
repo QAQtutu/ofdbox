@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "ImageObject",namespace = Const.NAMESPACE_URI)
+@XmlRootElement(name = "ofd:ImageObject")
 public class NImageObject extends CT_Image implements NObject {
 
 }

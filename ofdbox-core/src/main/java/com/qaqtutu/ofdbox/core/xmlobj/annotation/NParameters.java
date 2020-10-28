@@ -13,7 +13,7 @@ import java.util.List;
 public class NParameters {
 
     @Valid
-    @XmlElement(name = "Parameter")
+    @XmlElement(name = "ofd:Parameter")
     private List<NParameter> list;
 
     @Data

@@ -2,26 +2,40 @@ package com.qaqtutu.ofdbox.core.utils;
 
 import com.qaqtutu.ofdbox.core.contance.Const;
 import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
+import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.XMLFilterImpl;
+import org.xml.sax.helpers.XMLReaderFactory;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParserFactory;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.util.StreamReaderDelegate;
+import javax.xml.transform.Source;
+import javax.xml.transform.sax.SAXSource;
 import java.io.*;
 
 /**
-*@Description: xml工具
-*@Author: 张家尧
-*@date: 2020/10/1 9:54
-*/
+ * @Description: xml工具
+ * @Author: 张家尧
+ * @date: 2020/10/1 9:54
+ */
 public class OfdXmlUtils {
 
     /**
-     *@Description: ofd内建对象转xml
-     *@Param: [obj] 要转换的对象
-     *@return: java.lang.String
-     *@Author: 张家尧
-     *@date: 2020/10/1 9:53
+     * @Description: ofd内建对象转xml
+     * @Param: [obj] 要转换的对象
+     * @return: java.lang.String
+     * @Author: 张家尧
+     * @date: 2020/10/1 9:53
      */
     public static String toXml(Object obj) {
         StringWriter sw = new StringWriter();
@@ -51,20 +65,36 @@ public class OfdXmlUtils {
     }
 
     /**
-     *@Description: xml转ofd内建对象
-     *@Param: xml xml文本
-     *@Param: clazz 目标类对象
-     *@return: T
-     *@Author: 张家尧
-     *@date: 2020/10/1 9:54
+     * @Description: xml转ofd内建对象
+     * @Param: xml xml文本
+     * @Param: clazz 目标类对象
+     * @return: T
+     * @Author: 张家尧
+     * @date: 2020/10/1 9:54
      */
-    public  static <T> T toObject(InputStream in, Class<T> clazz) {
+
+    public static <T> T toObject(InputStream in, Class<T> clazz) {
+        return toObject(in, clazz, false);
+    }
+
+    public static <T> T toObject(InputStream in, Class<T> clazz, boolean ignoreNamespace) {
         Object xmlObject = null;
         try {
-            JAXBContext context = JAXBContext.newInstance(clazz);
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            xmlObject = unmarshaller.unmarshal(in);
+            JAXBContext jaxbContext = JAXBContext.newInstance(clazz);
+            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+
+            SAXParserFactory sax = SAXParserFactory.newInstance();
+            sax.setNamespaceAware(false);
+            XMLReader xmlReader = sax.newSAXParser().getXMLReader();
+
+            Source source = new SAXSource(xmlReader, new InputSource(in));
+            xmlObject = unmarshaller.unmarshal(source);
+
         } catch (JAXBException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
         return clazz.cast(xmlObject);

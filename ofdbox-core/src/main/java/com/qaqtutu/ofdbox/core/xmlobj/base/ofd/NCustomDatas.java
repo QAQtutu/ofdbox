@@ -13,6 +13,6 @@ import java.util.List;
 public class NCustomDatas {
 
     @NotNull
-    @XmlElement(name = "CustomData", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:CustomData")
     private List<NCustomData> customDatas;
 }

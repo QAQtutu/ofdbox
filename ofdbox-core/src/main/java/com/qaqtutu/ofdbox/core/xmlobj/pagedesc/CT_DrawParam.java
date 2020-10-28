@@ -68,13 +68,13 @@ public class CT_DrawParam {
     /*
     * 填充色
     * */
-    @XmlElement(name = "FillColor",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:FillColor")
     private CT_Color fillColor;
 
     /*
     * 勾边颜色
     * */
-    @XmlElement(name = "StrokeColor",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:StrokeColor")
     private CT_Color strokeColor;
 
     public static void main(String[] args) {

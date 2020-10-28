@@ -12,6 +12,6 @@ import java.util.List;
 @XmlAccessorType(value = XmlAccessType.FIELD)
 public class NVersions {
 
-    @XmlElement(name = "Version",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Version")
     private List<NVersion> list;
 }

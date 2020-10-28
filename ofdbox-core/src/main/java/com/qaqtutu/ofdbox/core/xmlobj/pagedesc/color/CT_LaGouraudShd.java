@@ -31,13 +31,13 @@ public class CT_LaGouraudShd extends ComplexColor {
     * */
     @Valid
     @Size(min = 4)
-    @XmlElement(name = "Point",namespace = Const.NAMESPACE_URI,type = NLaPoint.class)
+    @XmlElement(name = "ofd:Point",type = NLaPoint.class)
     private List<NLaPoint> points;
 
     /*
     * 渐变范围外的填充颜色
     * */
-    @XmlElement(name = "BackColor",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:BackColor")
     private CT_Color backColor;
 
 
@@ -63,7 +63,7 @@ public class CT_LaGouraudShd extends ComplexColor {
          * 控制点对应的颜色
          * */
         @NotNull
-        @XmlElement(name = "Color",namespace = Const.NAMESPACE_URI)
+        @XmlElement(name = "ofd:Color")
         private CT_Color color;
     }
 }

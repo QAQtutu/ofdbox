@@ -27,14 +27,14 @@ public class CT_Path extends PathOrText {
     @XmlAttribute(name = "Rule")
     private Rule rule;
 
-    @XmlElement(name = "FillColor",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:FillColor")
     private CT_Color fillColor;
 
-    @XmlElement(name = "StrokeColor",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:StrokeColor")
     private CT_Color strokeColor;
 
     @NotNull
-    @XmlElement(name = "AbbreviatedData",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:AbbreviatedData")
     private String abbreviatedData;
 
     public static enum Rule{

@@ -17,6 +17,6 @@ public class NActions {
 
     @Size(min = 1)
     @Valid
-    @XmlElement(name = "Action",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Action")
     List<CT_Action> list;
 }

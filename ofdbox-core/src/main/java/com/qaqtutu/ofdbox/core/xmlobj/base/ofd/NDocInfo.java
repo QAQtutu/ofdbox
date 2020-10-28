@@ -19,49 +19,49 @@ public class NDocInfo {
     /*
      * 文件表示 UUID生产32位字符
      * */
-    @XmlElement(name = "DocID", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:DocID")
     private String docId;
 
     /*
      * 文档标题
      * */
-    @XmlElement(name = "Title", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Title")
     private String title;
 
     /*
      * 文档作者
      * */
-    @XmlElement(name = "Author", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Author")
     private String author;
 
     /*
      * 文档主题
      * */
-    @XmlElement(name = "Subject", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Subject")
     private String subject;
 
     /*
      * 文档摘要与注释
      * */
-    @XmlElement(name = "Abstract", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Abstract")
     private String Abstract;
 
     /*
      * 文档创建日期
      * */
-    @XmlElement(name = "CreationDate", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:CreationDate")
     private String creationDate;
 
     /*
      * 文档最近修改日期
      * */
-    @XmlElement(name = "ModDate", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:ModDate")
     private String modDate;
 
     /*
      * 文档分类
      * */
-    @XmlElement(name = "DocUsage", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:DocUsage")
     private DocUsage docUsage;
 
     /*
@@ -69,33 +69,33 @@ public class NDocInfo {
      * */
     @Valid
     @XmlJavaTypeAdapter(value = StLocAdapter.class)
-    @XmlElement(name = "Cover", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Cover")
     private ST_Loc cover;
 
     /*
      * 关键词
      * */
     @Valid
-    @XmlElement(name = "Keywords", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Keywords")
     private NKeywords keywords;
 
     /*
      * 创建文档的应用程序
      * */
-    @XmlElement(name = "Creator", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Creator")
     private String creator;
 
     /*
      * 创建文档的应用程序的版本信息
      * */
-    @XmlElement(name = "CreatorVersion", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:CreatorVersion")
     private String creatorVersion;
 
     /*
      * 用户自定义元数据
      * */
     @Valid
-    @XmlElement(name = "CustomDatas", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:CustomDatas")
     private NCustomDatas customDatas;
 
 }

@@ -20,7 +20,7 @@ public class CT_Clip {
 
     @Valid
     @Size(min = 1)
-    @XmlElement(name = "Area",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Area")
     private List<NArea> areas;
 
     @Data
@@ -37,8 +37,8 @@ public class CT_Clip {
 
         @NotNull
         @XmlElements({
-                @XmlElement(name = "Path",namespace = Const.NAMESPACE_URI),
-                @XmlElement(name = "Text",namespace = Const.NAMESPACE_URI)
+                @XmlElement(name = "ofd:Path"),
+                @XmlElement(name = "ofd:Text")
         })
         private PathOrText content;
     }

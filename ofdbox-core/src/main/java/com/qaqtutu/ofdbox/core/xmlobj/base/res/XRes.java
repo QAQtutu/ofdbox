@@ -12,7 +12,7 @@ import java.util.List;
 
 @Data
 @XmlAccessorType(value = XmlAccessType.FIELD)
-@XmlRootElement(name = "Res", namespace = Const.NAMESPACE_URI)
+@XmlRootElement(name = "ofd:Res")
 public class XRes {
 
     /*
@@ -26,35 +26,35 @@ public class XRes {
     * 颜色空间描述
     * */
     @Valid
-    @XmlElement(name = "ColorSpaces", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:ColorSpaces")
     private List<NColorSpaces> colorSpaces;
 
     /*
     * 绘制参数
     * */
     @Valid
-    @XmlElement(name = "DrawParams", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:DrawParams")
     private List<NDrawParams> drawParams;
 
     /*
     * 字型资源描述
     * */
     @Valid
-    @XmlElement(name = "Fonts", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Fonts")
     private List<NFonts> fonts;
 
     /*
     * 多媒体资源描述
     * */
     @Valid
-    @XmlElement(name = "MultiMedias", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:MultiMedias")
     private List<NMultiMedias> multiMedias;
 
     /*
     * 矢量图像
     * */
     @Valid
-    @XmlElement(name = "CompositeGraphicUnits", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:CompositeGraphicUnits")
     private List<NCompositeGraphicUnits> compositeGraphicUnits;
 
 }

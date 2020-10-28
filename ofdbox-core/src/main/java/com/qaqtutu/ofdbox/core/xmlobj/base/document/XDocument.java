@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "Document", namespace = Const.NAMESPACE_URI)
+@XmlRootElement(name = "ofd:Document")
 public class XDocument {
 
     /*
@@ -22,7 +22,7 @@ public class XDocument {
      * */
     @NotNull
     @Valid
-    @XmlElement(name = "CommonData", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:CommonData")
     private NCommonData commonData;
 
     /*
@@ -30,39 +30,39 @@ public class XDocument {
      * */
     @NotNull
     @Valid
-    @XmlElement(name = "Pages", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Pages")
     private NPages pages;
 
     /*
     * 大纲
     * */
     @Valid
-    @XmlElement(name = "Outlines", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Outlines")
     private NOutlines outlines;
 
     /*
     * 文档的权限声明
     * */
     @Valid
-    @XmlElement(name = "Permissions", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Permissions")
     private CT_Permission permissions;
 
     /*
     * 文档的关联动作
     * */
     @Valid
-    @XmlElement(name = "Actions", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Actions")
     private NActions actions;
 
     @Valid
-    @XmlElement(name = "VPreferences")
+    @XmlElement(name = "ofd:VPreferences")
     private CT_VPreferences vPreferences;
 
     /*
     * 文档的书签集
     * */
     @Valid
-    @XmlElement(name = "Bookmarks", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Bookmarks")
     private NBookmarks bookmarks;
 
 
@@ -71,7 +71,7 @@ public class XDocument {
      * */
     @Valid
     @XmlJavaTypeAdapter(value = StLocAdapter.class)
-    @XmlElement(name = "Annotations", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Annotations")
     private ST_Loc annotations;
 
     /*
@@ -79,7 +79,7 @@ public class XDocument {
      * */
     @Valid
     @XmlJavaTypeAdapter(value = StLocAdapter.class)
-    @XmlElement(name = "CustomTags", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:CustomTags")
     private ST_Loc customTags;
 
     /*
@@ -87,7 +87,7 @@ public class XDocument {
      * */
     @Valid
     @XmlJavaTypeAdapter(value = StLocAdapter.class)
-    @XmlElement(name = "Attachments", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Attachments")
     private ST_Loc attachments;
 
     /*
@@ -95,6 +95,6 @@ public class XDocument {
     * */
     @Valid
     @XmlJavaTypeAdapter(value = StLocAdapter.class)
-    @XmlElement(name = "Extensions", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Extensions")
     private ST_Loc extensions;
 }

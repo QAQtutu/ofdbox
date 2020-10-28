@@ -88,18 +88,18 @@ public class NAnnot {
     /*
     * 注释说明内容
     * */
-    @XmlElement(name = "Remark",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Remark")
     private String remark;
 
     /*
     * 一组注释参数
     * */
-    @XmlElement( name= "Parameters",namespace = Const.NAMESPACE_URI)
+    @XmlElement( name= "Parameters")
     private NParameters parameters;
 
     /*
     * 注释的静态呈现效果
     * */
-    @XmlElement(name = "Appearance",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Appearance")
     private CT_PageBlock appearance;
 }

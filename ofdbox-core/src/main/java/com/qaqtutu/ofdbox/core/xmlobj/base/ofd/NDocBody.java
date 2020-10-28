@@ -18,11 +18,11 @@ public class NDocBody {
 
     @NotNull
     @Valid
-    @XmlElement(name = "DocInfo",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:DocInfo")
     private NDocInfo docInfo;
 
     @Valid
     @XmlJavaTypeAdapter(value = StLocAdapter.class)
-    @XmlElement(name = "DocRoot",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:DocRoot")
     private ST_Loc docRoot;
 }

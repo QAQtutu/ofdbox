@@ -24,6 +24,6 @@ public class NReference {
 
     @NotNull
     @Valid
-    @XmlElement(name = "CheckValue")
+    @XmlElement(name = "ofd:CheckValue")
     private String checkValue;
 }

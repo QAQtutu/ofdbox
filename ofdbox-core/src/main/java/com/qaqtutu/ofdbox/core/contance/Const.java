@@ -12,6 +12,7 @@ import java.util.Properties;
 public class Const {
     public static final String NAMESPACE_PREFIX="ofd";
     public static final String NAMESPACE_URI="http://www.ofdspec.org/2016";
+    public static final String NAMESPACE_URI_1="http://www.ofdspec.org";
 
 
     private static final String PROJECT_NAME="ofd parser";

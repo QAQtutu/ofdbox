@@ -17,19 +17,19 @@ public class CT_PageArea {
 
     @XmlJavaTypeAdapter(StBoxAdapter.class)
     @NotNull
-    @XmlElement(name = "PhysicalBox", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:PhysicalBox")
     private ST_Box physicalBox;
 
     @XmlJavaTypeAdapter(StBoxAdapter.class)
-    @XmlElement(name = "ApplicationBox", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:ApplicationBox")
     private ST_Box applicationBox;
 
     @XmlJavaTypeAdapter(StBoxAdapter.class)
-    @XmlElement(name = "ContentBox", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:ContentBox")
     private ST_Box contentBox;
 
     @XmlJavaTypeAdapter(StBoxAdapter.class)
-    @XmlElement(name = "BleedBox", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:BleedBox")
     private ST_Box bleedBox;
 
 }

@@ -24,7 +24,7 @@ public class NCustomTag {
     /*
     * 指向自定义标引内容节点适用的Schema文件
     * */
-    @XmlElement(name = "SchemaLoc", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:SchemaLoc")
     private ST_Loc schemaLoc;
 
     /*
@@ -32,6 +32,6 @@ public class NCustomTag {
     * */
     @NotNull
     @Valid
-    @XmlElement(name = "FileLoc", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:FileLoc")
     private ST_Loc fileLoc;
 }

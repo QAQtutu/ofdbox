@@ -64,7 +64,7 @@ public class CT_AxialShd extends ComplexColor {
     * */
     @Valid
     @Size(min = 2)
-    @XmlElement(name = "Segment",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Segment")
     private List<NSegment> segment;
 
 

@@ -59,9 +59,9 @@ public class CT_Extension {
     @Valid
     @Size(min = 1)
     @XmlElements({
-            @XmlElement(name = "Property",namespace = Const.NAMESPACE_URI,type =Property.class ),
-            @XmlElement(name = "Data",namespace = Const.NAMESPACE_URI,type =Data.class ),
-            @XmlElement(name = "ExtendData",namespace = Const.NAMESPACE_URI,type =ExtendData.class )
+            @XmlElement(name = "ofd:Property",type =Property.class ),
+            @XmlElement(name = "ofd:Data",type =Data.class ),
+            @XmlElement(name = "ofd:ExtendData",type =ExtendData.class )
     })
     private List<ExtensionObj> content;
 

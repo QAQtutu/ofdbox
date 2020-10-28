@@ -10,15 +10,15 @@ public class Arc extends PathOperator {
     @XmlAttribute(name = "EndPoint")
     private ST_Pos endPoint;
 
-    @XmlElement(name = "EllipscSize")
+    @XmlElement(name = "ofd:EllipscSize")
     private Double[] ellipscSize;
 
-    @XmlElement(name = "RotationAngle")
+    @XmlElement(name = "ofd:RotationAngle")
     private Double rotationAngle;
 
-    @XmlElement(name = "LargeArc")
+    @XmlElement(name = "ofd:LargeArc")
     private Boolean largeArc;
 
-    @XmlElement(name = "SweepDirection")
+    @XmlElement(name = "ofd:SweepDirection")
     private Boolean sweepDirection;
 }

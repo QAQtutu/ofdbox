@@ -12,28 +12,28 @@ import javax.xml.bind.annotation.XmlElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CT_Permission {
 
-    @XmlElement(name = "Edit", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Edit")
     private Boolean edit;
 
-    @XmlElement(name = "Annot", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Annot")
     private Boolean annot;
 
-    @XmlElement(name = "Export", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Export")
     private Boolean export;
 
-    @XmlElement(name = "Signature", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Signature")
     private Boolean signature;
 
-    @XmlElement(name = "Watermark", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Watermark")
     private Boolean watermark;
 
-    @XmlElement(name = "PrintScreen", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:PrintScreen")
     private Boolean printScreen;
 
-    @XmlElement(name = "Print", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Print")
     private Print print;
 
-    @XmlElement(name = "ValidPeriod", namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:ValidPeriod")
     private ValidPeriod validPeriod;
 
 

@@ -12,6 +12,6 @@ import java.util.List;
 @XmlAccessorType(value = XmlAccessType.FIELD)
 public class NMultiMedias {
 
-    @XmlElement(name = "MultiMedia",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:MultiMedia")
     private List<NMultiMedia> list;
 }

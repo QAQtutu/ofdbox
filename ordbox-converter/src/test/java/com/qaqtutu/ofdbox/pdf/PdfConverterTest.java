@@ -23,9 +23,11 @@ public class PdfConverterTest {
         OFDReader reader = new OFDReader();
         OFD ofd = reader.read(new File(basePath+"发票.ofd"));
         OFD ofd1 = reader.read(new File(basePath+"旋转测试.ofd"));
+        OFD ofd2 = reader.read(new File(basePath+"222.ofd"));
 
         Ofd2pdf ofd2pdf = new Ofd2pdf();
         ofd2pdf.toPdf(ofd.getDocuments().get(0), new File(basePath,"发票.pdf"));
         ofd2pdf.toPdf(ofd1.getDocuments().get(0), new File(basePath,"旋转测试.pdf"));
+        ofd2pdf.toPdf(ofd2.getDocuments().get(0), new File(basePath,"222.pdf"));
     }
 }

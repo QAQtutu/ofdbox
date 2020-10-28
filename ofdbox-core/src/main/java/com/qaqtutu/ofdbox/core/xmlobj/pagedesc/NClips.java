@@ -16,6 +16,6 @@ public class NClips {
 
     @Valid
     @Size(min = 1)
-    @XmlElement(name = "Clip",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:Clip")
     private List<CT_Clip> list;
 }

@@ -17,7 +17,7 @@ public class NColorSpaces {
 
     @Size(min = 1)
     @Valid
-    @XmlElement(name = "ColorSpace",namespace = Const.NAMESPACE_URI)
+    @XmlElement(name = "ofd:ColorSpace")
     private List<CT_ColorSpace> list;
 
 }
