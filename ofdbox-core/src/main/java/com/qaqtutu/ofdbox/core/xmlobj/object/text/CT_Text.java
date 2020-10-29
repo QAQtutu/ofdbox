@@ -75,7 +75,7 @@ public class CT_Text extends PathOrText {
     /*
     * 填充颜色
     * */
-    @XmlElement(name="FillColor")
+    @XmlElement(name="ofd:FillColor")
     private CT_Color fillColor;
 
     /*

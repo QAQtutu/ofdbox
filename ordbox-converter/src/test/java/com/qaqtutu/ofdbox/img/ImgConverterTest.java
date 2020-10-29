@@ -4,7 +4,9 @@ import com.qaqtutu.ofdbox.convertor.img.Ofd2Img;
 import com.qaqtutu.ofdbox.convertor.pdf.Ofd2pdf;
 import com.qaqtutu.ofdbox.core.OFD;
 import com.qaqtutu.ofdbox.core.OFDReader;
+import com.qaqtutu.ofdbox.font.FontTest;
 import com.qaqtutu.ofdbox.pdf.PdfConverterTest;
+import com.qaqtutu.ofdbox.utils.PathUtils;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
@@ -16,10 +18,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class ImgConverterTest {
-    protected static final String basePath = Objects.requireNonNull(PdfConverterTest.class.getClassLoader().getResource("")).getPath();
-    @Test
-    public void init() throws IOException {
-    }
+    protected static final String basePath = PathUtils.getClassPath(ImgConverterTest.class);
 
     @Test
     public void toImg() throws IOException {

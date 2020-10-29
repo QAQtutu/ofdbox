@@ -28,6 +28,6 @@ public class CT_OutlineElem {
     @XmlElement(name = "ofd:Actions")
     private NActions actions;
 
-    @XmlElement(name="OutlineElem")
+    @XmlElement(name="ofd:OutlineElem")
     private List<CT_OutlineElem> outlineElems;
 }

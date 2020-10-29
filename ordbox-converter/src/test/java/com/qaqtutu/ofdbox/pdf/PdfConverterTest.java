@@ -3,6 +3,8 @@ package com.qaqtutu.ofdbox.pdf;
 import com.qaqtutu.ofdbox.convertor.pdf.Ofd2pdf;
 import com.qaqtutu.ofdbox.core.OFD;
 import com.qaqtutu.ofdbox.core.OFDReader;
+import com.qaqtutu.ofdbox.img.ImgConverterTest;
+import com.qaqtutu.ofdbox.utils.PathUtils;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
@@ -12,10 +14,8 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class PdfConverterTest {
-    protected static final String basePath = Objects.requireNonNull(PdfConverterTest.class.getClassLoader().getResource("")).getPath();
-    @Test
-    public void init() throws IOException {
-    }
+    protected static final String basePath = PathUtils.getClassPath(PdfConverterTest.class);
+
 
     @Test
     public void toPdf() throws IOException {

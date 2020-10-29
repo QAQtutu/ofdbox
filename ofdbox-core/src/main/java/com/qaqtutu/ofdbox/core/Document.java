@@ -26,6 +26,7 @@ public class Document {
 
     public OFDFile getMultiMedia(Integer id){
         for(XRes xRes:allRes()){
+            if(xRes.getMultiMedias()==null)continue;
             for(NMultiMedias nMultiMedias:xRes.getMultiMedias()){
                 for(NMultiMedia nMultiMedia:nMultiMedias.getList()){
                     if(nMultiMedia.getId().getId().equals(id)){
