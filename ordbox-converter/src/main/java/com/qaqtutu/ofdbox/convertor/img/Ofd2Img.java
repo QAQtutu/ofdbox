@@ -161,21 +161,19 @@ public class Ofd2Img {
                         graphics.setFont(font);
 
                         String charStr = String.valueOf(nTextCode.getContent().charAt(i));
-//                        graphics.drawString(charStr, 1, 1);
-
 
                         GlyphVector v = font.createGlyphVector(graphics.getFontRenderContext(), charStr);
                         Shape shape = v.getOutline();
-
 
                         /*
                          * 文字默认填充 不勾边
                          * */
 
                         if (nTextObject.getFill() == null || nTextObject.getFill() == true) {
-                            if (nTextObject.getFillColor() != null) {
-                                CT_Color ct_color = nTextObject.getFillColor();
-                                Color color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255, Float.valueOf(ct_color.getValue()[1]) / 255, Float.valueOf(ct_color.getValue()[2]) / 255);
+                            CT_Color ct_color = nTextObject.getFillColor();
+                            Color color = null;
+                            if (ct_color != null) {
+                                color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255, Float.valueOf(ct_color.getValue()[1]) / 255, Float.valueOf(ct_color.getValue()[2]) / 255);
                                 graphics.setColor(color);
                             } else {
                                 graphics.setColor(Color.BLACK);
@@ -183,11 +181,17 @@ public class Ofd2Img {
                             graphics.fill(shape);
                         }
 
-                        if (nTextObject.getStroke() != null && nTextObject.getStroke() && nTextObject.getStrokeColor() != null) {
+                        if ( nTextObject.getStroke()!=null && nTextObject.getStroke()) {
                             CT_Color ct_color = nTextObject.getStrokeColor();
-                            Color color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255, Float.valueOf(ct_color.getValue()[1]) / 255, Float.valueOf(ct_color.getValue()[2]) / 255);
-                            graphics.setColor(color);
+                            if(ct_color==null){
+                                graphics.setBackground(null);
+                                graphics.setColor(null);
+                            }else{
+                                Color color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255, Float.valueOf(ct_color.getValue()[1]) / 255, Float.valueOf(ct_color.getValue()[2]) / 255);
+                                graphics.setColor(color);
+                            }
                             graphics.draw(shape);
+                            graphics.setBackground(Color.white);
                         }
                     }
                 });
@@ -220,17 +224,15 @@ public class Ofd2Img {
 
                     //CTM
                     matrix = matrix.mtimes(MatrixUtils.create(ctm[0].floatValue(), ctm[1].floatValue(), ctm[2].floatValue(), ctm[3].floatValue(), ctm[4].floatValue(), ctm[5].floatValue()));
-                    Tuple2<Double,Double> tuple2=MatrixUtils.leftTop(matrix);
+                    Tuple2<Double, Double> tuple2 = MatrixUtils.leftTop(matrix);
 
 
                     //转换到世界坐标系
-                    matrix = matrix.mtimes(MatrixUtils.create(1, 0, 0, 1, boundary.getX().floatValue() , boundary.getY().floatValue()));
+                    matrix = matrix.mtimes(MatrixUtils.create(1, 0, 0, 1, boundary.getX().floatValue(), boundary.getY().floatValue()));
 
-                    matrix = matrix.mtimes(MatrixUtils.create(dpi, 0, 0, dpi, 0 , 0 ));
+                    matrix = matrix.mtimes(MatrixUtils.create(dpi, 0, 0, dpi, 0, 0));
 
-                    matrix = matrix.mtimes(MatrixUtils.create(1, 0, 0, 1, tuple2.getFirst().floatValue() , tuple2.getSecond().floatValue() ));
-
-
+                    matrix = matrix.mtimes(MatrixUtils.create(1, 0, 0, 1, tuple2.getFirst().floatValue(), tuple2.getSecond().floatValue()));
 
 
                     //单位毫米转换成像素
@@ -311,25 +313,33 @@ public class Ofd2Img {
                     }
                 }
 
-                if (nPathObject.getStrokeColor() != null) {
+
+                if (nPathObject.getStroke() == null || nPathObject.getStroke()) {
                     CT_Color ct_color = nPathObject.getStrokeColor();
-                    Color color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255, Float.valueOf(ct_color.getValue()[1]) / 255, Float.valueOf(ct_color.getValue()[2]) / 255);
+                    Color color = null;
+                    if (ct_color != null) {
+                        color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255, Float.valueOf(ct_color.getValue()[1]) / 255, Float.valueOf(ct_color.getValue()[2]) / 255);
+                    } else {
+                        color = Color.black;
+                    }
                     graphics.setColor(color);
-                } else {
-                    graphics.setColor(Color.BLACK);
+                    graphics.setStroke(new BasicStroke(nPathObject.getLineWidth().floatValue()));
+                    graphics.draw(path);
                 }
 
-                graphics.setStroke(new BasicStroke(nPathObject.getLineWidth().floatValue()));
-                graphics.draw(path);
 
-                if (nPathObject.getFillColor() != null) {
+                if (nPathObject.getFill() != null && nPathObject.getFill()) {
                     CT_Color ct_color = nPathObject.getFillColor();
-                    Color color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255, Float.valueOf(ct_color.getValue()[1]) / 255, Float.valueOf(ct_color.getValue()[2]) / 255);
+                    Color color = null;
+                    if (ct_color != null) {
+                        color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255, Float.valueOf(ct_color.getValue()[1]) / 255, Float.valueOf(ct_color.getValue()[2]) / 255);
+                    } else {
+                        graphics.setBackground(null);
+                    }
                     graphics.setColor(color);
                     graphics.fill(path);
+                    graphics.setBackground(Color.white);
                 }
-//                graphics.fill(path);
-
             }
         }.walk();
     }
@@ -383,7 +393,6 @@ public class Ofd2Img {
         }
         return arr;
     }
-
 
 
 //
