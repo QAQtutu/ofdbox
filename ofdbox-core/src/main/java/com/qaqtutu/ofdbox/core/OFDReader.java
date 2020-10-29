@@ -123,6 +123,7 @@ public class OFDReader {
                         template.setCt_templatePage(ct_templatePage);
                         document.getTemplates().add(template);
 
+                        template.setDocument(document);
                     }
                 }
 

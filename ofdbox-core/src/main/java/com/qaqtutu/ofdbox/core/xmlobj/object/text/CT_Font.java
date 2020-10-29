@@ -1,10 +1,12 @@
 package com.qaqtutu.ofdbox.core.xmlobj.object.text;
 
-import com.qaqtutu.ofdbox.core.contance.Const;
+import com.qaqtutu.ofdbox.core.xmlobj.adapter.StIdAdapter;
 import com.qaqtutu.ofdbox.core.xmlobj.adapter.StLocAdapter;
+import com.qaqtutu.ofdbox.core.xmlobj.st.ST_ID;
 import com.qaqtutu.ofdbox.core.xmlobj.st.ST_Loc;
 import lombok.Data;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -17,6 +19,11 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class CT_Font {
 
 
+    @NotNull
+    @Valid
+    @XmlJavaTypeAdapter(value = StIdAdapter.class)
+    @XmlAttribute(name = "ID")
+    private ST_ID id;
 
     /*
     * 字型名

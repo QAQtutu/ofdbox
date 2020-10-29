@@ -2,9 +2,11 @@ package com.qaqtutu.ofdbox.core;
 
 import com.qaqtutu.ofdbox.core.xmlobj.base.document.XDocument;
 import com.qaqtutu.ofdbox.core.xmlobj.base.ofd.NDocBody;
+import com.qaqtutu.ofdbox.core.xmlobj.base.res.NFonts;
 import com.qaqtutu.ofdbox.core.xmlobj.base.res.NMultiMedia;
 import com.qaqtutu.ofdbox.core.xmlobj.base.res.NMultiMedias;
 import com.qaqtutu.ofdbox.core.xmlobj.base.res.XRes;
+import com.qaqtutu.ofdbox.core.xmlobj.object.text.CT_Font;
 import com.qaqtutu.ofdbox.core.xmlobj.st.ST_Loc;
 import lombok.Data;
 
@@ -33,6 +35,28 @@ public class Document {
                         ST_Loc mediaLoc=new ST_Loc();
                         mediaLoc.setParent(xRes.getBaseLoc());
                         mediaLoc.setLoc(nMultiMedia.getMediaFile().getLoc());
+                        byte[] bytes=ofd.getFileManager().readBytes(mediaLoc.getFullLoc());
+
+                        OFDFile ofdFile=new OFDFile();
+                        ofdFile.setLoc(mediaLoc.getFullLoc());
+                        ofdFile.setBytes(bytes);
+                        return ofdFile;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    public OFDFile getFont(Integer id){
+        for(XRes xRes:allRes()){
+            if(xRes.getFonts()==null)continue;
+            for(NFonts nFonts:xRes.getFonts()){
+                for(CT_Font ctFont:nFonts.getList()){
+                    if(ctFont.getId().getId().equals(id)){
+                        ST_Loc mediaLoc=new ST_Loc();
+                        mediaLoc.setParent(xRes.getBaseLoc());
+                        if(ctFont.getFontFile()==null)return null;
+                        mediaLoc.setLoc(ctFont.getFontFile().getLoc());
                         byte[] bytes=ofd.getFileManager().readBytes(mediaLoc.getFullLoc());
 
                         OFDFile ofdFile=new OFDFile();

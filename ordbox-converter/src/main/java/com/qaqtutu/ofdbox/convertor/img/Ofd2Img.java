@@ -11,10 +11,15 @@ import com.qaqtutu.ofdbox.core.xmlobj.base.page.object.NImageObject;
 import com.qaqtutu.ofdbox.core.xmlobj.base.page.object.NPathObject;
 import com.qaqtutu.ofdbox.core.xmlobj.base.page.object.NTextObject;
 import com.qaqtutu.ofdbox.core.xmlobj.enums.LayerType;
+import com.qaqtutu.ofdbox.core.xmlobj.object.text.CT_CGTransform;
 import com.qaqtutu.ofdbox.core.xmlobj.pagedesc.color.CT_Color;
 import com.qaqtutu.ofdbox.core.xmlobj.st.ST_Box;
 import lombok.Data;
 import lombok.Getter;
+import org.apache.fontbox.ttf.GlyphData;
+import org.apache.fontbox.ttf.OTFParser;
+import org.apache.fontbox.ttf.OpenTypeFont;
+import org.apache.fontbox.util.BoundingBox;
 import org.ujmp.core.Matrix;
 
 import java.awt.*;
@@ -22,7 +27,9 @@ import java.awt.font.GlyphVector;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,14 +136,24 @@ public class Ofd2Img {
                 }
 
                 Double[] ctm = nTextObject.getCtm();
-                nTextObject.getTextCodes().forEach(nTextCode -> {
 
+                OFDFile fontFile=document.getFont(nTextObject.getFont().getId());
+
+                BigInteger j=BigInteger.valueOf(0);
+                nTextObject.getTextCodes().forEach(nTextCode -> {
+                    j.add(BigInteger.valueOf(1));
+
+                    if(j.intValue()>1)return;
                     Double[] deltaX = formatDelta(nTextCode.getContent().length(), nTextCode.getDeltaX());
                     Double[] deltaY = formatDelta(nTextCode.getContent().length(), nTextCode.getDeltaY());
 
                     double x = nTextCode.getX().floatValue();
                     double y = nTextCode.getY().floatValue();
+
+                    int z=0;
                     for (int i = 0; i < nTextCode.getContent().length(); i++) {
+                        if(z>1)return;
+                        z++;
 
                         //不是第一个字，就加上偏移量
                         if (i != 0) {
@@ -165,6 +182,63 @@ public class Ofd2Img {
                         GlyphVector v = font.createGlyphVector(graphics.getFontRenderContext(), charStr);
                         Shape shape = v.getOutline();
 
+
+                        if(fontFile!=null){
+                            OTFParser parser = new OTFParser(true);
+                            OpenTypeFont openTypeFont =null;
+                            try {
+                                openTypeFont = parser.parse(new ByteArrayInputStream(fontFile.getBytes()));
+
+                                System.out.println(openTypeFont);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            if(nTextObject.getTransforms()!=null){
+                                for(CT_CGTransform transform:nTextObject.getTransforms()){
+                                    System.out.println(transform);
+
+                                    int k=-1;
+                                    for(Integer glyph:transform.getGlyphs()){
+                                        k++;
+
+                                        try {
+                                            long last=0;
+                                            for(long l:openTypeFont.getIndexToLocation().getOffsets()){
+                                                if(l!=last){
+                                                    last=l;
+                                                    System.out.println(last);
+                                                }
+                                            }
+
+
+                                            graphics.setClip(null);
+                                            openTypeFont.getGlyph().getGlyphs();
+                                            GlyphData glyphData=openTypeFont.getGlyph().getGlyph(glyph);
+                                            System.out.println(glyphData.getBoundingBox());
+                                            BoundingBox box=glyphData.getBoundingBox();
+                                            Matrix m1=MatrixUtils.base();
+                                            m1=MatrixUtils.imageMatrix(m1,0,1,0);
+                                            m1=MatrixUtils.move(m1,-box.getUpperRightY(),-box.getLowerLeftX());
+                                            m1=MatrixUtils.scale(m1,0.5,0.5);
+                                            m1=MatrixUtils.scale(m1,1/box.getWidth(),1/box.getWidth());
+//                                            m1=MatrixUtils.scale(m1,1/2,1/2);
+                                            m1=MatrixUtils.move(m1,15*k,0);
+                                            m1=  matrix.mtimes(m1);
+                                            graphics.setTransform(MatrixUtils.createAffineTransform(m1.mtimes(matrix)));
+                                            if(glyphData==null)continue;
+                                            graphics.setStroke(new BasicStroke(0.1f));
+                                            graphics.setColor(Color.BLACK);
+                                            graphics.setBackground(Color.white);
+                                            graphics.draw(glyphData.getPath());
+                                            graphics.fill(glyphData.getPath());
+                                            System.out.println(glyphData.getPath());
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                            }
+                        }
                         /*
                          * 文字默认填充 不勾边
                          * */

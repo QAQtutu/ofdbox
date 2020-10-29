@@ -27,7 +27,7 @@ public class MatrixUtils {
     }
 
     public static Matrix scale(Matrix matrix, double x, double y) {
-        return create(x, 0, 0, y, 0, 0).mtimes(matrix);
+        return matrix.mtimes(create(x, 0, 0, y, 0, 0));
     }
 
     public static Matrix move(Matrix matrix, double x, double y) {

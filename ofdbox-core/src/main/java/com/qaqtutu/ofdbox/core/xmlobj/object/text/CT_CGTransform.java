@@ -1,6 +1,7 @@
 package com.qaqtutu.ofdbox.core.xmlobj.object.text;
 
 import com.qaqtutu.ofdbox.core.contance.Const;
+import com.qaqtutu.ofdbox.core.xmlobj.adapter.IntegerArrayAdapter;
 import com.qaqtutu.ofdbox.core.xmlobj.adapter.StringArrayAdapter;
 import lombok.Data;
 
@@ -38,7 +39,7 @@ public class CT_CGTransform {
     * 变换后的字型索引列表
     * */
     @NotNull
-    @XmlJavaTypeAdapter(value = StringArrayAdapter.class)
+    @XmlJavaTypeAdapter(value = IntegerArrayAdapter.class)
     @XmlElement(name = "ofd:Glyphs")
-    private String[] glyphs;
+    private Integer[] glyphs;
 }
