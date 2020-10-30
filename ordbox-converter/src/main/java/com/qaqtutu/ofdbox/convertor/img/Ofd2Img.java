@@ -24,6 +24,7 @@ import org.ujmp.core.Matrix;
 
 import java.awt.*;
 import java.awt.font.GlyphVector;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -196,40 +197,51 @@ public class Ofd2Img {
                             }
                             if(nTextObject.getTransforms()!=null){
                                 for(CT_CGTransform transform:nTextObject.getTransforms()){
-                                    System.out.println(transform);
-
                                     int k=-1;
                                     for(Integer glyph:transform.getGlyphs()){
                                         k++;
 
                                         try {
-                                            long last=0;
-                                            for(long l:openTypeFont.getIndexToLocation().getOffsets()){
-                                                if(l!=last){
-                                                    last=l;
-                                                    System.out.println(last);
-                                                }
-                                            }
+//                                            long last=0;
+//                                            for(long l:openTypeFont.getIndexToLocation().getOffsets()){
+//                                                if(l!=last){
+//                                                    last=l;
+//                                                    System.out.println(last);
+//                                                }
+//                                            }
 
 
                                             graphics.setClip(null);
                                             openTypeFont.getGlyph().getGlyphs();
                                             GlyphData glyphData=openTypeFont.getGlyph().getGlyph(glyph);
-                                            System.out.println(glyphData.getBoundingBox());
                                             BoundingBox box=glyphData.getBoundingBox();
+
+                                            short x1=openTypeFont.getHeader().getXMax();
+                                            short x2=openTypeFont.getHeader().getXMin();
+                                            short y1=openTypeFont.getHeader().getYMax();
+                                            short y2=openTypeFont.getHeader().getYMin();
+
+
+                                            GeneralPath path=glyphData.getPath();
+                                            Rectangle rectangle=path.getBounds();
+
+                                            System.out.println("-----------------------");
+                                            System.out.println(box);
+                                            System.out.println(glyphData.getPath().getBounds());
+                                            System.out.println(String.format("%s %s %s %s",x1,x2,y1,y2));
+//                                            System.out.println(String.format("%s %s ",1.0/(rectangle.getWidth()),1.0/(rectangle.getWidth())));
+
                                             Matrix m1=MatrixUtils.base();
-                                            m1=MatrixUtils.move(m1,-box.getUpperRightY(),-box.getLowerLeftX());
+                                            m1=MatrixUtils.scale(m1,1.0/(x1-x2),1.0/(x1-x2));
+//                                            m1=MatrixUtils.scale(m1,1.0/2000,1.0/2000);
                                             m1=MatrixUtils.imageMatrix(m1,0,1,0);
-                                            m1=MatrixUtils.scale(m1,1.0/44000,1.0/44000);
-
-//                                            m1=MatrixUtils.scale(m1,1/2,1/2);
-//
-                                            m1=  matrix.mtimes(m1);
-
                                             m1=MatrixUtils.scale(m1,nTextObject.getSize(),nTextObject.getSize());
-                                            m1=MatrixUtils.move(m1,15*k,0);
+                                            m1=  m1.mtimes(matrix);
+                                            m1=MatrixUtils.move(m1,50*k,0);
 
-                                            graphics.setTransform(MatrixUtils.createAffineTransform(m1.mtimes(matrix)));
+
+
+                                            graphics.setTransform(MatrixUtils.createAffineTransform(m1));
                                             if(glyphData==null)continue;
                                             graphics.setStroke(new BasicStroke(0.1f));
                                             graphics.setColor(Color.BLACK);
