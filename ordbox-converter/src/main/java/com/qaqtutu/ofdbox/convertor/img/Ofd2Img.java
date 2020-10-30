@@ -50,6 +50,7 @@ public class Ofd2Img {
         BufferedImage image = new BufferedImage(box.getW().intValue() * dpi, box.getH().intValue() * dpi, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics = (Graphics2D) image.getGraphics();
         graphics.setColor(Color.WHITE);
+        graphics.setBackground(null);
         graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
 
         renderPage(graphics, page, dpi);
@@ -217,13 +218,17 @@ public class Ofd2Img {
                                             System.out.println(glyphData.getBoundingBox());
                                             BoundingBox box=glyphData.getBoundingBox();
                                             Matrix m1=MatrixUtils.base();
-                                            m1=MatrixUtils.imageMatrix(m1,0,1,0);
                                             m1=MatrixUtils.move(m1,-box.getUpperRightY(),-box.getLowerLeftX());
-                                            m1=MatrixUtils.scale(m1,0.5,0.5);
-                                            m1=MatrixUtils.scale(m1,1/box.getWidth(),1/box.getWidth());
+                                            m1=MatrixUtils.imageMatrix(m1,0,1,0);
+                                            m1=MatrixUtils.scale(m1,1.0/44000,1.0/44000);
+
 //                                            m1=MatrixUtils.scale(m1,1/2,1/2);
-                                            m1=MatrixUtils.move(m1,15*k,0);
+//
                                             m1=  matrix.mtimes(m1);
+
+                                            m1=MatrixUtils.scale(m1,nTextObject.getSize(),nTextObject.getSize());
+                                            m1=MatrixUtils.move(m1,15*k,0);
+
                                             graphics.setTransform(MatrixUtils.createAffineTransform(m1.mtimes(matrix)));
                                             if(glyphData==null)continue;
                                             graphics.setStroke(new BasicStroke(0.1f));
