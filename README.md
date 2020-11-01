@@ -7,11 +7,11 @@
 
 ### 已实现功能
 * ofd基本解析
-
-### 正在实现的功能
 * ofd转图片
-* ofd转pdf
+### 正在实现的功能
 
+* ofd转pdf
+* ofd内建对象包装，提供更易用的API
 ### QuickStart
 暂未提供maven仓库，请自行打包
 
@@ -26,10 +26,11 @@ OFDReader reader = new OFDReader();
 OFD ofd = reader.read(new File("test.ofd"));
 
 Ofd2Img ofd2Img = new Ofd2Img();
-//转图片已页为单位
+//转图片以页为单位
 BufferedImage image = ofd2Img.toImage(ofd.getDocuments().get(0).getPages().get(0), 20);
 ImageIO.write(image, "JPEG", new FileOutputStream("test.jpg"));
 ```
+可参考项目ofdbox实现的简易ofd后端渲染例程 https://github.com/QAQtutu/ofdbox-viewer
 #### 转pdf
 ```
 OFDReader reader = new OFDReader();
