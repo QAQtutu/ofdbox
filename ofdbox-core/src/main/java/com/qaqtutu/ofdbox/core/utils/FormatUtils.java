@@ -1,5 +1,8 @@
 package com.qaqtutu.ofdbox.core.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @description:
  * @author: 张家尧
@@ -14,15 +17,9 @@ public class FormatUtils {
         }
     }
 
-    private Double[] parseDelta(int textLength, String deltaStr) {
-
-        Double[] arr = new Double[textLength - 1];
-        if (deltaStr == null) {
-            for (int i = 0; i < textLength - 1; i++)
-                arr[i] = 0D;
-            return arr;
-        }
-        ;
+    public static List<Double> parseDelta(String deltaStr) {
+        if(deltaStr==null||deltaStr.length()<=0)return null;
+        List<Double> arr=new ArrayList<>();
 
         String[] s = deltaStr.split("\\s+");
         int i = 0;
@@ -33,14 +30,13 @@ public class FormatUtils {
                 Integer num = Integer.valueOf(s[i + 1]);
                 Double delta = Double.valueOf(s[i + 2]);
                 for (int j = 1; j <= num; j++) {
-                    arr[counter] = delta;
+                    arr.add(delta)  ;
                     counter++;
                 }
-
                 i += 3;
             } else {
                 Double delta = Double.valueOf(current);
-                arr[counter] = delta;
+                arr.add(delta)  ;
                 counter++;
                 i++;
             }

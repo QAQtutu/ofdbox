@@ -1,0 +1,380 @@
+Alef,Alef-Bold,C:\Windows\Fonts\Alef-Bold.ttf
+Alef,Alef-Regular,C:\Windows\Fonts\Alef-Regular.ttf
+Amiri,Amiri-Bold,C:\Windows\Fonts\Amiri-Bold.ttf
+Amiri,Amiri-BoldSlanted,C:\Windows\Fonts\Amiri-BoldSlanted.ttf
+Amiri,Amiri-Regular,C:\Windows\Fonts\Amiri-Regular.ttf
+Amiri,Amiri-Slanted,C:\Windows\Fonts\Amiri-Slanted.ttf
+Amiri Quran,AmiriQuran-Regular,C:\Windows\Fonts\AmiriQuran.ttf
+Arial,ArialMT,C:\Windows\Fonts\arial.ttf
+Arial,Arial-BoldMT,C:\Windows\Fonts\arialbd.ttf
+Arial,Arial-BoldItalicMT,C:\Windows\Fonts\arialbi.ttf
+Arial,Arial-ItalicMT,C:\Windows\Fonts\ariali.ttf
+Arial Black,Arial-Black,C:\Windows\Fonts\ariblk.ttf
+Bahnschrift,Bahnschrift,C:\Windows\Fonts\bahnschrift.ttf
+Caladea,Caladea-Bold,C:\Windows\Fonts\Caladea-Bold.ttf
+Caladea,Caladea-BoldItalic,C:\Windows\Fonts\Caladea-BoldItalic.ttf
+Caladea,Caladea-Italic,C:\Windows\Fonts\Caladea-Italic.ttf
+Caladea,Caladea-Regular,C:\Windows\Fonts\Caladea-Regular.ttf
+Calibri,Calibri,C:\Windows\Fonts\calibri.ttf
+Calibri,Calibri-Bold,C:\Windows\Fonts\calibrib.ttf
+Calibri,Calibri-Italic,C:\Windows\Fonts\calibrii.ttf
+Calibri Light,Calibri-Light,C:\Windows\Fonts\calibril.ttf
+Calibri Light,Calibri-LightItalic,C:\Windows\Fonts\calibrili.ttf
+Calibri,Calibri-BoldItalic,C:\Windows\Fonts\calibriz.ttf
+Cambria,Cambria,C:\Windows\Fonts\cambria.ttc
+Cambria Math,CambriaMath,C:\Windows\Fonts\cambria.ttc
+Cambria,Cambria-Bold,C:\Windows\Fonts\cambriab.ttf
+Cambria,Cambria-Italic,C:\Windows\Fonts\cambriai.ttf
+Cambria,Cambria-BoldItalic,C:\Windows\Fonts\cambriaz.ttf
+Candara,Candara,C:\Windows\Fonts\Candara.ttf
+Candara,Candara-Bold,C:\Windows\Fonts\Candarab.ttf
+Candara,Candara-Italic,C:\Windows\Fonts\Candarai.ttf
+Candara Light,Candara-Light,C:\Windows\Fonts\Candaral.ttf
+Candara Light,Candara-LightItalic,C:\Windows\Fonts\Candarali.ttf
+Candara,Candara-BoldItalic,C:\Windows\Fonts\Candaraz.ttf
+Carlito,Carlito-Bold,C:\Windows\Fonts\Carlito-Bold.ttf
+Carlito,Carlito-BoldItalic,C:\Windows\Fonts\Carlito-BoldItalic.ttf
+Carlito,Carlito-Italic,C:\Windows\Fonts\Carlito-Italic.ttf
+Carlito,Carlito,C:\Windows\Fonts\Carlito-Regular.ttf
+Comic Sans MS,ComicSansMS,C:\Windows\Fonts\comic.ttf
+Comic Sans MS,ComicSansMS-Bold,C:\Windows\Fonts\comicbd.ttf
+Comic Sans MS,ComicSansMS-Italic,C:\Windows\Fonts\comici.ttf
+Comic Sans MS,ComicSansMS-BoldItalic,C:\Windows\Fonts\comicz.ttf
+Consolas,Consolas,C:\Windows\Fonts\consola.ttf
+Consolas,Consolas-Bold,C:\Windows\Fonts\consolab.ttf
+Consolas,Consolas-Italic,C:\Windows\Fonts\consolai.ttf
+Consolas,Consolas-BoldItalic,C:\Windows\Fonts\consolaz.ttf
+Constantia,Constantia,C:\Windows\Fonts\constan.ttf
+Constantia,Constantia-Bold,C:\Windows\Fonts\constanb.ttf
+Constantia,Constantia-Italic,C:\Windows\Fonts\constani.ttf
+Constantia,Constantia-BoldItalic,C:\Windows\Fonts\constanz.ttf
+Corbel,Corbel,C:\Windows\Fonts\corbel.ttf
+Corbel,Corbel-Bold,C:\Windows\Fonts\corbelb.ttf
+Corbel,Corbel-Italic,C:\Windows\Fonts\corbeli.ttf
+Corbel Light,CorbelLight,C:\Windows\Fonts\corbell.ttf
+Corbel Light,CorbelLight-Italic,C:\Windows\Fonts\corbelli.ttf
+Corbel,Corbel-BoldItalic,C:\Windows\Fonts\corbelz.ttf
+Courier New,CourierNewPSMT,C:\Windows\Fonts\cour.ttf
+Courier New,CourierNewPS-BoldMT,C:\Windows\Fonts\courbd.ttf
+Courier New,CourierNewPS-BoldItalicMT,C:\Windows\Fonts\courbi.ttf
+Courier New,CourierNewPS-ItalicMT,C:\Windows\Fonts\couri.ttf
+David CLM,DavidCLM-Bold,C:\Windows\Fonts\DavidCLM-Bold.ttf
+David CLM,DavidCLM-BoldItalic,C:\Windows\Fonts\DavidCLM-BoldItalic.ttf
+David CLM,DavidCLM-Medium,C:\Windows\Fonts\DavidCLM-Medium.ttf
+David CLM,DavidCLM-MediumItalic,C:\Windows\Fonts\DavidCLM-MediumItalic.ttf
+David Libre,DavidLibre-Bold,C:\Windows\Fonts\DavidLibre-Bold.ttf
+David Libre,DavidLibre-Regular,C:\Windows\Fonts\DavidLibre-Regular.ttf
+DejaVu Math TeX Gyre,DejaVuMathTeXGyre-Regular,C:\Windows\Fonts\DejaVuMathTeXGyre.ttf
+DejaVu Sans,DejaVuSans-Bold,C:\Windows\Fonts\DejaVuSans-Bold.ttf
+DejaVu Sans,DejaVuSans-BoldOblique,C:\Windows\Fonts\DejaVuSans-BoldOblique.ttf
+DejaVu Sans Light,DejaVuSans-ExtraLight,C:\Windows\Fonts\DejaVuSans-ExtraLight.ttf
+DejaVu Sans,DejaVuSans-Oblique,C:\Windows\Fonts\DejaVuSans-Oblique.ttf
+DejaVu Sans,DejaVuSans,C:\Windows\Fonts\DejaVuSans.ttf
+DejaVu Sans Condensed,DejaVuSansCondensed-Bold,C:\Windows\Fonts\DejaVuSansCondensed-Bold.ttf
+DejaVu Sans Condensed,DejaVuSansCondensed-BoldOblique,C:\Windows\Fonts\DejaVuSansCondensed-BoldOblique.ttf
+DejaVu Sans Condensed,DejaVuSansCondensed-Oblique,C:\Windows\Fonts\DejaVuSansCondensed-Oblique.ttf
+DejaVu Sans Condensed,DejaVuSansCondensed,C:\Windows\Fonts\DejaVuSansCondensed.ttf
+DejaVu Sans Mono,DejaVuSansMono-Bold,C:\Windows\Fonts\DejaVuSansMono-Bold.ttf
+DejaVu Sans Mono,DejaVuSansMono-BoldOblique,C:\Windows\Fonts\DejaVuSansMono-BoldOblique.ttf
+DejaVu Sans Mono,DejaVuSansMono-Oblique,C:\Windows\Fonts\DejaVuSansMono-Oblique.ttf
+DejaVu Sans Mono,DejaVuSansMono,C:\Windows\Fonts\DejaVuSansMono.ttf
+DejaVu Serif,DejaVuSerif-Bold,C:\Windows\Fonts\DejaVuSerif-Bold.ttf
+DejaVu Serif,DejaVuSerif-BoldItalic,C:\Windows\Fonts\DejaVuSerif-BoldItalic.ttf
+DejaVu Serif,DejaVuSerif-Italic,C:\Windows\Fonts\DejaVuSerif-Italic.ttf
+DejaVu Serif,DejaVuSerif,C:\Windows\Fonts\DejaVuSerif.ttf
+DejaVu Serif Condensed,DejaVuSerifCondensed-Bold,C:\Windows\Fonts\DejaVuSerifCondensed-Bold.ttf
+DejaVu Serif Condensed,DejaVuSerifCondensed-BoldItalic,C:\Windows\Fonts\DejaVuSerifCondensed-BoldItalic.ttf
+DejaVu Serif Condensed,DejaVuSerifCondensed-Italic,C:\Windows\Fonts\DejaVuSerifCondensed-Italic.ttf
+DejaVu Serif Condensed,DejaVuSerifCondensed,C:\Windows\Fonts\DejaVuSerifCondensed.ttf
+DengXian,DengXian,C:\Windows\Fonts\Deng.ttf
+DengXian,DengXian-Bold,C:\Windows\Fonts\Dengb.ttf
+DengXian Light,DengXian-Light,C:\Windows\Fonts\Dengl.ttf
+Ebrima,Ebrima,C:\Windows\Fonts\ebrima.ttf
+Ebrima,Ebrima-Bold,C:\Windows\Fonts\ebrimabd.ttf
+EmojiOne Color,EmojiOneColorSVGinOT,C:\Windows\Fonts\EmojiOneColor-SVGinOT.ttf
+Franklin Gothic Medium,FranklinGothic-Medium,C:\Windows\Fonts\framd.ttf
+Franklin Gothic Medium,FranklinGothic-MediumItalic,C:\Windows\Fonts\framdit.ttf
+Frank Ruehl CLM,FrankRuehlCLM-Bold,C:\Windows\Fonts\FrankRuehlCLM-Bold.ttf
+Frank Ruehl CLM,FrankRuehlCLM-BoldOblique,C:\Windows\Fonts\FrankRuehlCLM-BoldOblique.ttf
+Frank Ruehl CLM,FrankRuehlCLM-Medium,C:\Windows\Fonts\FrankRuehlCLM-Medium.ttf
+Frank Ruehl CLM,FrankRuehlCLM-MediumOblique,C:\Windows\Fonts\FrankRuehlCLM-MediumOblique.ttf
+Frank Ruhl Hofshi,FrankRuhlHofshi-Bold,C:\Windows\Fonts\FrankRuhlHofshi-Bold.otf
+Frank Ruhl Hofshi,FrankRuhlHofshi-Regular,C:\Windows\Fonts\FrankRuhlHofshi-Regular.otf
+Gabriola,Gabriola,C:\Windows\Fonts\Gabriola.ttf
+Gadugi,Gadugi,C:\Windows\Fonts\gadugi.ttf
+Gadugi,Gadugi-Bold,C:\Windows\Fonts\gadugib.ttf
+Gentium Basic,GentiumBasic-Bold,C:\Windows\Fonts\GenBasB.ttf
+Gentium Basic,GentiumBasic-BoldItalic,C:\Windows\Fonts\GenBasBI.ttf
+Gentium Basic,GentiumBasic-Italic,C:\Windows\Fonts\GenBasI.ttf
+Gentium Basic,GentiumBasic,C:\Windows\Fonts\GenBasR.ttf
+Gentium Book Basic,GentiumBookBasic-Bold,C:\Windows\Fonts\GenBkBasB.ttf
+Gentium Book Basic,GentiumBookBasic-BoldItalic,C:\Windows\Fonts\GenBkBasBI.ttf
+Gentium Book Basic,GentiumBookBasic-Italic,C:\Windows\Fonts\GenBkBasI.ttf
+Gentium Book Basic,GentiumBookBasic,C:\Windows\Fonts\GenBkBasR.ttf
+Georgia,Georgia,C:\Windows\Fonts\georgia.ttf
+Georgia,Georgia-Bold,C:\Windows\Fonts\georgiab.ttf
+Georgia,Georgia-Italic,C:\Windows\Fonts\georgiai.ttf
+Georgia,Georgia-BoldItalic,C:\Windows\Fonts\georgiaz.ttf
+Microsoft Himalaya,MicrosoftHimalaya,C:\Windows\Fonts\himalaya.ttf
+HoloLens MDL2 Assets,HoloLensMDL2Assets,C:\Windows\Fonts\holomdl2.ttf
+Impact,Impact,C:\Windows\Fonts\impact.ttf
+Ink Free,InkFree,C:\Windows\Fonts\Inkfree.ttf
+Javanese Text,JavaneseText,C:\Windows\Fonts\javatext.ttf
+KacstBook,KacstBook,C:\Windows\Fonts\KacstBook.ttf
+KacstOffice,KacstOffice,C:\Windows\Fonts\KacstOffice.ttf
+Leelawadee UI,LeelawadeeUI-Bold,C:\Windows\Fonts\LeelaUIb.ttf
+Leelawadee UI,LeelawadeeUI,C:\Windows\Fonts\LeelawUI.ttf
+Leelawadee UI Semilight,LeelawadeeUI-Semilight,C:\Windows\Fonts\LeelUIsl.ttf
+Liberation Mono,LiberationMono-Bold,C:\Windows\Fonts\LiberationMono-Bold.ttf
+Liberation Mono,LiberationMono-BoldItalic,C:\Windows\Fonts\LiberationMono-BoldItalic.ttf
+Liberation Mono,LiberationMono-Italic,C:\Windows\Fonts\LiberationMono-Italic.ttf
+Liberation Mono,LiberationMono,C:\Windows\Fonts\LiberationMono-Regular.ttf
+Liberation Sans,LiberationSans-Bold,C:\Windows\Fonts\LiberationSans-Bold.ttf
+Liberation Sans,LiberationSans-BoldItalic,C:\Windows\Fonts\LiberationSans-BoldItalic.ttf
+Liberation Sans,LiberationSans-Italic,C:\Windows\Fonts\LiberationSans-Italic.ttf
+Liberation Sans,LiberationSans,C:\Windows\Fonts\LiberationSans-Regular.ttf
+Liberation Sans Narrow,LiberationSansNarrow-Bold,C:\Windows\Fonts\LiberationSansNarrow-Bold.ttf
+Liberation Sans Narrow,LiberationSansNarrow-BoldItalic,C:\Windows\Fonts\LiberationSansNarrow-BoldItalic.ttf
+Liberation Sans Narrow,LiberationSansNarrow-Italic,C:\Windows\Fonts\LiberationSansNarrow-Italic.ttf
+Liberation Sans Narrow,LiberationSansNarrow,C:\Windows\Fonts\LiberationSansNarrow-Regular.ttf
+Liberation Serif,LiberationSerif-Bold,C:\Windows\Fonts\LiberationSerif-Bold.ttf
+Liberation Serif,LiberationSerif-BoldItalic,C:\Windows\Fonts\LiberationSerif-BoldItalic.ttf
+Liberation Serif,LiberationSerif-Italic,C:\Windows\Fonts\LiberationSerif-Italic.ttf
+Liberation Serif,LiberationSerif,C:\Windows\Fonts\LiberationSerif-Regular.ttf
+Linux Biolinum G,LinuxBiolinumGB,C:\Windows\Fonts\LinBiolinum_RB_G.ttf
+Linux Biolinum G,LinuxBiolinumGI,C:\Windows\Fonts\LinBiolinum_RI_G.ttf
+Linux Biolinum G,LinuxBiolinumG,C:\Windows\Fonts\LinBiolinum_R_G.ttf
+Linux Libertine Display G,LinuxLibertineDG,C:\Windows\Fonts\LinLibertine_DR_G.ttf
+Linux Libertine G,LinuxLibertineGBI,C:\Windows\Fonts\LinLibertine_RBI_G.ttf
+Linux Libertine G,LinuxLibertineGB,C:\Windows\Fonts\LinLibertine_RB_G.ttf
+Linux Libertine G,LinuxLibertineGI,C:\Windows\Fonts\LinLibertine_RI_G.ttf
+Linux Libertine G,LinuxLibertineGZI,C:\Windows\Fonts\LinLibertine_RZI_G.ttf
+Linux Libertine G,LinuxLibertineGZ,C:\Windows\Fonts\LinLibertine_RZ_G.ttf
+Linux Libertine G,LinuxLibertineG,C:\Windows\Fonts\LinLibertine_R_G.ttf
+Lucida Console,LucidaConsole,C:\Windows\Fonts\lucon.ttf
+Lucida Sans Unicode,LucidaSansUnicode,C:\Windows\Fonts\l_10646.ttf
+Malgun Gothic,MalgunGothic,C:\Windows\Fonts\malgun.ttf
+Malgun Gothic,MalgunGothicBold,C:\Windows\Fonts\malgunbd.ttf
+Malgun Gothic Semilight,MalgunGothic-Semilight,C:\Windows\Fonts\malgunsl.ttf
+Marlett,Marlett,C:\Windows\Fonts\marlett.ttf
+Microsoft Sans Serif,MicrosoftSansSerif,C:\Windows\Fonts\micross.ttf
+MingLiU-ExtB,MingLiU-ExtB,C:\Windows\Fonts\mingliub.ttc
+PMingLiU-ExtB,PMingLiU-ExtB,C:\Windows\Fonts\mingliub.ttc
+MingLiU_HKSCS-ExtB,Ming-Lt-HKSCS-ExtB,C:\Windows\Fonts\mingliub.ttc
+Miriam CLM,MiriamCLM-Bold,C:\Windows\Fonts\MiriamCLM-Bold.ttf
+Miriam CLM,MiriamCLM-Book,C:\Windows\Fonts\MiriamCLM-Book.ttf
+Miriam Libre,MiriamLibre-Bold,C:\Windows\Fonts\MiriamLibre-Bold.otf
+Miriam Libre,MiriamLibre-Regular,C:\Windows\Fonts\MiriamLibre-Regular.otf
+Miriam Mono CLM,MiriamMonoCLM-Bold,C:\Windows\Fonts\MiriamMonoCLM-Bold.ttf
+Miriam Mono CLM,MiriamMonoCLM-BoldOblique,C:\Windows\Fonts\MiriamMonoCLM-BoldOblique.ttf
+Miriam Mono CLM,MiriamMonoCLM-Book,C:\Windows\Fonts\MiriamMonoCLM-Book.ttf
+Miriam Mono CLM,MiriamMonoCLM-BookOblique,C:\Windows\Fonts\MiriamMonoCLM-BookOblique.ttf
+Myanmar Text,MyanmarText,C:\Windows\Fonts\mmrtext.ttf
+Myanmar Text,MyanmarText-Bold,C:\Windows\Fonts\mmrtextb.ttf
+Mongolian Baiti,MongolianBaiti,C:\Windows\Fonts\monbaiti.ttf
+MS Gothic,MS-Gothic,C:\Windows\Fonts\msgothic.ttc
+MS UI Gothic,MS-UIGothic,C:\Windows\Fonts\msgothic.ttc
+MS PGothic,MS-PGothic,C:\Windows\Fonts\msgothic.ttc
+Microsoft JhengHei,MicrosoftJhengHeiRegular,C:\Windows\Fonts\msjh.ttc
+Microsoft JhengHei UI,MicrosoftJhengHeiUIRegular,C:\Windows\Fonts\msjh.ttc
+Microsoft JhengHei,MicrosoftJhengHeiBold,C:\Windows\Fonts\msjhbd.ttc
+Microsoft JhengHei UI,MicrosoftJhengHeiUIBold,C:\Windows\Fonts\msjhbd.ttc
+Microsoft JhengHei Light,MicrosoftJhengHeiLight,C:\Windows\Fonts\msjhl.ttc
+Microsoft JhengHei UI Light,MicrosoftJhengHeiUILight,C:\Windows\Fonts\msjhl.ttc
+Microsoft YaHei,MicrosoftYaHei,C:\Windows\Fonts\msyh.ttc
+Microsoft YaHei UI,MicrosoftYaHeiUI,C:\Windows\Fonts\msyh.ttc
+Microsoft YaHei,MicrosoftYaHei-Bold,C:\Windows\Fonts\msyhbd.ttc
+Microsoft YaHei UI,MicrosoftYaHeiUI-Bold,C:\Windows\Fonts\msyhbd.ttc
+Microsoft YaHei Light,MicrosoftYaHeiLight,C:\Windows\Fonts\msyhl.ttc
+Microsoft YaHei UI Light,MicrosoftYaHeiUILight,C:\Windows\Fonts\msyhl.ttc
+Microsoft Yi Baiti,Microsoft-Yi-Baiti,C:\Windows\Fonts\msyi.ttf
+MV Boli,MVBoli,C:\Windows\Fonts\mvboli.ttf
+Nachlieli CLM,NachlieliCLM-Bold,C:\Windows\Fonts\NachlieliCLM-Bold.otf
+Nachlieli CLM,NachlieliCLM-BoldOblique,C:\Windows\Fonts\NachlieliCLM-BoldOblique.otf
+Nachlieli CLM,NachlieliCLM-Light,C:\Windows\Fonts\NachlieliCLM-Light.otf
+Nachlieli CLM,NachlieliCLM-LightOblique,C:\Windows\Fonts\NachlieliCLM-LightOblique.otf
+Nirmala UI,NirmalaUI,C:\Windows\Fonts\Nirmala.ttf
+Nirmala UI,NirmalaUI-Bold,C:\Windows\Fonts\NirmalaB.ttf
+Nirmala UI Semilight,NirmalaUI-Semilight,C:\Windows\Fonts\NirmalaS.ttf
+Noto Kufi Arabic,NotoKufiArabic-Bold,C:\Windows\Fonts\NotoKufiArabic-Bold.ttf
+Noto Kufi Arabic,NotoKufiArabic,C:\Windows\Fonts\NotoKufiArabic-Regular.ttf
+Noto Mono,NotoMono,C:\Windows\Fonts\NotoMono-Regular.ttf
+Noto Naskh Arabic,NotoNaskhArabic-Bold,C:\Windows\Fonts\NotoNaskhArabic-Bold.ttf
+Noto Naskh Arabic,NotoNaskhArabic,C:\Windows\Fonts\NotoNaskhArabic-Regular.ttf
+Noto Naskh Arabic UI,NotoNaskhArabicUI-Bold,C:\Windows\Fonts\NotoNaskhArabicUI-Bold.ttf
+Noto Naskh Arabic UI,NotoNaskhArabicUI,C:\Windows\Fonts\NotoNaskhArabicUI-Regular.ttf
+Noto Sans,NotoSans-Bold,C:\Windows\Fonts\NotoSans-Bold.ttf
+Noto Sans,NotoSans-BoldItalic,C:\Windows\Fonts\NotoSans-BoldItalic.ttf
+Noto Sans Cond,NotoSans-Condensed,C:\Windows\Fonts\NotoSans-Condensed.ttf
+Noto Sans Cond,NotoSans-CondensedBold,C:\Windows\Fonts\NotoSans-CondensedBold.ttf
+Noto Sans Cond,NotoSans-CondensedBoldItalic,C:\Windows\Fonts\NotoSans-CondensedBoldItalic.ttf
+Noto Sans Cond,NotoSans-CondensedItalic,C:\Windows\Fonts\NotoSans-CondensedItalic.ttf
+Noto Sans,NotoSans-Italic,C:\Windows\Fonts\NotoSans-Italic.ttf
+Noto Sans Light,NotoSans-Light,C:\Windows\Fonts\NotoSans-Light.ttf
+Noto Sans Light,NotoSans-LightItalic,C:\Windows\Fonts\NotoSans-LightItalic.ttf
+Noto Sans,NotoSans-Regular,C:\Windows\Fonts\NotoSans-Regular.ttf
+Noto Sans Arabic,NotoSansArabic-Bold,C:\Windows\Fonts\NotoSansArabic-Bold.ttf
+Noto Sans Arabic,NotoSansArabic-Regular,C:\Windows\Fonts\NotoSansArabic-Regular.ttf
+Noto Sans Arabic UI,NotoSansArabicUI-Bold,C:\Windows\Fonts\NotoSansArabicUI-Bold.ttf
+Noto Sans Arabic UI,NotoSansArabicUI-Regular,C:\Windows\Fonts\NotoSansArabicUI-Regular.ttf
+Noto Sans Armenian,NotoSansArmenian-Bold,C:\Windows\Fonts\NotoSansArmenian-Bold.ttf
+Noto Sans Armenian,NotoSansArmenian-Regular,C:\Windows\Fonts\NotoSansArmenian-Regular.ttf
+Noto Sans Georgian,NotoSansGeorgian-Bold,C:\Windows\Fonts\NotoSansGeorgian-Bold.ttf
+Noto Sans Georgian,NotoSansGeorgian-Regular,C:\Windows\Fonts\NotoSansGeorgian-Regular.ttf
+Noto Sans Hebrew,NotoSansHebrew-Bold,C:\Windows\Fonts\NotoSansHebrew-Bold.ttf
+Noto Sans Hebrew,NotoSansHebrew-Regular,C:\Windows\Fonts\NotoSansHebrew-Regular.ttf
+Noto Sans Lao,NotoSansLao-Bold,C:\Windows\Fonts\NotoSansLao-Bold.ttf
+Noto Sans Lao,NotoSansLao-Regular,C:\Windows\Fonts\NotoSansLao-Regular.ttf
+Noto Sans Lisu,NotoSansLisu-Regular,C:\Windows\Fonts\NotoSansLisu-Regular.ttf
+Noto Serif,NotoSerif-Bold,C:\Windows\Fonts\NotoSerif-Bold.ttf
+Noto Serif,NotoSerif-BoldItalic,C:\Windows\Fonts\NotoSerif-BoldItalic.ttf
+Noto Serif Cond,NotoSerif-Condensed,C:\Windows\Fonts\NotoSerif-Condensed.ttf
+Noto Serif Cond,NotoSerif-CondensedBold,C:\Windows\Fonts\NotoSerif-CondensedBold.ttf
+Noto Serif Cond,NotoSerif-CondensedBoldItalic,C:\Windows\Fonts\NotoSerif-CondensedBoldItalic.ttf
+Noto Serif Cond,NotoSerif-CondensedItalic,C:\Windows\Fonts\NotoSerif-CondensedItalic.ttf
+Noto Serif,NotoSerif-Italic,C:\Windows\Fonts\NotoSerif-Italic.ttf
+Noto Serif Light,NotoSerif-Light,C:\Windows\Fonts\NotoSerif-Light.ttf
+Noto Serif Light,NotoSerif-LightItalic,C:\Windows\Fonts\NotoSerif-LightItalic.ttf
+Noto Serif,NotoSerif-Regular,C:\Windows\Fonts\NotoSerif-Regular.ttf
+Noto Serif Armenian,NotoSerifArmenian-Bold,C:\Windows\Fonts\NotoSerifArmenian-Bold.ttf
+Noto Serif Armenian,NotoSerifArmenian-Regular,C:\Windows\Fonts\NotoSerifArmenian-Regular.ttf
+Noto Serif Georgian,NotoSerifGeorgian-Bold,C:\Windows\Fonts\NotoSerifGeorgian-Bold.ttf
+Noto Serif Georgian,NotoSerifGeorgian-Regular,C:\Windows\Fonts\NotoSerifGeorgian-Regular.ttf
+Noto Serif Hebrew,NotoSerifHebrew-Bold,C:\Windows\Fonts\NotoSerifHebrew-Bold.ttf
+Noto Serif Hebrew,NotoSerifHebrew-Regular,C:\Windows\Fonts\NotoSerifHebrew-Regular.ttf
+Noto Serif Lao,NotoSerifLao-Bold,C:\Windows\Fonts\NotoSerifLao-Bold.ttf
+Noto Serif Lao,NotoSerifLao-Regular,C:\Windows\Fonts\NotoSerifLao-Regular.ttf
+Microsoft New Tai Lue,MicrosoftNewTaiLue,C:\Windows\Fonts\ntailu.ttf
+Microsoft New Tai Lue,MicrosoftNewTaiLue-Bold,C:\Windows\Fonts\ntailub.ttf
+OpenSymbol,OpenSymbol,C:\Windows\Fonts\opens___.ttf
+Palatino Linotype,PalatinoLinotype-Roman,C:\Windows\Fonts\pala.ttf
+Palatino Linotype,PalatinoLinotype-Bold,C:\Windows\Fonts\palab.ttf
+Palatino Linotype,PalatinoLinotype-BoldItalic,C:\Windows\Fonts\palabi.ttf
+Palatino Linotype,PalatinoLinotype-Italic,C:\Windows\Fonts\palai.ttf
+Microsoft PhagsPa,MicrosoftPhagsPa,C:\Windows\Fonts\phagspa.ttf
+Microsoft PhagsPa,MicrosoftPhagsPa-Bold,C:\Windows\Fonts\phagspab.ttf
+Reem Kufi,ReemKufi-Regular,C:\Windows\Fonts\ReemKufi-Regular.ttf
+Rubik,Rubik-Bold,C:\Windows\Fonts\Rubik-Bold.ttf
+Rubik,Rubik-BoldItalic,C:\Windows\Fonts\Rubik-BoldItalic.ttf
+Rubik,Rubik-Italic,C:\Windows\Fonts\Rubik-Italic.ttf
+Rubik,Rubik-Regular,C:\Windows\Fonts\Rubik-Regular.ttf
+Scheherazade,Scheherazade-Bold,C:\Windows\Fonts\Scheherazade-Bold.ttf
+Scheherazade,Scheherazade-Regular,C:\Windows\Fonts\Scheherazade-Regular.ttf
+Segoe MDL2 Assets,SegoeMDL2Assets,C:\Windows\Fonts\segmdl2.ttf
+Segoe Print,SegoePrint,C:\Windows\Fonts\segoepr.ttf
+Segoe Print,SegoePrint-Bold,C:\Windows\Fonts\segoeprb.ttf
+Segoe Script,SegoeScript,C:\Windows\Fonts\segoesc.ttf
+Segoe Script,SegoeScript-Bold,C:\Windows\Fonts\segoescb.ttf
+Segoe UI,SegoeUI,C:\Windows\Fonts\segoeui.ttf
+Segoe UI,SegoeUI-Bold,C:\Windows\Fonts\segoeuib.ttf
+Segoe UI,SegoeUI-Italic,C:\Windows\Fonts\segoeuii.ttf
+Segoe UI Light,SegoeUI-Light,C:\Windows\Fonts\segoeuil.ttf
+Segoe UI Semilight,SegoeUI-Semilight,C:\Windows\Fonts\segoeuisl.ttf
+Segoe UI,SegoeUI-BoldItalic,C:\Windows\Fonts\segoeuiz.ttf
+Segoe UI Black,SegoeUIBlack,C:\Windows\Fonts\seguibl.ttf
+Segoe UI Black,SegoeUIBlack-Italic,C:\Windows\Fonts\seguibli.ttf
+Segoe UI Emoji,SegoeUIEmoji,C:\Windows\Fonts\seguiemj.ttf
+Segoe UI Historic,SegoeUIHistoric,C:\Windows\Fonts\seguihis.ttf
+Segoe UI Light,SegoeUI-LightItalic,C:\Windows\Fonts\seguili.ttf
+Segoe UI Semibold,SegoeUI-Semibold,C:\Windows\Fonts\seguisb.ttf
+Segoe UI Semibold,SegoeUI-SemiboldItalic,C:\Windows\Fonts\seguisbi.ttf
+Segoe UI Semilight,SegoeUI-SemilightItalic,C:\Windows\Fonts\seguisli.ttf
+Segoe UI Symbol,SegoeUISymbol,C:\Windows\Fonts\seguisym.ttf
+FangSong,FangSong,C:\Windows\Fonts\simfang.ttf
+SimHei,SimHei,C:\Windows\Fonts\simhei.ttf
+KaiTi,KaiTi,C:\Windows\Fonts\simkai.ttf
+SimSun,SimSun,C:\Windows\Fonts\simsun.ttc
+NSimSun,NSimSun,C:\Windows\Fonts\simsun.ttc
+SimSun-ExtB,SimSun-ExtB,C:\Windows\Fonts\simsunb.ttf
+Sitka Small,SitkaSmall,C:\Windows\Fonts\Sitka.ttc
+Sitka Text,SitkaText,C:\Windows\Fonts\Sitka.ttc
+Sitka Subheading,SitkaSubheading,C:\Windows\Fonts\Sitka.ttc
+Sitka Heading,SitkaHeading,C:\Windows\Fonts\Sitka.ttc
+Sitka Display,SitkaDisplay,C:\Windows\Fonts\Sitka.ttc
+Sitka Banner,SitkaBanner,C:\Windows\Fonts\Sitka.ttc
+Sitka Small,SitkaSmall-Bold,C:\Windows\Fonts\SitkaB.ttc
+Sitka Text,SitkaText-Bold,C:\Windows\Fonts\SitkaB.ttc
+Sitka Subheading,SitkaSubheading-Bold,C:\Windows\Fonts\SitkaB.ttc
+Sitka Heading,SitkaHeading-Bold,C:\Windows\Fonts\SitkaB.ttc
+Sitka Display,SitkaDisplay-Bold,C:\Windows\Fonts\SitkaB.ttc
+Sitka Banner,SitkaBanner-Bold,C:\Windows\Fonts\SitkaB.ttc
+Sitka Small,SitkaSmall-Italic,C:\Windows\Fonts\SitkaI.ttc
+Sitka Text,SitkaText-Italic,C:\Windows\Fonts\SitkaI.ttc
+Sitka Subheading,SitkaSubheading-Italic,C:\Windows\Fonts\SitkaI.ttc
+Sitka Heading,SitkaHeading-Italic,C:\Windows\Fonts\SitkaI.ttc
+Sitka Display,SitkaDisplay-Italic,C:\Windows\Fonts\SitkaI.ttc
+Sitka Banner,SitkaBanner-Italic,C:\Windows\Fonts\SitkaI.ttc
+Sitka Small,SitkaSmall-BoldItalic,C:\Windows\Fonts\SitkaZ.ttc
+Sitka Text,SitkaText-BoldItalic,C:\Windows\Fonts\SitkaZ.ttc
+Sitka Subheading,SitkaSubheading-BoldItalic,C:\Windows\Fonts\SitkaZ.ttc
+Sitka Heading,SitkaHeading-BoldItalic,C:\Windows\Fonts\SitkaZ.ttc
+Sitka Display,SitkaDisplay-BoldItalic,C:\Windows\Fonts\SitkaZ.ttc
+Sitka Banner,SitkaBanner-BoldItalic,C:\Windows\Fonts\SitkaZ.ttc
+Source Code Pro Black,SourceCodePro-Black,C:\Windows\Fonts\SourceCodePro-Black.ttf
+Source Code Pro Black,SourceCodePro-BlackIt,C:\Windows\Fonts\SourceCodePro-BlackIt.ttf
+Source Code Pro,SourceCodePro-Bold,C:\Windows\Fonts\SourceCodePro-Bold.ttf
+Source Code Pro,SourceCodePro-BoldIt,C:\Windows\Fonts\SourceCodePro-BoldIt.ttf
+Source Code Pro ExtraLight,SourceCodePro-ExtraLight,C:\Windows\Fonts\SourceCodePro-ExtraLight.ttf
+Source Code Pro ExtraLight,SourceCodePro-ExtraLightIt,C:\Windows\Fonts\SourceCodePro-ExtraLightIt.ttf
+Source Code Pro,SourceCodePro-It,C:\Windows\Fonts\SourceCodePro-It.ttf
+Source Code Pro Light,SourceCodePro-Light,C:\Windows\Fonts\SourceCodePro-Light.ttf
+Source Code Pro Light,SourceCodePro-LightIt,C:\Windows\Fonts\SourceCodePro-LightIt.ttf
+Source Code Pro Medium,SourceCodePro-Medium,C:\Windows\Fonts\SourceCodePro-Medium.ttf
+Source Code Pro Medium,SourceCodePro-MediumIt,C:\Windows\Fonts\SourceCodePro-MediumIt.ttf
+Source Code Pro,SourceCodePro-Regular,C:\Windows\Fonts\SourceCodePro-Regular.ttf
+Source Code Pro Semibold,SourceCodePro-Semibold,C:\Windows\Fonts\SourceCodePro-Semibold.ttf
+Source Code Pro Semibold,SourceCodePro-SemiboldIt,C:\Windows\Fonts\SourceCodePro-SemiboldIt.ttf
+Source Sans Pro Black,SourceSansPro-Black,C:\Windows\Fonts\SourceSansPro-Black.ttf
+Source Sans Pro Black,SourceSansPro-BlackIt,C:\Windows\Fonts\SourceSansPro-BlackIt.ttf
+Source Sans Pro,SourceSansPro-Bold,C:\Windows\Fonts\SourceSansPro-Bold.ttf
+Source Sans Pro,SourceSansPro-BoldIt,C:\Windows\Fonts\SourceSansPro-BoldIt.ttf
+Source Sans Pro ExtraLight,SourceSansPro-ExtraLight,C:\Windows\Fonts\SourceSansPro-ExtraLight.ttf
+Source Sans Pro ExtraLight,SourceSansPro-ExtraLightIt,C:\Windows\Fonts\SourceSansPro-ExtraLightIt.ttf
+Source Sans Pro,SourceSansPro-It,C:\Windows\Fonts\SourceSansPro-It.ttf
+Source Sans Pro Light,SourceSansPro-Light,C:\Windows\Fonts\SourceSansPro-Light.ttf
+Source Sans Pro Light,SourceSansPro-LightIt,C:\Windows\Fonts\SourceSansPro-LightIt.ttf
+Source Sans Pro,SourceSansPro-Regular,C:\Windows\Fonts\SourceSansPro-Regular.ttf
+Source Sans Pro Semibold,SourceSansPro-Semibold,C:\Windows\Fonts\SourceSansPro-Semibold.ttf
+Source Sans Pro Semibold,SourceSansPro-SemiboldIt,C:\Windows\Fonts\SourceSansPro-SemiboldIt.ttf
+Source Serif Pro Black,SourceSerifPro-Black,C:\Windows\Fonts\SourceSerifPro-Black.ttf
+Source Serif Pro Black,SourceSerifPro-BlackIt,C:\Windows\Fonts\SourceSerifPro-BlackIt.ttf
+Source Serif Pro,SourceSerifPro-Bold,C:\Windows\Fonts\SourceSerifPro-Bold.ttf
+Source Serif Pro,SourceSerifPro-BoldIt,C:\Windows\Fonts\SourceSerifPro-BoldIt.ttf
+Source Serif Pro ExtraLight,SourceSerifPro-ExtraLight,C:\Windows\Fonts\SourceSerifPro-ExtraLight.ttf
+Source Serif Pro ExtraLight,SourceSerifPro-ExtraLightIt,C:\Windows\Fonts\SourceSerifPro-ExtraLightIt.ttf
+Source Serif Pro,SourceSerifPro-It,C:\Windows\Fonts\SourceSerifPro-It.ttf
+Source Serif Pro Light,SourceSerifPro-Light,C:\Windows\Fonts\SourceSerifPro-Light.ttf
+Source Serif Pro Light,SourceSerifPro-LightIt,C:\Windows\Fonts\SourceSerifPro-LightIt.ttf
+Source Serif Pro,SourceSerifPro-Regular,C:\Windows\Fonts\SourceSerifPro-Regular.ttf
+Source Serif Pro Semibold,SourceSerifPro-Semibold,C:\Windows\Fonts\SourceSerifPro-Semibold.ttf
+Source Serif Pro Semibold,SourceSerifPro-SemiboldIt,C:\Windows\Fonts\SourceSerifPro-SemiboldIt.ttf
+Sylfaen,Sylfaen,C:\Windows\Fonts\sylfaen.ttf
+Symbol,SymbolMT,C:\Windows\Fonts\symbol.ttf
+Tahoma,Tahoma,C:\Windows\Fonts\tahoma.ttf
+Tahoma,Tahoma-Bold,C:\Windows\Fonts\tahomabd.ttf
+Microsoft Tai Le,MicrosoftTaiLe,C:\Windows\Fonts\taile.ttf
+Microsoft Tai Le,MicrosoftTaiLe-Bold,C:\Windows\Fonts\taileb.ttf
+TeamViewer15,TeamViewer15,C:\Windows\Fonts\teamviewer15.otf
+Times New Roman,TimesNewRomanPSMT,C:\Windows\Fonts\times.ttf
+Times New Roman,TimesNewRomanPS-BoldMT,C:\Windows\Fonts\timesbd.ttf
+Times New Roman,TimesNewRomanPS-BoldItalicMT,C:\Windows\Fonts\timesbi.ttf
+Times New Roman,TimesNewRomanPS-ItalicMT,C:\Windows\Fonts\timesi.ttf
+Trebuchet MS,TrebuchetMS,C:\Windows\Fonts\trebuc.ttf
+Trebuchet MS,TrebuchetMS-Bold,C:\Windows\Fonts\trebucbd.ttf
+Trebuchet MS,Trebuchet-BoldItalic,C:\Windows\Fonts\trebucbi.ttf
+Trebuchet MS,TrebuchetMS-Italic,C:\Windows\Fonts\trebucit.ttf
+Verdana,Verdana,C:\Windows\Fonts\verdana.ttf
+Verdana,Verdana-Bold,C:\Windows\Fonts\verdanab.ttf
+Verdana,Verdana-Italic,C:\Windows\Fonts\verdanai.ttf
+Verdana,Verdana-BoldItalic,C:\Windows\Fonts\verdanaz.ttf
+Webdings,Webdings,C:\Windows\Fonts\webdings.ttf
+Wingdings,Wingdings-Regular,C:\Windows\Fonts\wingding.ttf
+Yu Gothic,YuGothic-Bold,C:\Windows\Fonts\YuGothB.ttc
+Yu Gothic UI,YuGothicUI-Bold,C:\Windows\Fonts\YuGothB.ttc
+Yu Gothic UI Semibold,YuGothicUI-Semibold,C:\Windows\Fonts\YuGothB.ttc
+Yu Gothic Light,YuGothic-Light,C:\Windows\Fonts\YuGothL.ttc
+Yu Gothic UI Light,YuGothicUI-Light,C:\Windows\Fonts\YuGothL.ttc
+Yu Gothic Medium,YuGothic-Medium,C:\Windows\Fonts\YuGothM.ttc
+Yu Gothic UI,YuGothicUI-Regular,C:\Windows\Fonts\YuGothM.ttc
+Yu Gothic,YuGothic-Regular,C:\Windows\Fonts\YuGothR.ttc
+Yu Gothic UI Semilight,YuGothicUI-Semilight,C:\Windows\Fonts\YuGothR.ttc

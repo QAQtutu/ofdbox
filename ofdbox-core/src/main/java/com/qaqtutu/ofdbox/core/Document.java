@@ -47,22 +47,16 @@ public class Document {
         }
         return null;
     }
-    public OFDFile getFont(Integer id){
+    public CT_Font getFont(Integer id){
         for(XRes xRes:allRes()){
             if(xRes.getFonts()==null)continue;
             for(NFonts nFonts:xRes.getFonts()){
                 for(CT_Font ctFont:nFonts.getList()){
                     if(ctFont.getId().getId().equals(id)){
-                        ST_Loc mediaLoc=new ST_Loc();
-                        mediaLoc.setParent(xRes.getBaseLoc());
-                        if(ctFont.getFontFile()==null)return null;
-                        mediaLoc.setLoc(ctFont.getFontFile().getLoc());
-                        byte[] bytes=ofd.getFileManager().readBytes(mediaLoc.getFullLoc());
-
-                        OFDFile ofdFile=new OFDFile();
-                        ofdFile.setLoc(mediaLoc.getFullLoc());
-                        ofdFile.setBytes(bytes);
-                        return ofdFile;
+                        if(ctFont.getFontFile()!=null){
+                            ctFont.getFontFile().setParent(xRes.getBaseLoc());
+                        }
+                        return ctFont;
                     }
                 }
             }

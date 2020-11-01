@@ -1,9 +1,11 @@
 package com.qaqtutu.ofdbox.convertor.img;
 
+import com.qaqtutu.ofdbox.convertor.utils.FontUtils;
 import com.qaqtutu.ofdbox.convertor.utils.ImageUtils;
+import com.qaqtutu.ofdbox.core.*;
+import com.qaqtutu.ofdbox.core.utils.FormatUtils;
 import com.qaqtutu.ofdbox.core.utils.MatrixUtils;
 import com.qaqtutu.ofdbox.core.utils.Tuple2;
-import com.qaqtutu.ofdbox.core.*;
 import com.qaqtutu.ofdbox.core.xmlobj.base.page.CT_PageBlock;
 import com.qaqtutu.ofdbox.core.xmlobj.base.page.NLayer;
 import com.qaqtutu.ofdbox.core.xmlobj.base.page.NTemplate;
@@ -12,47 +14,54 @@ import com.qaqtutu.ofdbox.core.xmlobj.base.page.object.NPathObject;
 import com.qaqtutu.ofdbox.core.xmlobj.base.page.object.NTextObject;
 import com.qaqtutu.ofdbox.core.xmlobj.enums.LayerType;
 import com.qaqtutu.ofdbox.core.xmlobj.object.text.CT_CGTransform;
+import com.qaqtutu.ofdbox.core.xmlobj.object.text.CT_Font;
+import com.qaqtutu.ofdbox.core.xmlobj.object.text.NTextCode;
 import com.qaqtutu.ofdbox.core.xmlobj.pagedesc.color.CT_Color;
 import com.qaqtutu.ofdbox.core.xmlobj.st.ST_Box;
 import lombok.Data;
-import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.fontbox.ttf.GlyphData;
 import org.apache.fontbox.ttf.OTFParser;
-import org.apache.fontbox.ttf.OpenTypeFont;
+import org.apache.fontbox.ttf.TrueTypeFont;
 import org.apache.fontbox.util.BoundingBox;
 import org.ujmp.core.Matrix;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.font.GlyphVector;
-import java.awt.geom.GeneralPath;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @description:
  * @author: 张家尧
  * @create: 2020/10/01 14:14
  */
-@Getter
+@Slf4j
 public class Ofd2Img {
 
     private Config config = new Config();
 
+    public Config getConfig() {
+        return config;
+    }
 
     public BufferedImage toImage(Page page, int dpi) {
 
         ST_Box box = page.getPhysicalBox();
         BufferedImage image = new BufferedImage(box.getW().intValue() * dpi, box.getH().intValue() * dpi, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics = (Graphics2D) image.getGraphics();
+
         graphics.setColor(Color.WHITE);
-        graphics.setBackground(null);
         graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
+
+        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 1.0f));
 
         renderPage(graphics, page, dpi);
 
@@ -113,6 +122,7 @@ public class Ofd2Img {
 
     }
 
+
     private void renderContent(Graphics2D graphics, Document document, CT_PageBlock pageBlock, int dpi) {
         new ContentWalker(pageBlock) {
             @Override
@@ -137,160 +147,164 @@ public class Ofd2Img {
                     graphics.setColor(Color.BLACK);
                 }
 
+                log.debug("--------------------------------TextObject--------------------------------");
+
+                //准备字体
+                boolean isEmbedded = false;
+                boolean loadErr = false;
+                CT_Font font = document.getFont(nTextObject.getFont().getId());
+                TrueTypeFont typeFont = null;
+                if (font.getFontFile() != null) {
+                    isEmbedded = true;
+                    OTFParser parser = new OTFParser(true);
+                    try {
+                        String loc = font.getFontFile().getFullLoc();
+                        byte[] fontData = document.getOfd().getFileManager().readBytes(loc);
+                        if (fontData != null) {
+                            typeFont = parser.parse(new ByteArrayInputStream(fontData));
+                        } else {
+                            log.error("找不到字体：" + loc);
+                        }
+                    } catch (IOException e) {
+                        log.error("加载字体出错：" + e.getMessage());
+                    }
+                } else {
+                    typeFont = FontUtils.loadSystemFont(font.getFamilyName(), font.getFontName());
+                    if (typeFont == null) {
+                        log.warn("找不到系统字体：" + font.getFamilyName() + " " + font.getFontName());
+                    }
+                }
+                if (typeFont == null) {
+                    loadErr = true;
+                    typeFont = getDefaultFont();
+                }
+
+                log.debug("字体是否内嵌：" + isEmbedded);
+                if (isEmbedded) {
+                    log.debug("字体是否内嵌：" + typeFont.getTables().stream().map(ttfTable -> {
+                        return ttfTable.getTag() + " ";
+                    }).collect(Collectors.joining()));
+                }
+                log.debug("字体是否加载失败：" + loadErr);
+                if (loadErr) {
+                    log.debug("原字体：" + loadErr);
+                }
+                try {
+                    log.debug("字体名称：" + typeFont.getName());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 Double[] ctm = nTextObject.getCtm();
+                BoundingBox fontBox = null;
+                List<Number> fontMatrix = null;
+                try {
+                    fontBox = typeFont.getFontBBox();
+                    fontMatrix = typeFont.getFontMatrix();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return;
+                }
 
-                OFDFile fontFile=document.getFont(nTextObject.getFont().getId());
 
-                BigInteger j=BigInteger.valueOf(0);
-                nTextObject.getTextCodes().forEach(nTextCode -> {
-                    j.add(BigInteger.valueOf(1));
-
-                    if(j.intValue()>1)return;
-                    Double[] deltaX = formatDelta(nTextCode.getContent().length(), nTextCode.getDeltaX());
-                    Double[] deltaY = formatDelta(nTextCode.getContent().length(), nTextCode.getDeltaY());
-
-                    double x = nTextCode.getX().floatValue();
-                    double y = nTextCode.getY().floatValue();
-
-                    int z=0;
-                    for (int i = 0; i < nTextCode.getContent().length(); i++) {
-                        if(z>1)return;
-                        z++;
-
-                        //不是第一个字，就加上偏移量
-                        if (i != 0) {
-                            x += deltaX[i - 1].floatValue();
-                            y += deltaY[i - 1].floatValue();
+                int globalPoint = 0;      //字符计数，用来比较是否跟某个Transforms起始点重合
+                int transPoint = -1;      //下一个Transforms，-1表示不存在
+//                int codePosition=-1;      //下一个Transforms的位置
+                if (nTextObject.getTransforms() != null && nTextObject.getTransforms().size()>=1) {
+                    transPoint = 0;
+//                    codePosition = nTextObject.getTransforms().get(transPoint).getCodePosition();
+                    nTextObject.getTransforms().stream().forEach(transform -> {
+                        if(transform.getCodePosition()==null){
+                            transform.setCodePosition(0);
                         }
+                    });
+                    nTextObject.getTransforms().sort((t1, t2) -> {
+                        return t1.getCodePosition() - t2.getCodePosition();
+                    });
+                }
+                for (int i = 0; i < nTextObject.getTextCodes().size(); i++) {
+                    NTextCode textCode = nTextObject.getTextCodes().get(i);
+                    int deltaOffset = -1;
+                    log.debug("------------------------------------------");
+                    log.debug("TextCode: " + textCode.getContent());
+                    log.debug("DeltaX:" + textCode.getDeltaX());
+                    log.debug("DeltaY:" + textCode.getDeltaY());
+                    log.debug("DeltaY:" + textCode.getDeltaY());
+                    List<Double> deltaX = FormatUtils.parseDelta(textCode.getDeltaX());
+                    List<Double> deltaY = FormatUtils.parseDelta(textCode.getDeltaY());
+                    Double x = textCode.getX();
+                    Double y = textCode.getY();
+                    for (int j = 0; j < textCode.getContent().length(); j++) {
+                        //没有Transforms或者还没到Transforms
+                        if (transPoint == -1 || globalPoint < nTextObject.getTransforms().get(transPoint).getCodePosition()) {
+                            if (deltaOffset != -1) {
+                                x += deltaX == null ? 0.0 : deltaX.get(deltaOffset);
+                                y += deltaY == null ? 0.0 : deltaY.get(deltaOffset);
+                            }
 
-
-                        Matrix matrix = MatrixUtils.base();
-                        graphics.setTransform(MatrixUtils.createAffineTransform(matrix));
-
-                        matrix = matrix.mtimes(MatrixUtils.create(1, 0, 0, 1, Double.valueOf(x).floatValue(), Double.valueOf(y).floatValue()));
-                        if (ctm != null) {
-                            matrix = matrix.mtimes(MatrixUtils.create(ctm[0].floatValue(), ctm[1].floatValue(), ctm[2].floatValue(), ctm[3].floatValue(), ctm[4].floatValue(), ctm[5].floatValue()));
-                        }
-                        matrix = matrix.mtimes(MatrixUtils.create(1, 0, 0, 1, nTextObject.getBoundary().getX().floatValue(), nTextObject.getBoundary().getY().floatValue()));
-                        matrix = matrix.mtimes(MatrixUtils.create(dpi, 0, 0, dpi, 0, 0));
-
-                        graphics.setTransform(MatrixUtils.createAffineTransform(matrix));
-
-                        Font font = new Font("楷体", Font.BOLD, nTextObject.getSize().intValue());
-                        graphics.setFont(font);
-
-                        String charStr = String.valueOf(nTextCode.getContent().charAt(i));
-
-                        GlyphVector v = font.createGlyphVector(graphics.getFontRenderContext(), charStr);
-                        Shape shape = v.getOutline();
-
-
-                        if(fontFile!=null){
-                            OTFParser parser = new OTFParser(true);
-                            OpenTypeFont openTypeFont =null;
+                            char c = textCode.getContent().charAt(j);
+                            log.debug(String.format("编码索引 <%s> DeltaX:%s DeltaY:%s", c, x, y));
                             try {
-                                openTypeFont = parser.parse(new ByteArrayInputStream(fontFile.getBytes()));
-
-                                System.out.println(openTypeFont);
+                                int gid = typeFont.getUnicodeCmap().getGlyphId((int) c);
+                                typeFont.getFontMatrix();
+                                GlyphData glyphData = typeFont.getGlyph().getGlyph(gid);
+                                Shape shape = glyphData.getPath();
+                                log.debug(String.format("字形Shape %s", shape));
+                                renderChar(graphics, shape, nTextObject, nTextObject.getCtm(), nTextObject.getBoundary(), x, y, nTextObject.getSize(), dpi, fontMatrix);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            if(nTextObject.getTransforms()!=null){
-                                for(CT_CGTransform transform:nTextObject.getTransforms()){
-                                    int k=-1;
-                                    for(Integer glyph:transform.getGlyphs()){
-                                        k++;
-
-                                        try {
-//                                            long last=0;
-//                                            for(long l:openTypeFont.getIndexToLocation().getOffsets()){
-//                                                if(l!=last){
-//                                                    last=l;
-//                                                    System.out.println(last);
-//                                                }
-//                                            }
 
 
-                                            graphics.setClip(null);
-                                            openTypeFont.getGlyph().getGlyphs();
-                                            GlyphData glyphData=openTypeFont.getGlyph().getGlyph(glyph);
-                                            BoundingBox box=glyphData.getBoundingBox();
+                            globalPoint++;
+                            deltaOffset++;
+                        } else {
+                            CT_CGTransform transform = nTextObject.getTransforms().get(transPoint);
+                            log.debug("字形变换：" + transform);
+                            for (Integer glyph : transform.getGlyphs()) {
 
-                                            short x1=openTypeFont.getHeader().getXMax();
-                                            short x2=openTypeFont.getHeader().getXMin();
-                                            short y1=openTypeFont.getHeader().getYMax();
-                                            short y2=openTypeFont.getHeader().getYMin();
-
-
-                                            GeneralPath path=glyphData.getPath();
-                                            Rectangle rectangle=path.getBounds();
-
-                                            System.out.println("-----------------------");
-                                            System.out.println(box);
-                                            System.out.println(glyphData.getPath().getBounds());
-                                            System.out.println(String.format("%s %s %s %s",x1,x2,y1,y2));
-//                                            System.out.println(String.format("%s %s ",1.0/(rectangle.getWidth()),1.0/(rectangle.getWidth())));
-
-                                            Matrix m1=MatrixUtils.base();
-                                            m1=MatrixUtils.scale(m1,1.0/(x1-x2),1.0/(x1-x2));
-//                                            m1=MatrixUtils.scale(m1,1.0/2000,1.0/2000);
-                                            m1=MatrixUtils.imageMatrix(m1,0,1,0);
-                                            m1=MatrixUtils.scale(m1,nTextObject.getSize(),nTextObject.getSize());
-                                            m1=  m1.mtimes(matrix);
-                                            m1=MatrixUtils.move(m1,50*k,0);
-
-
-
-                                            graphics.setTransform(MatrixUtils.createAffineTransform(m1));
-                                            if(glyphData==null)continue;
-                                            graphics.setStroke(new BasicStroke(0.1f));
-                                            graphics.setColor(Color.BLACK);
-                                            graphics.setBackground(Color.white);
-                                            graphics.draw(glyphData.getPath());
-                                            graphics.fill(glyphData.getPath());
-                                            System.out.println(glyphData.getPath());
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
+                                if (deltaOffset != -1) {
+                                    x += deltaX == null ? 0.0 : deltaX.get(deltaOffset);
+                                    y += deltaY == null ? 0.0 : deltaY.get(deltaOffset);
                                 }
-                            }
-                        }
-                        /*
-                         * 文字默认填充 不勾边
-                         * */
+                                log.debug(String.format("字形索引 <%s> DeltaX:%s DeltaY:%s", glyph, x, y));
+                                ;
 
-                        if (nTextObject.getFill() == null || nTextObject.getFill() == true) {
-                            CT_Color ct_color = nTextObject.getFillColor();
-                            Color color = null;
-                            if (ct_color != null) {
-                                color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255, Float.valueOf(ct_color.getValue()[1]) / 255, Float.valueOf(ct_color.getValue()[2]) / 255);
-                                graphics.setColor(color);
+                                try {
+                                    if (loadErr) {
+                                        //加载字体失败，字形索引无效
+                                        continue;
+                                    }
+                                    typeFont.getGlyph().getGlyphs();
+                                    GlyphData glyphData = typeFont.getGlyph().getGlyph(glyph);
+                                    if (glyphData != null) {
+                                        Shape shape = glyphData.getPath();
+                                        renderChar(graphics, shape, nTextObject, nTextObject.getCtm(), nTextObject.getBoundary(), x, y, nTextObject.getSize(), dpi, fontMatrix);
+                                        log.debug(String.format("字形Shape %s", shape));
+                                    }
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                                deltaOffset++;
+                            }
+                            if (transPoint + 1 >= nTextObject.getTransforms().size()) {
+                                transPoint = -1;
                             } else {
-                                graphics.setColor(Color.BLACK);
+                                transPoint++;
                             }
-                            graphics.fill(shape);
-                        }
-
-                        if ( nTextObject.getStroke()!=null && nTextObject.getStroke()) {
-                            CT_Color ct_color = nTextObject.getStrokeColor();
-                            if(ct_color==null){
-                                graphics.setBackground(null);
-                                graphics.setColor(null);
-                            }else{
-                                Color color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255, Float.valueOf(ct_color.getValue()[1]) / 255, Float.valueOf(ct_color.getValue()[2]) / 255);
-                                graphics.setColor(color);
-                            }
-                            graphics.draw(shape);
-                            graphics.setBackground(Color.white);
+                            globalPoint += (transform.getCodeCount() != null ? transform.getCodeCount() : transform.getGlyphs().length);
+                            j += (transform.getCodeCount() != null ? transform.getCodeCount() : transform.getGlyphs().length);
                         }
                     }
-                });
+                    globalPoint += textCode.getContent().length();
+                }
             }
 
             @Override
             public void onImage(NImageObject nImageObject) {
-
+//                graphics.setBackground(null);
                 OFDFile ofdFile = document.getMultiMedia(nImageObject.getResourceId().getId());
                 try {
                     ST_Box boundary = nImageObject.getBoundary();
@@ -307,6 +321,14 @@ public class Ofd2Img {
 
 
                     BufferedImage targetImg = ImageUtils.getBufferedImage(ofdFile);
+
+                    if(nImageObject.getImageMask()!=null){
+                        OFDFile maskFile = document.getMultiMedia(nImageObject.getImageMask().getId());
+                        BufferedImage mask = ImageUtils.getBufferedImage(maskFile);
+                        targetImg=ImageUtils.renderMask(targetImg,mask);
+                    }
+
+
                     Double[] ctm = nImageObject.getCtm();
 
                     graphics.setTransform(MatrixUtils.createAffineTransform(MatrixUtils.base()));
@@ -339,6 +361,8 @@ public class Ofd2Img {
 
             @Override
             public void onPath(NPathObject nPathObject) {
+
+                graphics.setBackground(null);
                 ST_Box boundary = nPathObject.getBoundary();
 
                 Matrix matrix = MatrixUtils.base();
@@ -435,6 +459,67 @@ public class Ofd2Img {
         }.walk();
     }
 
+
+    /*
+     * 渲染一个字符
+     * 字形图形 字体字形最大宽度 字体字形最大高度 ctm变换矩阵
+     * */
+    private void renderChar(Graphics2D graphics, Shape shape, NTextObject nTextObject, Double[] ctm, ST_Box boundary, Double deltaX, Double deltaY, Double fontSize, int dpi, List<Number> fontMatrix) {
+        Matrix matrix = MatrixUtils.base();
+//        matrix = MatrixUtils.move(matrix, -fontBox.getLowerLeftX(), -fontBox.getLowerLeftY());
+        matrix = matrix.mtimes(MatrixUtils.create(fontMatrix.get(0).doubleValue(), fontMatrix.get(1).doubleValue(), fontMatrix.get(2).doubleValue(), fontMatrix.get(3).doubleValue(), fontMatrix.get(4).doubleValue(), fontMatrix.get(5).doubleValue()));
+//        matrix = MatrixUtils.scale(matrix, 1.0 / fontBox.getWidth(), 1.0 / fontBox.getWidth());
+        matrix = MatrixUtils.imageMatrix(matrix, 0, 1, 0);
+
+        if (ctm != null) {
+            matrix = matrix.mtimes(MatrixUtils.ctm(ctm));
+        }
+
+        matrix = MatrixUtils.scale(matrix, fontSize, fontSize);
+        matrix = MatrixUtils.move(matrix, deltaX * (ctm == null ? 1 : ctm[0]), deltaY * (ctm == null ? 1 : ctm[3]));
+
+        matrix = MatrixUtils.move(matrix, boundary.getX(), boundary.getY());
+        matrix = MatrixUtils.scale(matrix, dpi, dpi);
+
+        graphics.setClip(null);
+        graphics.setTransform(MatrixUtils.createAffineTransform(matrix));
+        graphics.setStroke(new BasicStroke(0.1f));
+        graphics.setColor(Color.BLACK);
+        graphics.setBackground(Color.white);
+//        graphics.draw(shape);
+//        graphics.fill(shape);
+
+        /*
+         * 文字默认填充 不勾边
+         * */
+
+        if (nTextObject.getFill() == null || nTextObject.getFill() == true) {
+            CT_Color ct_color = nTextObject.getFillColor();
+            Color color = null;
+            if (ct_color != null) {
+                color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255, Float.valueOf(ct_color.getValue()[1]) / 255, Float.valueOf(ct_color.getValue()[2]) / 255);
+                graphics.setColor(color);
+            } else {
+                graphics.setColor(Color.BLACK);
+            }
+            graphics.fill(shape);
+        }
+
+        if (nTextObject.getStroke() != null && nTextObject.getStroke()) {
+            CT_Color ct_color = nTextObject.getStrokeColor();
+            if (ct_color == null) {
+                graphics.setBackground(null);
+                graphics.setColor(null);
+            } else {
+                Color color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255, Float.valueOf(ct_color.getValue()[1]) / 255, Float.valueOf(ct_color.getValue()[2]) / 255);
+                graphics.setColor(color);
+            }
+            graphics.draw(shape);
+            graphics.setBackground(Color.white);
+        }
+
+    }
+
     private void renderBoundary(Graphics2D graphics, ST_Box st_box) {
         if (!this.config.drawBoundary) {
             return;
@@ -450,51 +535,19 @@ public class Ofd2Img {
         graphics.setColor(color);
     }
 
-    private Double[] formatDelta(int textLength, String deltaStr) {
 
-        Double[] arr = new Double[textLength - 1];
-        if (deltaStr == null) {
-            for (int i = 0; i < textLength - 1; i++)
-                arr[i] = 0D;
-            return arr;
-        }
-        ;
+    private TrueTypeFont defaultFont = null;
 
-        String[] s = deltaStr.split("\\s+");
-        int i = 0;
-        int counter = 0;
-        while (i < s.length) {
-            String current = s[i];
-            if ("g".equals(current)) {
-                Integer num = Integer.valueOf(s[i + 1]);
-                Double delta = Double.valueOf(s[i + 2]);
-                for (int j = 1; j <= num; j++) {
-                    arr[counter] = delta;
-                    counter++;
+    private TrueTypeFont getDefaultFont() {
+        if (defaultFont == null) {
+            synchronized (this) {
+                if (defaultFont == null) {
+                    defaultFont = FontUtils.loadDefaultFont();
                 }
-
-                i += 3;
-            } else {
-                Double delta = Double.valueOf(current);
-                arr[counter] = delta;
-                counter++;
-                i++;
             }
-
         }
-        return arr;
+        return defaultFont;
     }
-
-
-//
-//    public  int getWordWidth(Font font, String content) {
-//        FontDesignMetrics metrics = FontDesignMetrics.getMetrics(font);
-//        int width = 0;
-//        for (int i = 0; i < content.length(); i++) {
-//            width += metrics.charWidth(content.charAt(i));
-//        }
-//        return width;
-//    }
 
     @Data
     public static class Config {

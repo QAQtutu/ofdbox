@@ -10,6 +10,7 @@ import com.qaqtutu.ofdbox.core.xmlobj.object.text.CT_Font;
 import com.qaqtutu.ofdbox.core.xmlobj.st.ST_Loc;
 import com.qaqtutu.ofdbox.utils.PathUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.fontbox.ttf.OS2WindowsMetricsTable;
 import org.apache.fontbox.ttf.OTFParser;
 import org.apache.fontbox.ttf.OpenTypeFont;
 import org.apache.fontbox.ttf.TTFTable;
@@ -18,6 +19,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDResources;
 import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.Test;
 
@@ -41,15 +43,16 @@ public class FontTest {
 
         OFDReader reader = new OFDReader();
         reader.getConfig().setIgnoreNamespace(true);
+        reader.getConfig().setValid(false);
 
 //        for(File file:new File(basePath,"font").listFiles()){
 //            if(file.isDirectory()||!file.getName().endsWith("ofd"))
 //                continue;
 //        ofd(reader, new File(basePath, "font/字体测试-数科.ofd"));
-//        ofd(reader, new File(basePath, "font/字体测试-福昕.ofd"));
-//        pdf(new File(basePath, "font/字体测试.pdf"));
-        pdf(new File(basePath, "font/字体测试-数科.pdf"));
-        pdf(new File(basePath, "font/字体测试-福昕.pdf"));
+        ofd(reader, new File(basePath, "font/0000000005.ofd"));
+        pdf(new File(basePath, "font/字体测试.pdf"));
+//        pdf(new File(basePath, "font/字体测试-数科.pdf"));
+//        pdf(new File(basePath, "font/字体测试-福昕.pdf"));
 
     }
 
@@ -78,6 +81,15 @@ public class FontTest {
                             log.info(ttfTable.getTag());
                         }
 
+                        PDDocument doc=new PDDocument();
+
+                        System.out.println(openTypeFont.getVersion()    );
+                        openTypeFont.getOS2Windows();
+                        System.out.println(openTypeFont.getGlyph());
+//                        OS2WindowsMetricsTable os2=new OS2WindowsMetricsTable(openTypeFont);
+//                        PDFont pdFont=PDType0Font.loadVertical(doc,openTypeFont,false);
+
+//                        PDType0Font.load(doc,openTypeFont,false);
                     }
                 }
             }
@@ -106,7 +118,15 @@ public class FontTest {
             for (COSName fontName : res.getFontNames())
             {
                 PDFont font = res.getFont(fontName);
-                System.out.println(font);
+                PDType0Font pdType0Font=(PDType0Font)font;
+                System.out.println(pdType0Font.getDescendantFont().getCIDSystemInfo());
+                System.out.println(pdType0Font);
+
+
+                try {
+                    System.out.println(font.encode("宋"));
+                }catch (Exception e){}
+
                 // do stuff with the font
             }
         }
