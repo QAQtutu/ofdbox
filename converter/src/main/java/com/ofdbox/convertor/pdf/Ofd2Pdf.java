@@ -42,7 +42,7 @@ import java.util.List;
  */
 @Getter
 @Slf4j
-public class Ofd2pdf {
+public class Ofd2Pdf {
 
     private Config config = new Config();
 
