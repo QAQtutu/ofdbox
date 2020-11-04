@@ -1,0 +1,18 @@
+package com.ofdbox.core.xmlobj.base.document;
+
+import lombok.Data;
+
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import java.util.List;
+
+@Data
+@XmlAccessorType(XmlAccessType.FIELD)
+public class NBookmarks {
+
+    @NotNull
+    @XmlElement(name = "ofd:Bootmark")
+    List<CT_Bookmark> list;
+}
