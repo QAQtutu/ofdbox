@@ -1,4 +1,4 @@
-package com.ofdbox.convertor.utils;
+package com.ofdbox.convertor.utils.seal;
 
 import java.awt.*;
 import java.awt.font.FontRenderContext;
@@ -8,10 +8,6 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 
 import javax.imageio.ImageIO;
-
-import com.ofdbox.convertor.utils.configuration.SealCircle;
-import com.ofdbox.convertor.utils.configuration.SealConfiguration;
-import com.ofdbox.convertor.utils.configuration.SealFont;
 
 /**
  * @Description: 印章工具类
@@ -730,4 +726,11 @@ public abstract class SealUtil {
         g2d.drawOval(x, y, circle.getWidth() * 2, circle.getHeight() * 2);
     }
 
+    /*
+    * 把章画在图片上
+    * */
+    public static void drawInto(BufferedImage seal,BufferedImage image){
+        Graphics2D invoice = (Graphics2D) image.getGraphics();
+        invoice.drawImage(seal, null, image.getWidth() / 2 - seal.getWidth() / 2, image.getHeight() / 18);
+    }
 }

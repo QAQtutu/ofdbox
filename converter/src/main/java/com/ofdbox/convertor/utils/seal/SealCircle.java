@@ -1,4 +1,4 @@
-package com.ofdbox.convertor.utils.configuration;
+package com.ofdbox.convertor.utils.seal;
 
 /**
  * @description: 印章圆圈类

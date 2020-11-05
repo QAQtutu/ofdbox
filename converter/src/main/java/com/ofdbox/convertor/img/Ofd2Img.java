@@ -56,7 +56,7 @@ public class Ofd2Img {
 
         ST_Box box = page.getPhysicalBox();
         BufferedImage image = new BufferedImage(box.getW().intValue() * dpi, box.getH().intValue() * dpi,
-                        BufferedImage.TYPE_INT_RGB);
+                BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics = (Graphics2D) image.getGraphics();
 
         graphics.setColor(Color.WHITE);
@@ -64,25 +64,6 @@ public class Ofd2Img {
 
         graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 1.0f));
 
-        renderPage(graphics, page, dpi);
-
-        return image;
-
-    }
-
-    public BufferedImage toImage(Page page, int dpi, BufferedImage seal) {
-        ST_Box box = page.getPhysicalBox();
-        BufferedImage image = new BufferedImage(box.getW().intValue() * dpi, box.getH().intValue() * dpi,
-                        BufferedImage.TYPE_INT_RGB);
-        Graphics2D graphics = (Graphics2D) image.getGraphics();
-
-        graphics.setColor(Color.WHITE);
-        graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
-
-        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 1.0f));
-        // 添加印章
-        Graphics2D invoice = (Graphics2D) image.getGraphics();
-        invoice.drawImage(seal, null, image.getWidth() / 2 - seal.getWidth() / 2, image.getHeight() / 18);
         renderPage(graphics, page, dpi);
 
         return image;
@@ -157,15 +138,15 @@ public class Ofd2Img {
                 graphics.transform(MatrixUtils.createAffineTransform(m));
                 // 绘制外框
                 graphics.setClip(new Rectangle2D.Double(boundary.getX(), boundary.getY(), boundary.getW(),
-                                boundary.getH()));
+                        boundary.getH()));
                 renderBoundary(graphics, boundary);
 
 
                 if (nTextObject.getStrokeColor() != null) {
                     CT_Color ct_color = nTextObject.getStrokeColor();
                     Color color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255,
-                                    Float.valueOf(ct_color.getValue()[1]) / 255,
-                                    Float.valueOf(ct_color.getValue()[2]) / 255);
+                            Float.valueOf(ct_color.getValue()[1]) / 255,
+                            Float.valueOf(ct_color.getValue()[2]) / 255);
                     graphics.setColor(color);
                 } else {
                     graphics.setColor(Color.BLACK);
@@ -261,7 +242,7 @@ public class Ofd2Img {
                     for (int j = 0; j < textCode.getContent().length(); j++) {
                         // 没有Transforms或者还没到Transforms
                         if (transPoint == -1 || globalPoint < nTextObject.getTransforms().get(transPoint)
-                                        .getCodePosition()) {
+                                .getCodePosition()) {
                             if (deltaOffset != -1) {
                                 x += deltaX == null ? 0.0 : deltaX.get(deltaOffset);
                                 y += deltaY == null ? 0.0 : deltaY.get(deltaOffset);
@@ -276,8 +257,8 @@ public class Ofd2Img {
                                 Shape shape = glyphData.getPath();
                                 log.debug(String.format("字形Shape %s", shape));
                                 renderChar(graphics, shape, nTextObject, nTextObject.getCtm(),
-                                                nTextObject.getBoundary(), x, y, nTextObject.getSize(), dpi,
-                                                fontMatrix);
+                                        nTextObject.getBoundary(), x, y, nTextObject.getSize(), dpi,
+                                        fontMatrix);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -294,7 +275,8 @@ public class Ofd2Img {
                                     x += deltaX == null ? 0.0 : deltaX.get(deltaOffset);
                                     y += deltaY == null ? 0.0 : deltaY.get(deltaOffset);
                                 }
-                                log.debug(String.format("字形索引 <%s> DeltaX:%s DeltaY:%s", glyph, x, y));;
+                                log.debug(String.format("字形索引 <%s> DeltaX:%s DeltaY:%s", glyph, x, y));
+                                ;
 
                                 try {
                                     if (loadErr) {
@@ -306,8 +288,8 @@ public class Ofd2Img {
                                     if (glyphData != null) {
                                         Shape shape = glyphData.getPath();
                                         renderChar(graphics, shape, nTextObject, nTextObject.getCtm(),
-                                                        nTextObject.getBoundary(), x, y, nTextObject.getSize(), dpi,
-                                                        fontMatrix);
+                                                nTextObject.getBoundary(), x, y, nTextObject.getSize(), dpi,
+                                                fontMatrix);
                                         log.debug(String.format("字形Shape %s", shape));
                                     }
 
@@ -323,9 +305,9 @@ public class Ofd2Img {
                                 transPoint++;
                             }
                             globalPoint += (transform.getCodeCount() != null ? transform.getCodeCount()
-                                            : transform.getGlyphs().length);
+                                    : transform.getGlyphs().length);
                             j += (transform.getCodeCount() != null ? transform.getCodeCount()
-                                            : transform.getGlyphs().length);
+                                    : transform.getGlyphs().length);
                         }
                     }
                     globalPoint += textCode.getContent().length();
@@ -347,7 +329,7 @@ public class Ofd2Img {
                     graphics.transform(MatrixUtils.createAffineTransform(m));
                     // 绘制外框
                     graphics.setClip(new Rectangle2D.Double(boundary.getX(), boundary.getY(), boundary.getW(),
-                                    boundary.getH()));
+                            boundary.getH()));
                     renderBoundary(graphics, boundary);
 
 
@@ -365,23 +347,23 @@ public class Ofd2Img {
                     graphics.setTransform(MatrixUtils.createAffineTransform(MatrixUtils.base()));
                     // 把图片还原成1*1
                     Matrix matrix = MatrixUtils.create(Double.valueOf(1.0 / targetImg.getWidth()).floatValue(), 0, 0,
-                                    Double.valueOf(1.0 / targetImg.getHeight()).floatValue(), 0, 0);
+                            Double.valueOf(1.0 / targetImg.getHeight()).floatValue(), 0, 0);
 
                     // CTM
                     matrix = matrix.mtimes(
-                                    MatrixUtils.create(ctm[0].floatValue(), ctm[1].floatValue(), ctm[2].floatValue(),
-                                                    ctm[3].floatValue(), ctm[4].floatValue(), ctm[5].floatValue()));
+                            MatrixUtils.create(ctm[0].floatValue(), ctm[1].floatValue(), ctm[2].floatValue(),
+                                    ctm[3].floatValue(), ctm[4].floatValue(), ctm[5].floatValue()));
                     Tuple2<Double, Double> tuple2 = MatrixUtils.leftTop(matrix);
 
 
                     // 转换到世界坐标系
                     matrix = matrix.mtimes(MatrixUtils.create(1, 0, 0, 1, boundary.getX().floatValue(),
-                                    boundary.getY().floatValue()));
+                            boundary.getY().floatValue()));
 
                     matrix = matrix.mtimes(MatrixUtils.create(dpi, 0, 0, dpi, 0, 0));
 
                     matrix = matrix.mtimes(MatrixUtils.create(1, 0, 0, 1, tuple2.getFirst().floatValue(),
-                                    tuple2.getSecond().floatValue()));
+                            tuple2.getSecond().floatValue()));
 
 
                     // 单位毫米转换成像素
@@ -409,7 +391,7 @@ public class Ofd2Img {
 
                 // 设置剪裁区
                 graphics.setClip(new Rectangle2D.Double(boundary.getX(), boundary.getY(), boundary.getW(),
-                                boundary.getH()));
+                        boundary.getH()));
 
                 // 绘制外框
                 renderBoundary(graphics, boundary);
@@ -422,12 +404,12 @@ public class Ofd2Img {
 
                 if (ctm != null) {
                     matrix = matrix.mtimes(
-                                    MatrixUtils.create(ctm[0].floatValue(), ctm[1].floatValue(), ctm[2].floatValue(),
-                                                    ctm[3].floatValue(), ctm[4].floatValue(), ctm[5].floatValue()));
+                            MatrixUtils.create(ctm[0].floatValue(), ctm[1].floatValue(), ctm[2].floatValue(),
+                                    ctm[3].floatValue(), ctm[4].floatValue(), ctm[5].floatValue()));
                 }
                 // 转换到世界坐标系
                 matrix = matrix.mtimes(MatrixUtils.create(1, 0, 0, 1, boundary.getX().floatValue(),
-                                boundary.getY().floatValue()));
+                        boundary.getY().floatValue()));
                 // 单位毫米转换成像素
                 matrix = matrix.mtimes(MatrixUtils.create(dpi, 0, 0, dpi, 0, 0));
 
@@ -451,13 +433,13 @@ public class Ofd2Img {
                             break;
                         case "Q":
                             path.quadTo(Double.valueOf(s[i + 1]), Double.valueOf(s[i + 2]), Double.valueOf(s[i + 3]),
-                                            Double.valueOf(s[i + 4]));
+                                    Double.valueOf(s[i + 4]));
                             i += 5;
                             break;
                         case "B":
                             path.curveTo(Double.valueOf(s[i + 1]), Double.valueOf(s[i + 2]), Double.valueOf(s[i + 3]),
-                                            Double.valueOf(s[i + 4]), Double.valueOf(s[i + 5]),
-                                            Double.valueOf(s[i + 6]));
+                                    Double.valueOf(s[i + 4]), Double.valueOf(s[i + 5]),
+                                    Double.valueOf(s[i + 6]));
                             i += 7;
                             break;
                         case "A":
@@ -478,8 +460,8 @@ public class Ofd2Img {
                     Color color = null;
                     if (ct_color != null) {
                         color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255,
-                                        Float.valueOf(ct_color.getValue()[1]) / 255,
-                                        Float.valueOf(ct_color.getValue()[2]) / 255);
+                                Float.valueOf(ct_color.getValue()[1]) / 255,
+                                Float.valueOf(ct_color.getValue()[2]) / 255);
                     } else {
                         color = Color.black;
                     }
@@ -494,8 +476,8 @@ public class Ofd2Img {
                     Color color = null;
                     if (ct_color != null) {
                         color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255,
-                                        Float.valueOf(ct_color.getValue()[1]) / 255,
-                                        Float.valueOf(ct_color.getValue()[2]) / 255);
+                                Float.valueOf(ct_color.getValue()[1]) / 255,
+                                Float.valueOf(ct_color.getValue()[2]) / 255);
                     } else {
                         graphics.setBackground(null);
                     }
@@ -512,12 +494,12 @@ public class Ofd2Img {
      * 渲染一个字符 字形图形 字体字形最大宽度 字体字形最大高度 ctm变换矩阵
      */
     private void renderChar(Graphics2D graphics, Shape shape, NTextObject nTextObject, Double[] ctm, ST_Box boundary,
-                    Double deltaX, Double deltaY, Double fontSize, int dpi, List<Number> fontMatrix) {
+                            Double deltaX, Double deltaY, Double fontSize, int dpi, List<Number> fontMatrix) {
         Matrix matrix = MatrixUtils.base();
         // matrix = MatrixUtils.move(matrix, -fontBox.getLowerLeftX(), -fontBox.getLowerLeftY());
         matrix = matrix.mtimes(MatrixUtils.create(fontMatrix.get(0).doubleValue(), fontMatrix.get(1).doubleValue(),
-                        fontMatrix.get(2).doubleValue(), fontMatrix.get(3).doubleValue(),
-                        fontMatrix.get(4).doubleValue(), fontMatrix.get(5).doubleValue()));
+                fontMatrix.get(2).doubleValue(), fontMatrix.get(3).doubleValue(),
+                fontMatrix.get(4).doubleValue(), fontMatrix.get(5).doubleValue()));
         // matrix = MatrixUtils.scale(matrix, 1.0 / fontBox.getWidth(), 1.0 / fontBox.getWidth());
         matrix = MatrixUtils.imageMatrix(matrix, 0, 1, 0);
 
@@ -548,8 +530,8 @@ public class Ofd2Img {
             Color color = null;
             if (ct_color != null) {
                 color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255,
-                                Float.valueOf(ct_color.getValue()[1]) / 255,
-                                Float.valueOf(ct_color.getValue()[2]) / 255);
+                        Float.valueOf(ct_color.getValue()[1]) / 255,
+                        Float.valueOf(ct_color.getValue()[2]) / 255);
                 graphics.setColor(color);
             } else {
                 graphics.setColor(Color.BLACK);
@@ -564,8 +546,8 @@ public class Ofd2Img {
                 graphics.setColor(null);
             } else {
                 Color color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255,
-                                Float.valueOf(ct_color.getValue()[1]) / 255,
-                                Float.valueOf(ct_color.getValue()[2]) / 255);
+                        Float.valueOf(ct_color.getValue()[1]) / 255,
+                        Float.valueOf(ct_color.getValue()[2]) / 255);
                 graphics.setColor(color);
             }
             graphics.draw(shape);
@@ -585,9 +567,9 @@ public class Ofd2Img {
 
         // 转int丢失精度，乘DPI后误差放大，这里上下取整，稍微画大一点
         graphics.drawRect(Double.valueOf(Math.floor(st_box.getX())).intValue(),
-                        Double.valueOf(Math.floor(st_box.getY())).intValue(),
-                        Double.valueOf(Math.ceil(st_box.getW())).intValue(),
-                        Double.valueOf(Math.ceil(st_box.getH())).intValue());
+                Double.valueOf(Math.floor(st_box.getY())).intValue(),
+                Double.valueOf(Math.ceil(st_box.getW())).intValue(),
+                Double.valueOf(Math.ceil(st_box.getH())).intValue());
 
         graphics.setColor(color);
     }
