@@ -11,12 +11,13 @@ import com.ofdbox.core.utils.BeanValidUtils;
 import com.ofdbox.core.utils.OfdXmlUtils;
 import com.ofdbox.core.xmlobj.st.ST_Loc;
 import lombok.Data;
-import org.apache.tools.zip.ZipEntry;
-import org.apache.tools.zip.ZipFile;
+
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 //@Slf4j
 public class OFDReader {
@@ -35,7 +36,7 @@ public class OFDReader {
         try {
             OFD ofd = new OFD();
             ZipFile zipFile = new ZipFile(file);
-            Enumeration<?> entries = zipFile.getEntries();
+            Enumeration<?> entries = zipFile.entries();
 
             FileManager fileManager = new MemoryFileManager();
 
