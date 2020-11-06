@@ -44,8 +44,8 @@ public class FontTest {
 //        for(File file:new File(basePath,"font").listFiles()){
 //            if(file.isDirectory()||!file.getName().endsWith("ofd"))
 //                continue;
-//        ofd(reader, new File(basePath, "font/字体测试-数科.ofd"));
-        ofd(reader, new File(basePath, "font/0000000005.ofd"));
+        ofd(reader, new File(basePath, "font/字体测试-数科.ofd"));
+//        ofd(reader, new File(basePath, "font/0000000005.ofd"));
         pdf(new File(basePath, "font/字体测试.pdf"));
 //        pdf(new File(basePath, "font/字体测试-数科.pdf"));
 //        pdf(new File(basePath, "font/字体测试-福昕.pdf"));
