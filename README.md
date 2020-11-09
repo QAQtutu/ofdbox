@@ -5,6 +5,9 @@
 * ofdbox-core           核心库，提供ofd解析功能
 * ofdbox-converter      转换库，提供ofd转图片、pdf等格式或者从其他格式转成ofd
 
+# 注意
+暂时不要使用除转图片之外的任何API，内建对象正在修改中。
+
 ### 已实现功能
 * ofd基本解析
 * ofd转图片

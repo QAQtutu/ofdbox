@@ -79,7 +79,10 @@ public class FontUtils {
     }
 
     public static TrueTypeFont loadSystemFont(String familyName,String fontName){
-        if(StringUtils.isBlank(familyName)||StringUtils.isBlank(fontName)){
+        if(familyName==null){
+            familyName=fontName;
+        }
+        if(StringUtils.isBlank(fontName)){
             return null;
         }
         if(familyNameMapping.get(familyName)!=null){

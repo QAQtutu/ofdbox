@@ -23,6 +23,7 @@ public class ContentWalker {
     }
 
     public void onPageBlock(CT_PageBlock ct_pageBlock) {
+        if(ct_pageBlock.getContent()==null)return;
         for (NObject nObject : ct_pageBlock.getContent()) {
             if (nObject instanceof NImageObject) {
                 onImage((NImageObject) nObject);

@@ -1,8 +1,8 @@
 package com.ofdbox.core.xmlobj.object.composite;
 
+import com.ofdbox.core.xmlobj.adapter.StRefIdAdapter;
 import com.ofdbox.core.xmlobj.base.page.CT_PageBlock;
 import com.ofdbox.core.xmlobj.st.ST_RefID;
-import com.ofdbox.core.xmlobj.adapter.StRefIdAdapter;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;

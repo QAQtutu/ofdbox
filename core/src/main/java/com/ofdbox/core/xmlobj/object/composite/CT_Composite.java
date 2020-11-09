@@ -1,7 +1,7 @@
 package com.ofdbox.core.xmlobj.object.composite;
 
-import com.ofdbox.core.xmlobj.st.ST_RefID;
 import com.ofdbox.core.xmlobj.adapter.StRefIdAdapter;
+import com.ofdbox.core.xmlobj.st.ST_RefID;
 import com.ofdbox.core.xmlobj.pagedesc.CT_GraphicUnit;
 
 import javax.validation.Valid;

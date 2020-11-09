@@ -1,8 +1,8 @@
 package com.ofdbox.core.xmlobj.base.res;
 
-import com.ofdbox.core.xmlobj.st.ST_ID;
 import com.ofdbox.core.xmlobj.adapter.StIdAdapter;
 import com.ofdbox.core.xmlobj.object.text.CT_Font;
+import com.ofdbox.core.xmlobj.st.ST_ID;
 import lombok.Data;
 
 import javax.validation.Valid;

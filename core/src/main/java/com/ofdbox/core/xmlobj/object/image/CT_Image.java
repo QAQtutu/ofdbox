@@ -1,8 +1,8 @@
 package com.ofdbox.core.xmlobj.object.image;
 
+import com.ofdbox.core.xmlobj.adapter.StRefIdAdapter;
 import com.ofdbox.core.xmlobj.st.ST_RefID;
 import com.ofdbox.core.xmlobj.pagedesc.CT_GraphicUnit;
-import com.ofdbox.core.xmlobj.adapter.StRefIdAdapter;
 import lombok.Data;
 
 import javax.validation.Valid;

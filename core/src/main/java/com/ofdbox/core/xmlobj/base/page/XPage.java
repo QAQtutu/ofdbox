@@ -1,8 +1,8 @@
 package com.ofdbox.core.xmlobj.base.page;
 
 
-import com.ofdbox.core.xmlobj.base.document.CT_PageArea;
 import com.ofdbox.core.xmlobj.st.ST_Loc;
+import com.ofdbox.core.xmlobj.base.document.CT_PageArea;
 import com.ofdbox.core.xmlobj.base.document.NActions;
 import lombok.Data;
 

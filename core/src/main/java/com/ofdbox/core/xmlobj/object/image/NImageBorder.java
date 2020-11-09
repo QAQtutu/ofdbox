@@ -1,7 +1,7 @@
 package com.ofdbox.core.xmlobj.object.image;
 
-import com.ofdbox.core.xmlobj.pagedesc.color.CT_Color;
 import com.ofdbox.core.xmlobj.adapter.DoubleArrayAdapter;
+import com.ofdbox.core.xmlobj.pagedesc.color.CT_Color;
 import lombok.Data;
 
 import javax.xml.bind.annotation.XmlAccessType;

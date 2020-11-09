@@ -2,6 +2,8 @@ package com.ofdbox.convertor.pdf;
 
 import com.ofdbox.convertor.utils.ImageUtils;
 import com.ofdbox.core.*;
+import com.ofdbox.core.model.document.Document;
+import com.ofdbox.core.model.page.Page;
 import com.ofdbox.core.utils.MatrixUtils;
 import com.ofdbox.core.utils.Tuple2;
 import com.ofdbox.core.utils.Tuple3;

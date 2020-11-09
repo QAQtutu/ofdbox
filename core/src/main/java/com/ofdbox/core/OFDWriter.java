@@ -1,5 +1,7 @@
 package com.ofdbox.core;
 
+import com.ofdbox.core.model.OFD;
+
 import java.io.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;

@@ -1,7 +1,7 @@
 package com.ofdbox.core.xmlobj.base.document;
 
-import com.ofdbox.core.xmlobj.st.ST_Box;
 import com.ofdbox.core.xmlobj.adapter.StBoxAdapter;
+import com.ofdbox.core.xmlobj.st.ST_Box;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;

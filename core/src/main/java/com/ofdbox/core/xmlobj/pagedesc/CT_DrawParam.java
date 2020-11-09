@@ -2,11 +2,11 @@ package com.ofdbox.core.xmlobj.pagedesc;
 
 import com.ofdbox.core.xmlobj.adapter.DoubleArrayAdapter;
 import com.ofdbox.core.xmlobj.adapter.StRefIdAdapter;
-import com.ofdbox.core.xmlobj.enums.LineCapStyle;
 import com.ofdbox.core.xmlobj.enums.LineJoinStyle;
+import com.ofdbox.core.xmlobj.pagedesc.color.CT_Color;
+import com.ofdbox.core.xmlobj.enums.LineCapStyle;
 import com.ofdbox.core.xmlobj.st.ST_RefID;
 import com.ofdbox.core.utils.OfdXmlUtils;
-import com.ofdbox.core.xmlobj.pagedesc.color.CT_Color;
 import lombok.Data;
 
 import javax.validation.Valid;

@@ -1,9 +1,9 @@
 package com.ofdbox.core.xmlobj.base.document;
 
-import com.ofdbox.core.xmlobj.base.pages.NPages;
 import com.ofdbox.core.xmlobj.adapter.StLocAdapter;
-import com.ofdbox.core.xmlobj.st.ST_Loc;
 import com.ofdbox.core.xmlobj.base.outlines.NOutlines;
+import com.ofdbox.core.xmlobj.base.pages.NPages;
+import com.ofdbox.core.xmlobj.st.ST_Loc;
 import lombok.Data;
 
 import javax.validation.Valid;

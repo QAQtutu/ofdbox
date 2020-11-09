@@ -1,5 +1,8 @@
-package com.ofdbox.core;
+package com.ofdbox.core.model;
 
+import com.ofdbox.core.model.document.Document;
+import com.ofdbox.core.FileManager;
+import com.ofdbox.core.FlushAble;
 import com.ofdbox.core.xmlobj.base.ofd.XOFD;
 import com.ofdbox.core.utils.OfdXmlUtils;
 import lombok.Data;
@@ -10,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class OFD extends FlushAble{
+public class OFD extends FlushAble {
 
     private XOFD xofd;
     private FileManager fileManager;
@@ -19,9 +22,7 @@ public class OFD extends FlushAble{
 
     @Override
     public void flush() throws IOException {
-        String ofdXml= OfdXmlUtils.toXml(this.xofd);
-        String ofdPath="OFD.xml";
-        fileManager.write(ofdPath,new ByteArrayInputStream(ofdXml.getBytes()));
+
     }
 
     public void addDocument(Document document){

@@ -1,7 +1,7 @@
 package com.ofdbox.core.xmlobj.base.ofd;
 
-import com.ofdbox.core.xmlobj.st.ST_Loc;
 import com.ofdbox.core.xmlobj.adapter.StLocAdapter;
+import com.ofdbox.core.xmlobj.st.ST_Loc;
 import lombok.Data;
 
 import javax.validation.Valid;
@@ -24,4 +24,9 @@ public class NDocBody {
     @XmlJavaTypeAdapter(value = StLocAdapter.class)
     @XmlElement(name = "ofd:DocRoot")
     private ST_Loc docRoot;
+
+    @Valid
+    @XmlJavaTypeAdapter(value = StLocAdapter.class)
+    @XmlElement(name = "ofd:Signatures")
+    private ST_Loc signatures;
 }

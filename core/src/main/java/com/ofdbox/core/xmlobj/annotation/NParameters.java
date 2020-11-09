@@ -31,7 +31,7 @@ public class NParameters {
          * 参数值
          * */
         @XmlValue
+        @NotBlank
         private String value;
-
     }
 }

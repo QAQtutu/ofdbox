@@ -1,5 +1,12 @@
-package com.ofdbox.core;
+package com.ofdbox.core.model.document;
 
+import com.ofdbox.core.OFDFile;
+import com.ofdbox.core.Template;
+import com.ofdbox.core.model.Annotations;
+import com.ofdbox.core.model.OFD;
+import com.ofdbox.core.model.Signatures;
+import com.ofdbox.core.model.page.Page;
+import com.ofdbox.core.xmlobj.annotation.XAnnotations;
 import com.ofdbox.core.xmlobj.base.document.XDocument;
 import com.ofdbox.core.xmlobj.base.ofd.NDocBody;
 import com.ofdbox.core.xmlobj.base.res.NFonts;
@@ -9,6 +16,8 @@ import com.ofdbox.core.xmlobj.base.res.XRes;
 import com.ofdbox.core.xmlobj.object.text.CT_Font;
 import com.ofdbox.core.xmlobj.st.ST_Loc;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +25,9 @@ import java.util.List;
 @Data
 public class Document {
 
+    @Getter
+    @Setter
+    private ST_Loc loc;
     private OFD ofd;
     private NDocBody nDocBody;
     private XDocument xDocument;
@@ -25,6 +37,9 @@ public class Document {
 
     private List<XRes> publicResList;
     private List<XRes> res;
+
+    private Annotations annotations;
+    private Signatures signatures;
 
     public OFDFile getMultiMedia(Integer id){
         for(XRes xRes:allRes()){

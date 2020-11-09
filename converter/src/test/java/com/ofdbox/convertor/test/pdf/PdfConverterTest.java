@@ -1,7 +1,7 @@
 package com.ofdbox.convertor.test.pdf;
 
 import com.ofdbox.convertor.pdf.Ofd2Pdf;
-import com.ofdbox.core.OFD;
+import com.ofdbox.core.model.OFD;
 import com.ofdbox.core.OFDReader;
 import com.ofdbox.convertor.test.utils.PathUtils;
 import org.junit.Test;

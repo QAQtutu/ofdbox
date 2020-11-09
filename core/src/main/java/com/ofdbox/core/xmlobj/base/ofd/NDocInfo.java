@@ -1,8 +1,8 @@
 package com.ofdbox.core.xmlobj.base.ofd;
 
 import com.ofdbox.core.xmlobj.adapter.StLocAdapter;
-import com.ofdbox.core.xmlobj.st.ST_Loc;
 import com.ofdbox.core.xmlobj.enums.DocUsage;
+import com.ofdbox.core.xmlobj.st.ST_Loc;
 import lombok.Data;
 
 import javax.validation.Valid;
