@@ -14,7 +14,7 @@ public class Page {
     private NPage nPage;
 
     public ST_Box getPhysicalBox(){
-        if(this.xPage.getArea()!=null){
+        if(this.xPage.getArea()!=null && this.xPage.getArea().getPhysicalBox()!=null){
             return this.xPage.getArea().getPhysicalBox();
         }
         if(this.document.getXDocument().getCommonData().getPageArea()!=null){
