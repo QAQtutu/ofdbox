@@ -5,6 +5,7 @@ import com.ofdbox.core.xmlobj.st.ST_Loc;
 import lombok.Data;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.List;
@@ -17,6 +18,8 @@ public class XRes {
     /*
     * 数据存储路径
     * */
+    @NotNull
+    @Valid
     @XmlAttribute(name = "BaseLoc")
     @XmlJavaTypeAdapter(value = StLocAdapter.class)
     private ST_Loc baseLoc;
