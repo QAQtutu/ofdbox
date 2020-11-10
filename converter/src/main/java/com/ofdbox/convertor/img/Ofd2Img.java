@@ -533,7 +533,12 @@ public class Ofd2Img {
                         color = Color.black;
                     }
                     graphics.setColor(color);
-                    graphics.setStroke(new BasicStroke(nPathObject.getLineWidth().floatValue()));
+                    Double lineWidth=nPathObject.getLineWidth();
+                    if(lineWidth==null){
+                        log.error("LineWidth为空");
+                        lineWidth=1.0;
+                    }
+                    graphics.setStroke(new BasicStroke(lineWidth.floatValue()));
                     graphics.draw(path);
                 }
 
