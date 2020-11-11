@@ -116,6 +116,10 @@ public class OFDReader {
                         resLoc.setParent(docRoot);
                         XRes xRes = OfdXmlUtils.toObject(fileManager.read(resLoc.getFullLoc()), XRes.class);
                         valid(xRes);
+                        if(xRes.getBaseLoc()==null){
+                            xRes.setBaseLoc(new ST_Loc());
+                            xRes.getBaseLoc().setLoc("./");
+                        }
                         xRes.getBaseLoc().setParent(resLoc);
 
                         document.getPublicResList().add(xRes);
