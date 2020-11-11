@@ -349,8 +349,8 @@ public class Ofd2Img {
                         if (transPoint == -1 || globalPoint < nTextObject.getTransforms().get(transPoint)
                                 .getCodePosition()) {
                             if (deltaOffset != -1) {
-                                x += deltaX == null ? 0.0 : deltaX.get(deltaOffset);
-                                y += deltaY == null ? 0.0 : deltaY.get(deltaOffset);
+                                x += (deltaX == null||deltaX.size()<0) ? 0.0 : (deltaOffset<deltaX.size()?deltaX.get(deltaOffset):deltaX.get(deltaX.size()-1));
+                                y += (deltaY == null||deltaY.size()<0) ? 0.0 : (deltaOffset<deltaY.size()?deltaY.get(deltaOffset):deltaY.get(deltaY.size()-1));
                             }
 
                             char c = textCode.getContent().charAt(j);
@@ -377,11 +377,10 @@ public class Ofd2Img {
                             for (Integer glyph : transform.getGlyphs()) {
 
                                 if (deltaOffset != -1) {
-                                    x += deltaX == null ? 0.0 : deltaX.get(deltaOffset);
-                                    y += deltaY == null ? 0.0 : deltaY.get(deltaOffset);
+                                    x += (deltaX == null||deltaX.size()<0) ? 0.0 : (deltaOffset<deltaX.size()?deltaX.get(deltaOffset):deltaX.get(deltaX.size()-1));
+                                    y += (deltaY == null||deltaY.size()<0) ? 0.0 : (deltaOffset<deltaY.size()?deltaY.get(deltaOffset):deltaY.get(deltaY.size()-1));
                                 }
                                 log.debug(String.format("字形索引 <%s> DeltaX:%s DeltaY:%s", glyph, x, y));
-                                ;
 
                                 try {
                                     if (loadErr) {

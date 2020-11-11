@@ -35,7 +35,11 @@ public class MemoryFileManager implements FileManager{
     public InputStream read(String loc) {
         byte[] bytes=store.get(loc);
         if(bytes==null){
-            return null;
+            loc=loc.toLowerCase();
+            for(Map.Entry<String,byte[]> entry:store.entrySet()){
+                if(entry.getKey().toLowerCase().equals(loc))
+                    bytes=entry.getValue();
+            }
         }
         ByteArrayInputStream in=new ByteArrayInputStream(bytes);
         return in;
@@ -45,7 +49,11 @@ public class MemoryFileManager implements FileManager{
     public byte[] readBytes(String loc) {
         byte[] bytes=store.get(loc);
         if(bytes==null){
-            return null;
+            loc=loc.toLowerCase();
+            for(Map.Entry<String,byte[]> entry:store.entrySet()){
+                if(entry.getKey().toLowerCase().equals(loc))
+                    return entry.getValue();
+            }
         }
         return bytes;
     }
