@@ -524,7 +524,7 @@ public class Ofd2Img {
                 if (nPathObject.getStroke() == null || nPathObject.getStroke()) {
                     CT_Color ct_color = nPathObject.getStrokeColor();
                     Color color = null;
-                    if (ct_color != null) {
+                    if (ct_color != null && ct_color.getValue()!=null) {
                         color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255,
                                 Float.valueOf(ct_color.getValue()[1]) / 255,
                                 Float.valueOf(ct_color.getValue()[2]) / 255);
@@ -535,7 +535,7 @@ public class Ofd2Img {
                     Double lineWidth=nPathObject.getLineWidth();
                     if(lineWidth==null){
                         log.error("LineWidth为空");
-                        lineWidth=1.0;
+                        lineWidth=0.4;
                     }
                     graphics.setStroke(new BasicStroke(lineWidth.floatValue()));
                     graphics.draw(path);
@@ -545,7 +545,7 @@ public class Ofd2Img {
                 if (nPathObject.getFill() != null && nPathObject.getFill()) {
                     CT_Color ct_color = nPathObject.getFillColor();
                     Color color = null;
-                    if (ct_color != null) {
+                    if (ct_color != null&& ct_color.getValue()!=null) {
                         color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255,
                                 Float.valueOf(ct_color.getValue()[1]) / 255,
                                 Float.valueOf(ct_color.getValue()[2]) / 255);
@@ -599,7 +599,7 @@ public class Ofd2Img {
         if (nTextObject.getFill() == null || nTextObject.getFill() == true) {
             CT_Color ct_color = nTextObject.getFillColor();
             Color color = null;
-            if (ct_color != null) {
+            if (ct_color != null && ct_color.getValue()!=null && ct_color.getValue().length>=3) {
                 color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255,
                         Float.valueOf(ct_color.getValue()[1]) / 255,
                         Float.valueOf(ct_color.getValue()[2]) / 255);
