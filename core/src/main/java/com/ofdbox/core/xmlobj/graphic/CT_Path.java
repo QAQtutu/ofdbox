@@ -1,6 +1,7 @@
 package com.ofdbox.core.xmlobj.graphic;
 
 import com.ofdbox.core.xmlobj.adapter.BaseAdapter;
+import com.ofdbox.core.xmlobj.base.page.object.NObject;
 import com.ofdbox.core.xmlobj.object.PathOrText;
 import com.ofdbox.core.xmlobj.pagedesc.color.CT_Color;
 import lombok.Data;
@@ -14,7 +15,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @Data
 @XmlAccessorType(value = XmlAccessType.FIELD)
-public class CT_Path extends PathOrText {
+public class CT_Path extends PathOrText implements NObject {
 
     @XmlAttribute(name = "Stroke")
     private Boolean stroke;

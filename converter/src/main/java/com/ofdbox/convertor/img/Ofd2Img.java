@@ -1,5 +1,47 @@
 package com.ofdbox.convertor.img;
 
+import com.ofdbox.convertor.utils.FontUtils;
+import com.ofdbox.convertor.utils.ImageUtils;
+import com.ofdbox.core.ContentWalker;
+import com.ofdbox.core.OFDFile;
+import com.ofdbox.core.OFDReader;
+import com.ofdbox.core.Template;
+import com.ofdbox.core.model.Annotations;
+import com.ofdbox.core.model.OFD;
+import com.ofdbox.core.model.Signatures;
+import com.ofdbox.core.model.document.Document;
+import com.ofdbox.core.model.page.Page;
+import com.ofdbox.core.utils.FormatUtils;
+import com.ofdbox.core.utils.MatrixUtils;
+import com.ofdbox.core.utils.Tuple2;
+import com.ofdbox.core.xmlobj.annotation.NAnnot;
+import com.ofdbox.core.xmlobj.annotation.XPageAnnot;
+import com.ofdbox.core.xmlobj.base.page.CT_PageBlock;
+import com.ofdbox.core.xmlobj.base.page.NLayer;
+import com.ofdbox.core.xmlobj.base.page.NTemplate;
+import com.ofdbox.core.xmlobj.enums.LayerType;
+import com.ofdbox.core.xmlobj.graphic.CT_Path;
+import com.ofdbox.core.xmlobj.object.image.CT_Image;
+import com.ofdbox.core.xmlobj.object.text.CT_CGTransform;
+import com.ofdbox.core.xmlobj.object.text.CT_Font;
+import com.ofdbox.core.xmlobj.object.text.CT_Text;
+import com.ofdbox.core.xmlobj.object.text.NTextCode;
+import com.ofdbox.core.xmlobj.pagedesc.color.CT_Color;
+import com.ofdbox.core.xmlobj.signature.NStampAnnot;
+import com.ofdbox.core.xmlobj.st.ST_Box;
+import com.ofdbox.core.xmlobj.st.ST_Loc;
+import com.ofdbox.signature.gm.Gm;
+import com.ofdbox.signature.gm.v4.SES_Signature;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
+import org.apache.fontbox.ttf.GlyphData;
+import org.apache.fontbox.ttf.OTFParser;
+import org.apache.fontbox.ttf.TrueTypeFont;
+import org.apache.fontbox.util.BoundingBox;
+import org.ujmp.core.Matrix;
+
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
@@ -8,48 +50,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import com.ofdbox.core.model.Annotations;
-import com.ofdbox.core.model.OFD;
-import com.ofdbox.core.model.Signatures;
-import com.ofdbox.core.model.document.Document;
-import com.ofdbox.core.model.page.Page;
-import com.ofdbox.core.xmlobj.annotation.NAnnot;
-import com.ofdbox.core.xmlobj.annotation.XPageAnnot;
-import com.ofdbox.core.xmlobj.signature.NStampAnnot;
-import com.ofdbox.core.xmlobj.st.ST_Loc;
-import com.ofdbox.signature.gm.Gm;
-import com.ofdbox.signature.gm.v4.SES_Signature;
-import org.apache.commons.io.IOUtils;
-import org.apache.fontbox.ttf.GlyphData;
-import org.apache.fontbox.ttf.OTFParser;
-import org.apache.fontbox.ttf.TrueTypeFont;
-import org.apache.fontbox.util.BoundingBox;
-import org.ujmp.core.Matrix;
-
-import com.ofdbox.convertor.utils.FontUtils;
-import com.ofdbox.convertor.utils.ImageUtils;
-import com.ofdbox.core.*;
-import com.ofdbox.core.utils.FormatUtils;
-import com.ofdbox.core.utils.MatrixUtils;
-import com.ofdbox.core.utils.Tuple2;
-import com.ofdbox.core.xmlobj.base.page.CT_PageBlock;
-import com.ofdbox.core.xmlobj.base.page.NLayer;
-import com.ofdbox.core.xmlobj.base.page.NTemplate;
-import com.ofdbox.core.xmlobj.base.page.object.NImageObject;
-import com.ofdbox.core.xmlobj.base.page.object.NPathObject;
-import com.ofdbox.core.xmlobj.base.page.object.NTextObject;
-import com.ofdbox.core.xmlobj.enums.LayerType;
-import com.ofdbox.core.xmlobj.object.text.CT_CGTransform;
-import com.ofdbox.core.xmlobj.object.text.CT_Font;
-import com.ofdbox.core.xmlobj.object.text.NTextCode;
-import com.ofdbox.core.xmlobj.pagedesc.color.CT_Color;
-import com.ofdbox.core.xmlobj.st.ST_Box;
-
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
-
-import javax.imageio.ImageIO;
 
 /**
  * @description:
@@ -66,19 +66,20 @@ public class Ofd2Img {
     }
 
     public BufferedImage toImage(Page page, int dpi) {
-        return toImage(page,false,dpi);
+        return toImage(page, false, dpi);
     }
-    private BufferedImage toImage(Page page, boolean transparentBackground,int dpi) {
+
+    private BufferedImage toImage(Page page, boolean transparentBackground, int dpi) {
         ST_Box box = page.getPhysicalBox();
         BufferedImage image = new BufferedImage(box.getW().intValue() * dpi, box.getH().intValue() * dpi,
                 BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics = (Graphics2D) image.getGraphics();
         graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 1.0f));
-        if(transparentBackground){
+        if (transparentBackground) {
             graphics.setColor(Color.WHITE);
             image = graphics.getDeviceConfiguration().createCompatibleImage(image.getWidth(), image.getHeight(), Transparency.TRANSLUCENT);
             graphics = (Graphics2D) image.getGraphics();
-        }else{
+        } else {
             graphics.setColor(Color.WHITE);
             graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
         }
@@ -209,7 +210,7 @@ public class Ofd2Img {
                 case "ofd":
                     try {
                         File file = File.createTempFile("ofdbox-stamp-", ".ofd");
-                        log.debug("ofd格式签章释放路径："+file.getAbsoluteFile());
+                        log.debug("ofd格式签章释放路径：" + file.getAbsoluteFile());
                         OutputStream out = new FileOutputStream(file);
                         IOUtils.copy(new ByteArrayInputStream(picData), out);
                         out.flush();
@@ -217,7 +218,7 @@ public class Ofd2Img {
                         OFDReader ofdReader = new OFDReader();
                         ofdReader.getConfig().setValid(false);
                         OFD ofd = ofdReader.read(file);
-                        image = toImage(ofd.getDocuments().get(0).getPages().get(0), true,30);
+                        image = toImage(ofd.getDocuments().get(0).getPages().get(0), true, 30);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -233,8 +234,8 @@ public class Ofd2Img {
     private void renderContent(Graphics2D graphics, Document document, CT_PageBlock pageBlock, int dpi) {
         new ContentWalker(pageBlock) {
             @Override
-            public void onText(NTextObject nTextObject) {
-                ST_Box boundary = nTextObject.getBoundary();
+            public void onText(CT_Text ctText, ST_Box baseBoundary, Matrix baseMatrix) {
+                ST_Box boundary = ctText.getBoundary();
                 Matrix m = MatrixUtils.base();
                 // 初始化矩阵
                 graphics.setTransform(MatrixUtils.createAffineTransform(m));
@@ -247,8 +248,8 @@ public class Ofd2Img {
                 renderBoundary(graphics, boundary);
 
 
-                if (nTextObject.getStrokeColor() != null) {
-                    CT_Color ct_color = nTextObject.getStrokeColor();
+                if (ctText.getStrokeColor() != null) {
+                    CT_Color ct_color = ctText.getStrokeColor();
                     Color color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255,
                             Float.valueOf(ct_color.getValue()[1]) / 255,
                             Float.valueOf(ct_color.getValue()[2]) / 255);
@@ -262,7 +263,7 @@ public class Ofd2Img {
                 // 准备字体
                 boolean isEmbedded = false;
                 boolean loadErr = false;
-                CT_Font font = document.getFont(nTextObject.getFont().getId());
+                CT_Font font = document.getFont(ctText.getFont().getId());
                 TrueTypeFont typeFont = null;
                 if (font.getFontFile() != null) {
                     isEmbedded = true;
@@ -305,7 +306,7 @@ public class Ofd2Img {
                     e.printStackTrace();
                 }
 
-                Double[] ctm = nTextObject.getCtm();
+                Double[] ctm = ctText.getCtm();
                 BoundingBox fontBox = null;
                 List<Number> fontMatrix = null;
                 try {
@@ -320,20 +321,20 @@ public class Ofd2Img {
                 int globalPoint = 0; // 字符计数，用来比较是否跟某个Transforms起始点重合
                 int transPoint = -1; // 下一个Transforms，-1表示不存在
                 // int codePosition=-1; //下一个Transforms的位置
-                if (nTextObject.getTransforms() != null && nTextObject.getTransforms().size() >= 1) {
+                if (ctText.getTransforms() != null && ctText.getTransforms().size() >= 1) {
                     transPoint = 0;
-                    // codePosition = nTextObject.getTransforms().get(transPoint).getCodePosition();
-                    nTextObject.getTransforms().stream().forEach(transform -> {
+                    // codePosition = ctText.getTransforms().get(transPoint).getCodePosition();
+                    ctText.getTransforms().stream().forEach(transform -> {
                         if (transform.getCodePosition() == null) {
                             transform.setCodePosition(0);
                         }
                     });
-                    nTextObject.getTransforms().sort((t1, t2) -> {
+                    ctText.getTransforms().sort((t1, t2) -> {
                         return t1.getCodePosition() - t2.getCodePosition();
                     });
                 }
-                for (int i = 0; i < nTextObject.getTextCodes().size(); i++) {
-                    NTextCode textCode = nTextObject.getTextCodes().get(i);
+                for (int i = 0; i < ctText.getTextCodes().size(); i++) {
+                    NTextCode textCode = ctText.getTextCodes().get(i);
                     int deltaOffset = -1;
                     log.debug("------------------------------------------");
                     log.debug("TextCode: " + textCode.getContent());
@@ -346,11 +347,11 @@ public class Ofd2Img {
                     Double y = textCode.getY();
                     for (int j = 0; j < textCode.getContent().length(); j++) {
                         // 没有Transforms或者还没到Transforms
-                        if (transPoint == -1 || globalPoint < nTextObject.getTransforms().get(transPoint)
+                        if (transPoint == -1 || globalPoint < ctText.getTransforms().get(transPoint)
                                 .getCodePosition()) {
                             if (deltaOffset != -1) {
-                                x += (deltaX == null||deltaX.size()<0) ? 0.0 : (deltaOffset<deltaX.size()?deltaX.get(deltaOffset):deltaX.get(deltaX.size()-1));
-                                y += (deltaY == null||deltaY.size()<0) ? 0.0 : (deltaOffset<deltaY.size()?deltaY.get(deltaOffset):deltaY.get(deltaY.size()-1));
+                                x += (deltaX == null || deltaX.size() < 0) ? 0.0 : (deltaOffset < deltaX.size() ? deltaX.get(deltaOffset) : deltaX.get(deltaX.size() - 1));
+                                y += (deltaY == null || deltaY.size() < 0) ? 0.0 : (deltaOffset < deltaY.size() ? deltaY.get(deltaOffset) : deltaY.get(deltaY.size() - 1));
                             }
 
                             char c = textCode.getContent().charAt(j);
@@ -361,8 +362,8 @@ public class Ofd2Img {
                                 GlyphData glyphData = typeFont.getGlyph().getGlyph(gid);
                                 Shape shape = glyphData.getPath();
                                 log.debug(String.format("字形Shape %s", shape));
-                                renderChar(graphics, shape, nTextObject, nTextObject.getCtm(),
-                                        nTextObject.getBoundary(), x, y, nTextObject.getSize(), dpi,
+                                renderChar(graphics, shape, ctText, ctText.getCtm(),
+                                        ctText.getBoundary(), x, y, ctText.getSize(), dpi,
                                         fontMatrix);
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -372,13 +373,13 @@ public class Ofd2Img {
                             globalPoint++;
                             deltaOffset++;
                         } else {
-                            CT_CGTransform transform = nTextObject.getTransforms().get(transPoint);
+                            CT_CGTransform transform = ctText.getTransforms().get(transPoint);
                             log.debug("字形变换：" + transform);
                             for (Integer glyph : transform.getGlyphs()) {
 
                                 if (deltaOffset != -1) {
-                                    x += (deltaX == null||deltaX.size()<0) ? 0.0 : (deltaOffset<deltaX.size()?deltaX.get(deltaOffset):deltaX.get(deltaX.size()-1));
-                                    y += (deltaY == null||deltaY.size()<0) ? 0.0 : (deltaOffset<deltaY.size()?deltaY.get(deltaOffset):deltaY.get(deltaY.size()-1));
+                                    x += (deltaX == null || deltaX.size() < 0) ? 0.0 : (deltaOffset < deltaX.size() ? deltaX.get(deltaOffset) : deltaX.get(deltaX.size() - 1));
+                                    y += (deltaY == null || deltaY.size() < 0) ? 0.0 : (deltaOffset < deltaY.size() ? deltaY.get(deltaOffset) : deltaY.get(deltaY.size() - 1));
                                 }
                                 log.debug(String.format("字形索引 <%s> DeltaX:%s DeltaY:%s", glyph, x, y));
 
@@ -391,8 +392,8 @@ public class Ofd2Img {
                                     GlyphData glyphData = typeFont.getGlyph().getGlyph(glyph);
                                     if (glyphData != null) {
                                         Shape shape = glyphData.getPath();
-                                        renderChar(graphics, shape, nTextObject, nTextObject.getCtm(),
-                                                nTextObject.getBoundary(), x, y, nTextObject.getSize(), dpi,
+                                        renderChar(graphics, shape, ctText, ctText.getCtm(),
+                                                ctText.getBoundary(), x, y, ctText.getSize(), dpi,
                                                 fontMatrix);
                                         log.debug(String.format("字形Shape %s", shape));
                                     }
@@ -403,7 +404,7 @@ public class Ofd2Img {
 
                                 deltaOffset++;
                             }
-                            if (transPoint + 1 >= nTextObject.getTransforms().size()) {
+                            if (transPoint + 1 >= ctText.getTransforms().size()) {
                                 transPoint = -1;
                             } else {
                                 transPoint++;
@@ -419,14 +420,14 @@ public class Ofd2Img {
             }
 
             @Override
-            public void onImage(NImageObject nImageObject) {
+            public void onImage(CT_Image ctImage, ST_Box baseBoundary, Matrix baseMatrix) {
                 // graphics.setBackground(null);
-                OFDFile ofdFile = document.getMultiMedia(nImageObject.getResourceId().getId());
+                OFDFile ofdFile = document.getMultiMedia(ctImage.getResourceId().getId());
                 BufferedImage targetImg = null;
                 try {
                     targetImg = ImageUtils.getBufferedImage(ofdFile);
-                    if (nImageObject.getImageMask() != null) {
-                        OFDFile maskFile = document.getMultiMedia(nImageObject.getImageMask().getId());
+                    if (ctImage.getImageMask() != null) {
+                        OFDFile maskFile = document.getMultiMedia(ctImage.getImageMask().getId());
                         BufferedImage mask = ImageUtils.getBufferedImage(maskFile);
                         targetImg = ImageUtils.renderMask(targetImg, mask);
                     }
@@ -434,18 +435,18 @@ public class Ofd2Img {
                     e.printStackTrace();
                     return;
                 }
-                ST_Box boundary = nImageObject.getBoundary();
-                Double[] ctm = nImageObject.getCtm();
+                ST_Box boundary = ctImage.getBoundary();
+                Double[] ctm = ctImage.getCtm();
 
                 renderImage(graphics, targetImg, boundary, ctm, dpi);
 
             }
 
             @Override
-            public void onPath(NPathObject nPathObject) {
+            public void onPath(CT_Path ctPath, ST_Box baseBoundary, Matrix baseMatrix) {
 
                 graphics.setBackground(null);
-                ST_Box boundary = nPathObject.getBoundary();
+                ST_Box boundary = ctPath.getBoundary();
 
                 Matrix matrix = MatrixUtils.base();
                 graphics.setTransform(MatrixUtils.createAffineTransform(matrix));
@@ -454,14 +455,14 @@ public class Ofd2Img {
                 graphics.transform(MatrixUtils.createAffineTransform(matrix));
 
                 // 设置剪裁区
-                graphics.setClip(new Rectangle2D.Double(boundary.getX(), boundary.getY(), boundary.getW(),
-                        boundary.getH()));
+//                graphics.setClip(new Rectangle2D.Double(boundary.getX(), boundary.getY(), boundary.getW(),
+//                        boundary.getH()));
 
                 // 绘制外框
                 renderBoundary(graphics, boundary);
 
 
-                Double[] ctm = nPathObject.getCtm();
+                Double[] ctm = ctPath.getCtm();
 
                 matrix = MatrixUtils.base();
                 graphics.setTransform(MatrixUtils.createAffineTransform(matrix));
@@ -474,14 +475,18 @@ public class Ofd2Img {
                 // 转换到世界坐标系
                 matrix = matrix.mtimes(MatrixUtils.create(1, 0, 0, 1, boundary.getX().floatValue(),
                         boundary.getY().floatValue()));
+
+                matrix = matrix.mtimes(baseMatrix);
+
                 // 单位毫米转换成像素
                 matrix = matrix.mtimes(MatrixUtils.create(dpi, 0, 0, dpi, 0, 0));
+
 
                 graphics.transform(MatrixUtils.createAffineTransform(matrix));
 
                 Path2D path = new Path2D.Double();
                 path.moveTo(0, 0);
-                String[] s = nPathObject.getAbbreviatedData().split("\\s+");
+                String[] s = ctPath.getAbbreviatedData().split("\\s+");
                 int i = 0;
                 while (i < s.length) {
                     String operator = s[i];
@@ -521,10 +526,10 @@ public class Ofd2Img {
                 }
 
 
-                if (nPathObject.getStroke() == null || nPathObject.getStroke()) {
-                    CT_Color ct_color = nPathObject.getStrokeColor();
+                if (ctPath.getStroke() == null || ctPath.getStroke()) {
+                    CT_Color ct_color = ctPath.getStrokeColor();
                     Color color = null;
-                    if (ct_color != null && ct_color.getValue()!=null) {
+                    if (ct_color != null && ct_color.getValue() != null) {
                         color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255,
                                 Float.valueOf(ct_color.getValue()[1]) / 255,
                                 Float.valueOf(ct_color.getValue()[2]) / 255);
@@ -532,20 +537,20 @@ public class Ofd2Img {
                         color = Color.black;
                     }
                     graphics.setColor(color);
-                    Double lineWidth=nPathObject.getLineWidth();
-                    if(lineWidth==null){
+                    Double lineWidth = ctPath.getLineWidth();
+                    if (lineWidth == null) {
                         log.error("LineWidth为空");
-                        lineWidth=0.4;
+                        lineWidth = 0.4;
                     }
                     graphics.setStroke(new BasicStroke(lineWidth.floatValue()));
                     graphics.draw(path);
                 }
 
 
-                if (nPathObject.getFill() != null && nPathObject.getFill()) {
-                    CT_Color ct_color = nPathObject.getFillColor();
+                if (ctPath.getFill() != null && ctPath.getFill()) {
+                    CT_Color ct_color = ctPath.getFillColor();
                     Color color = null;
-                    if (ct_color != null&& ct_color.getValue()!=null) {
+                    if (ct_color != null && ct_color.getValue() != null) {
                         color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255,
                                 Float.valueOf(ct_color.getValue()[1]) / 255,
                                 Float.valueOf(ct_color.getValue()[2]) / 255);
@@ -564,7 +569,7 @@ public class Ofd2Img {
     /*
      * 渲染一个字符 字形图形 字体字形最大宽度 字体字形最大高度 ctm变换矩阵
      */
-    private void renderChar(Graphics2D graphics, Shape shape, NTextObject nTextObject, Double[] ctm, ST_Box boundary,
+    private void renderChar(Graphics2D graphics, Shape shape, CT_Text ctText, Double[] ctm, ST_Box boundary,
                             Double deltaX, Double deltaY, Double fontSize, int dpi, List<Number> fontMatrix) {
         Matrix matrix = MatrixUtils.base();
         matrix = MatrixUtils.imageMatrix(matrix, 0, 1, 0);
@@ -583,7 +588,6 @@ public class Ofd2Img {
         matrix = MatrixUtils.scale(matrix, dpi, dpi);
 
 
-
         graphics.setClip(null);
         graphics.setTransform(MatrixUtils.createAffineTransform(matrix));
         graphics.setStroke(new BasicStroke(0.1f));
@@ -596,10 +600,10 @@ public class Ofd2Img {
          * 文字默认填充 不勾边
          */
 
-        if (nTextObject.getFill() == null || nTextObject.getFill() == true) {
-            CT_Color ct_color = nTextObject.getFillColor();
+        if (ctText.getFill() == null || ctText.getFill() == true) {
+            CT_Color ct_color = ctText.getFillColor();
             Color color = null;
-            if (ct_color != null && ct_color.getValue()!=null && ct_color.getValue().length>=3) {
+            if (ct_color != null && ct_color.getValue() != null && ct_color.getValue().length >= 3) {
                 color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255,
                         Float.valueOf(ct_color.getValue()[1]) / 255,
                         Float.valueOf(ct_color.getValue()[2]) / 255);
@@ -610,8 +614,8 @@ public class Ofd2Img {
             graphics.fill(shape);
         }
 
-        if (nTextObject.getStroke() != null && nTextObject.getStroke()) {
-            CT_Color ct_color = nTextObject.getStrokeColor();
+        if (ctText.getStroke() != null && ctText.getStroke()) {
+            CT_Color ct_color = ctText.getStrokeColor();
             if (ct_color == null) {
                 graphics.setBackground(null);
                 graphics.setColor(null);
@@ -689,6 +693,9 @@ public class Ofd2Img {
         graphics.setColor(color);
     }
 
+    private void setClipAndrenderBoundary(ST_Box baseBoundary, ST_Box boundary, Matrix baseMatrix) {
+
+    }
 
     private TrueTypeFont defaultFont = null;
 
@@ -706,10 +713,10 @@ public class Ofd2Img {
     @Data
     public static class Config {
         /*
-        * 印章透明度
-        * */
-        private float stampOpacity=1;
-//        private boolean stampInTop=true;
+         * 印章透明度
+         * */
+        private float stampOpacity = 1;
+        //        private boolean stampInTop=true;
         private boolean drawBoundary;
     }
 }
