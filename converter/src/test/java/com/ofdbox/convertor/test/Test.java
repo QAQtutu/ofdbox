@@ -1,6 +1,7 @@
 package com.ofdbox.convertor.test;
 
 import com.ofdbox.convertor.img.Ofd2Img;
+import com.ofdbox.core.ContentWalker;
 import com.ofdbox.core.model.OFD;
 import com.ofdbox.core.OFDReader;
 import com.ofdbox.core.model.page.Page;
@@ -21,19 +22,18 @@ public class Test {
         OFDReader reader = new OFDReader();
         reader.getConfig().setValid(false);
 
-        OFD ofd = reader.read(new File("C:\\Users\\hututu\\Documents\\Tencent Files\\1178527103\\FileRecv\\zsbk-2.ofd"));
+        OFD ofd = reader.read(new File("C:\\Users\\hututu\\Documents\\Tencent Files\\1178527103\\FileRecv\\aaaaaaaaa(1)(1).ofd"));
 //        OFD ofd = reader.read(new File("C:\\Users\\hututu\\Documents\\Tencent Files\\1178527103\\FileRecv\\999.ofd"));
 //        OFD ofd = reader.read(new File("C:\\Users\\hututu\\Desktop\\ofdbox-stamp-5153252851729488752.ofd"));
 
         Ofd2Img ofd2Img = new Ofd2Img();
         ofd2Img.getConfig().setDrawBoundary(false);
 
-        int i=1;
-        for(Page page:ofd.getDocuments().get(0).getPages()){
+        int i = 1;
+        for (Page page : ofd.getDocuments().get(0).getPages()) {
             BufferedImage image = ofd2Img.toImage(page, 30);
-            ImageIO.write(image, "JPEG", new FileOutputStream(new File("C:\\Users\\hututu\\Desktop\\test",i+".jpg")));
+            ImageIO.write(image, "JPEG", new FileOutputStream(new File("C:\\Users\\hututu\\Desktop\\test", i + ".jpg")));
             i++;
         }
-
     }
 }
