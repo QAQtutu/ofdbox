@@ -24,6 +24,7 @@ import com.ofdbox.core.xmlobj.object.text.CT_CGTransform;
 import com.ofdbox.core.xmlobj.object.text.CT_Font;
 import com.ofdbox.core.xmlobj.object.text.CT_Text;
 import com.ofdbox.core.xmlobj.object.text.NTextCode;
+import com.ofdbox.core.xmlobj.pagedesc.CT_DrawParam;
 import com.ofdbox.core.xmlobj.pagedesc.CT_GraphicUnit;
 import com.ofdbox.core.xmlobj.pagedesc.color.CT_Color;
 import com.ofdbox.core.xmlobj.signature.NStampAnnot;
@@ -85,9 +86,11 @@ public class Ofd2Img {
 
 
         renderPage(graphics, page, dpi);
-        renderSignatures(graphics, page, dpi);
+
         renderAnnotations(graphics, page, dpi);
+
         graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, config.stampOpacity));
+        renderSignatures(graphics, page, dpi);
 
 
         return image;
@@ -188,11 +191,12 @@ public class Ofd2Img {
             } catch (Exception e) {
                 e.printStackTrace();
                 try {
+                    in.reset();
                     com.ofdbox.signature.gm.v1.SES_Signature ses_signature = Gm.readV1(in);
                     picType = ses_signature.getToSign().getEseal().getESealInfo().getPicture().getType().getString();
                     picData = ses_signature.getToSign().getEseal().getESealInfo().getPicture().getData().getOctets();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
+                }catch (Exception e1) {
+                    e1.printStackTrace();
                 }
             }
             if (picData == null) continue;
@@ -208,6 +212,7 @@ public class Ofd2Img {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    break;
                 case "ofd":
                     try {
                         File file = File.createTempFile("ofdbox-stamp-", ".ofd");
@@ -232,6 +237,7 @@ public class Ofd2Img {
                 m = MatrixUtils.scale(m, stBox.getW() / image.getWidth(), stBox.getH() / image.getHeight());
                 m = MatrixUtils.move(m, stBox.getX(), stBox.getY());
                 m = MatrixUtils.scale(m, dpi, dpi);
+                graphics.setClip(null);
                 graphics.drawImage(image, MatrixUtils.createAffineTransform(m), null);
             }
 
@@ -391,13 +397,18 @@ public class Ofd2Img {
                                 int gid = typeFont.getUnicodeCmap().getGlyphId((int) c);
                                 typeFont.getFontMatrix();
                                 GlyphData glyphData = typeFont.getGlyph().getGlyph(gid);
-                                Shape shape = glyphData.getPath();
-                                log.debug(String.format("字形Shape %s", shape));
-                                Matrix matrix = chatMatrix(ctText, x, y, ctText.getSize(), fontMatrix, baseMatrix);
-                                renderChar(graphics, shape, ctText, matrix);
+                                if (glyphData == null) {
+                                    log.debug(String.format("找不到字形 %s", c));
+                                } else {
+                                    Shape shape = glyphData.getPath();
+                                    log.debug(String.format("字形Shape %s", shape));
+                                    Matrix matrix = chatMatrix(ctText, x, y, ctText.getSize(), fontMatrix, baseMatrix);
+                                    renderChar(graphics, shape, document, ctText, matrix, stack);
 //                                renderChar(graphics, shape, ctText, ctText.getCtm(),
 //                                        ctText.getBoundary(), x, y, ctText.getSize(), dpi,
 //                                        fontMatrix);
+                                }
+
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -429,7 +440,7 @@ public class Ofd2Img {
 //                                                ctText.getBoundary(), x, y, ctText.getSize(), dpi,
 //                                                fontMatrix);
                                         Matrix matrix = chatMatrix(ctText, x, y, ctText.getSize(), fontMatrix, baseMatrix);
-                                        renderChar(graphics, shape, ctText, matrix);
+                                        renderChar(graphics, shape, document, ctText, matrix, stack);
                                         log.debug(String.format("字形Shape %s", shape));
                                     }
 
@@ -514,6 +525,9 @@ public class Ofd2Img {
                 if (ctPath.getStroke() == null || ctPath.getStroke()) {
                     CT_Color ct_color = ctPath.getStrokeColor();
                     Color color = null;
+                    if (ct_color == null) {
+                        ct_color = getStrokeColor(document, stack);
+                    }
                     if (ct_color != null && ct_color.getValue() != null) {
                         color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255,
                                 Float.valueOf(ct_color.getValue()[1]) / 255,
@@ -535,12 +549,16 @@ public class Ofd2Img {
                 if (ctPath.getFill() != null && ctPath.getFill()) {
                     CT_Color ct_color = ctPath.getFillColor();
                     Color color = null;
+                    if (ct_color == null) {
+                        ct_color = getFillColor(document, stack);
+                    }
                     if (ct_color != null && ct_color.getValue() != null) {
                         color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255,
                                 Float.valueOf(ct_color.getValue()[1]) / 255,
                                 Float.valueOf(ct_color.getValue()[2]) / 255);
                     } else {
                         graphics.setBackground(null);
+                        return;
                     }
                     graphics.setColor(color);
                     graphics.fill(path);
@@ -568,30 +586,31 @@ public class Ofd2Img {
 
         ST_Box st_box = graphicUnit.getBoundary();
 
-        int x = Double.valueOf(Math.floor(st_box.getX().doubleValue() * dpi)).intValue();
-        int y = Double.valueOf(Math.floor(st_box.getY().doubleValue() * dpi)).intValue();
-        int w = Double.valueOf(Math.floor(st_box.getW().doubleValue() * dpi)).intValue();
-        int h = Double.valueOf(Math.floor(st_box.getH().doubleValue() * dpi)).intValue();
+        if (st_box != null) {
+            int x = Double.valueOf(Math.floor(st_box.getX().doubleValue() * dpi)).intValue();
+            int y = Double.valueOf(Math.floor(st_box.getY().doubleValue() * dpi)).intValue();
+            int w = Double.valueOf(Math.floor(st_box.getW().doubleValue() * dpi)).intValue();
+            int h = Double.valueOf(Math.floor(st_box.getH().doubleValue() * dpi)).intValue();
 
 
-        Polygon shape = new Polygon();
+            Polygon shape = new Polygon();
 
-        Tuple2<Double, Double> p00 = MatrixUtils.pointTransform(m, st_box.getX(), st_box.getY());
-        Tuple2<Double, Double> p01 = MatrixUtils.pointTransform(m, st_box.getX() + st_box.getW(), st_box.getY());
-        Tuple2<Double, Double> p10 = MatrixUtils.pointTransform(m, st_box.getX(), st_box.getY() + st_box.getH());
-        Tuple2<Double, Double> p11 = MatrixUtils.pointTransform(m, st_box.getX() + st_box.getW(), st_box.getY() + st_box.getH());
+            Tuple2<Double, Double> p00 = MatrixUtils.pointTransform(m, st_box.getX(), st_box.getY());
+            Tuple2<Double, Double> p01 = MatrixUtils.pointTransform(m, st_box.getX() + st_box.getW(), st_box.getY());
+            Tuple2<Double, Double> p10 = MatrixUtils.pointTransform(m, st_box.getX(), st_box.getY() + st_box.getH());
+            Tuple2<Double, Double> p11 = MatrixUtils.pointTransform(m, st_box.getX() + st_box.getW(), st_box.getY() + st_box.getH());
 
-        shape.addPoint(Double.valueOf(p00.getFirst() * dpi).intValue(), Double.valueOf(p00.getSecond() * dpi).intValue());
-        shape.addPoint(Double.valueOf(p01.getFirst() * dpi).intValue(), Double.valueOf(p01.getSecond() * dpi).intValue());
-        shape.addPoint(Double.valueOf(p11.getFirst() * dpi).intValue(), Double.valueOf(p11.getSecond() * dpi).intValue());
-        shape.addPoint(Double.valueOf(p10.getFirst() * dpi).intValue(), Double.valueOf(p10.getSecond() * dpi).intValue());
+            shape.addPoint(Double.valueOf(p00.getFirst() * dpi).intValue(), Double.valueOf(p00.getSecond() * dpi).intValue());
+            shape.addPoint(Double.valueOf(p01.getFirst() * dpi).intValue(), Double.valueOf(p01.getSecond() * dpi).intValue());
+            shape.addPoint(Double.valueOf(p11.getFirst() * dpi).intValue(), Double.valueOf(p11.getSecond() * dpi).intValue());
+            shape.addPoint(Double.valueOf(p10.getFirst() * dpi).intValue(), Double.valueOf(p10.getSecond() * dpi).intValue());
 
-        if (getConfig().drawBoundary) {
-            graphics.setClip(null);
-            graphics.drawPolygon(shape);
+            if (getConfig().drawBoundary) {
+                graphics.setClip(null);
+                graphics.drawPolygon(shape);
+            }
+            graphics.setClip(shape);
         }
-
-        graphics.setClip(shape);
 
         m = MatrixUtils.scale(m, dpi, dpi);
         return m;
@@ -632,7 +651,7 @@ public class Ofd2Img {
      * 渲染一个字符 字形图形 字体字形最大宽度 字体字形最大高度 ctm变换矩阵
      */
 
-    private void renderChar(Graphics2D graphics, Shape shape, CT_Text ctText, Matrix m) {
+    private void renderChar(Graphics2D graphics, Shape shape, Document document, CT_Text ctText, Matrix m, Stack<CT_PageBlock> pageBlocks) {
 
         graphics.setClip(null);
         graphics.setTransform(MatrixUtils.createAffineTransform(m));
@@ -649,6 +668,9 @@ public class Ofd2Img {
         if (ctText.getFill() == null || ctText.getFill() == true) {
             CT_Color ct_color = ctText.getFillColor();
             Color color = null;
+            if (ct_color == null) {
+                ct_color = getFillColor(document, pageBlocks);
+            }
             if (ct_color != null && ct_color.getValue() != null && ct_color.getValue().length >= 3) {
                 color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255,
                         Float.valueOf(ct_color.getValue()[1]) / 255,
@@ -662,6 +684,9 @@ public class Ofd2Img {
 
         if (ctText.getStroke() != null && ctText.getStroke()) {
             CT_Color ct_color = ctText.getStrokeColor();
+            if (ct_color == null) {
+                ct_color = getStrokeColor(document, pageBlocks);
+            }
             if (ct_color == null) {
                 graphics.setBackground(null);
                 graphics.setColor(null);
@@ -677,24 +702,35 @@ public class Ofd2Img {
 
     }
 
-    private void renderBoundary(Graphics2D graphics, ST_Box st_box) {
-        if (!this.config.drawBoundary) {
-            return;
+    public CT_Color getFillColor(Document document, Stack<CT_PageBlock> pageBlocks) {
+        Iterator<CT_PageBlock> iterator = pageBlocks.getIteratorBeginBottom();
+        if (iterator.hasNext()) {
+            CT_PageBlock pageBlock = iterator.next();
+            if (!(pageBlock instanceof NLayer)) return null;
+            NLayer layer = (NLayer) pageBlock;
+            if (layer.getDrawParam() != null) {
+                CT_DrawParam drawParam = document.getDrawParam(layer.getDrawParam().getId());
+                if (drawParam != null && drawParam.getFillColor() != null)
+                    return drawParam.getFillColor();
+            }
         }
-        graphics.setClip(null);
-        Color color = graphics.getColor();
-        graphics.setColor(Color.RED);
-        graphics.setStroke(new BasicStroke(0.10f));
-
-        // 转int丢失精度，乘DPI后误差放大，这里上下取整，稍微画大一点
-        graphics.drawRect(Double.valueOf(Math.floor(st_box.getX())).intValue(),
-                Double.valueOf(Math.floor(st_box.getY())).intValue(),
-                Double.valueOf(Math.ceil(st_box.getW())).intValue(),
-                Double.valueOf(Math.ceil(st_box.getH())).intValue());
-
-        graphics.setColor(color);
+        return null;
     }
 
+    public CT_Color getStrokeColor(Document document, Stack<CT_PageBlock> pageBlocks) {
+        Iterator<CT_PageBlock> iterator = pageBlocks.getIteratorBeginBottom();
+        if (iterator.hasNext()) {
+            CT_PageBlock pageBlock = iterator.next();
+            if (!(pageBlock instanceof NLayer)) return null;
+            NLayer layer = (NLayer) pageBlock;
+            if (layer.getDrawParam() != null) {
+                CT_DrawParam drawParam = document.getDrawParam(layer.getDrawParam().getId());
+                if (drawParam != null && drawParam.getStrokeColor() != null)
+                    return drawParam.getStrokeColor();
+            }
+        }
+        return null;
+    }
 
     private TrueTypeFont defaultFont = null;
 
@@ -714,7 +750,7 @@ public class Ofd2Img {
         /*
          * 印章透明度
          * */
-        private float stampOpacity = 1;
+        private float stampOpacity = 0.75f;
         //        private boolean stampInTop=true;
         private boolean drawBoundary;
     }

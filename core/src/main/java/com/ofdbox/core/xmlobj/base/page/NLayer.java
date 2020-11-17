@@ -22,9 +22,9 @@ public class NLayer  extends CT_PageBlock {
      * */
     @XmlAttribute(name = "Type")
     private LayerType type;
-
-    @XmlJavaTypeAdapter(value = StRefIdAdapter.class)
-    @Valid
-    @XmlAttribute(name = "DrawParam")
-    private ST_RefID drawParam;
+//
+//    @XmlJavaTypeAdapter(value = StRefIdAdapter.class)
+//    @Valid
+//    @XmlAttribute(name = "DrawParam")
+//    private ST_RefID drawParam;
 }

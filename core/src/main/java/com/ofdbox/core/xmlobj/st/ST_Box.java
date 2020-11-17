@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.time.LocalDate;
 
@@ -16,8 +17,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ST_Box {
+    @NotNull
     private Double x;
+    @NotNull
     private Double y;
+    @NotNull
     private Double w;
+    @NotNull
     private Double h;
 }
