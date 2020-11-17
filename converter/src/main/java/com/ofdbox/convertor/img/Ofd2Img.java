@@ -11,6 +11,7 @@ import com.ofdbox.core.model.page.Page;
 import com.ofdbox.core.utils.FormatUtils;
 import com.ofdbox.core.utils.MatrixUtils;
 import com.ofdbox.core.utils.Stack;
+import com.ofdbox.core.utils.Tuple2;
 import com.ofdbox.core.xmlobj.annotation.NAnnot;
 import com.ofdbox.core.xmlobj.annotation.XPageAnnot;
 import com.ofdbox.core.xmlobj.base.page.CT_PageBlock;
@@ -225,7 +226,6 @@ public class Ofd2Img {
             }
             if (image == null) continue;
             for (NStampAnnot nStampAnnot : nStampAnnots) {
-                graphics.setClip(null);
                 ST_Box stBox = nStampAnnot.getBoundary();
                 Matrix m = MatrixUtils.base();
                 graphics.setTransform(MatrixUtils.createAffineTransform(m));
@@ -393,8 +393,8 @@ public class Ofd2Img {
                                 GlyphData glyphData = typeFont.getGlyph().getGlyph(gid);
                                 Shape shape = glyphData.getPath();
                                 log.debug(String.format("字形Shape %s", shape));
-                                Matrix matrix=chatMatrix(ctText,x,y,ctText.getSize(),fontMatrix,baseMatrix);
-                                renderChar(graphics,shape,ctText,matrix);
+                                Matrix matrix = chatMatrix(ctText, x, y, ctText.getSize(), fontMatrix, baseMatrix);
+                                renderChar(graphics, shape, ctText, matrix);
 //                                renderChar(graphics, shape, ctText, ctText.getCtm(),
 //                                        ctText.getBoundary(), x, y, ctText.getSize(), dpi,
 //                                        fontMatrix);
@@ -428,8 +428,8 @@ public class Ofd2Img {
 //                                        renderChar(graphics, shape, ctText, ctText.getCtm(),
 //                                                ctText.getBoundary(), x, y, ctText.getSize(), dpi,
 //                                                fontMatrix);
-                                        Matrix matrix=chatMatrix(ctText,x,y,ctText.getSize(),fontMatrix,baseMatrix);
-                                        renderChar(graphics,shape,ctText,matrix);
+                                        Matrix matrix = chatMatrix(ctText, x, y, ctText.getSize(), fontMatrix, baseMatrix);
+                                        renderChar(graphics, shape, ctText, matrix);
                                         log.debug(String.format("字形Shape %s", shape));
                                     }
 
@@ -457,6 +457,8 @@ public class Ofd2Img {
             @Override
             public void onPath(CT_Path ctPath, Stack<CT_PageBlock> stack) {
                 Matrix baseMatrix = renderBoundaryAndSetClip(graphics, ctPath, stack, dpi);
+
+
                 Matrix m = MatrixUtils.base();
                 if (ctPath.getCtm() != null) {
                     m = m.mtimes(MatrixUtils.ctm(ctPath.getCtm()));
@@ -571,11 +573,25 @@ public class Ofd2Img {
         int w = Double.valueOf(Math.floor(st_box.getW().doubleValue() * dpi)).intValue();
         int h = Double.valueOf(Math.floor(st_box.getH().doubleValue() * dpi)).intValue();
 
+
+        Polygon shape = new Polygon();
+
+        Tuple2<Double, Double> p00 = MatrixUtils.pointTransform(m, st_box.getX(), st_box.getY());
+        Tuple2<Double, Double> p01 = MatrixUtils.pointTransform(m, st_box.getX() + st_box.getW(), st_box.getY());
+        Tuple2<Double, Double> p10 = MatrixUtils.pointTransform(m, st_box.getX(), st_box.getY() + st_box.getH());
+        Tuple2<Double, Double> p11 = MatrixUtils.pointTransform(m, st_box.getX() + st_box.getW(), st_box.getY() + st_box.getH());
+
+        shape.addPoint(Double.valueOf(p00.getFirst() * dpi).intValue(), Double.valueOf(p00.getSecond() * dpi).intValue());
+        shape.addPoint(Double.valueOf(p01.getFirst() * dpi).intValue(), Double.valueOf(p01.getSecond() * dpi).intValue());
+        shape.addPoint(Double.valueOf(p11.getFirst() * dpi).intValue(), Double.valueOf(p11.getSecond() * dpi).intValue());
+        shape.addPoint(Double.valueOf(p10.getFirst() * dpi).intValue(), Double.valueOf(p10.getSecond() * dpi).intValue());
+
         if (getConfig().drawBoundary) {
             graphics.setClip(null);
-            graphics.drawRect(x - 1, y - 1, w + 1, h + 1);
+            graphics.drawPolygon(shape);
         }
-        graphics.setClip(x, y, w, h);
+
+        graphics.setClip(shape);
 
         m = MatrixUtils.scale(m, dpi, dpi);
         return m;
