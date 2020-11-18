@@ -743,13 +743,15 @@ public class Ofd2Img {
         ColorSpaceType type = ColorSpaceType.RGB;
         if (ctColor.getColorSpace() != null) {
             CT_ColorSpace ctColorSpace = document.getColorSpace(ctColor.getColorSpace().getId());
-            if (ctColorSpace.getType() != null) {
-                type = ctColorSpace.getType();
-            }
-            if (color == null && ctColor.getIndex() != null
-                    && ctColorSpace.getPalette() != null
-                    && ctColor.getIndex() < ctColorSpace.getPalette().getCvs().size()) {
-                color = ctColorSpace.getPalette().getCvs().get(ctColor.getIndex());
+            if (ctColorSpace != null) {
+                if (ctColorSpace.getType() != null) {
+                    type = ctColorSpace.getType();
+                }
+                if (color == null && ctColor.getIndex() != null
+                        && ctColorSpace.getPalette() != null
+                        && ctColor.getIndex() < ctColorSpace.getPalette().getCvs().size()) {
+                    color = ctColorSpace.getPalette().getCvs().get(ctColor.getIndex());
+                }
             }
         }
         if (color == null) return null;
