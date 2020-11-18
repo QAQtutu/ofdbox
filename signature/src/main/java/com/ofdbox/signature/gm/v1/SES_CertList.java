@@ -11,17 +11,18 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class SES_CertList extends ASN1Object {
 
-    private List<DERIA5String> certs;
+    //    private List<DERIA5String> certs;
+    private ASN1Sequence certs;
 
-    private SES_CertList(ASN1Sequence sequence){
-        certs=new ArrayList<>();
-        Enumeration<Object> emu = sequence.getObjects();
-        while (emu.hasMoreElements()){
-            certs.add(DERIA5String.getInstance(emu.nextElement()));
-        }
+    private SES_CertList(ASN1Sequence sequence) {
+//        certs=new ArrayList<>();
+//        Enumeration<Object> emu = sequence.getObjects();
+//        while (emu.hasMoreElements()){
+//            certs.add(DERIA5String.getInstance(emu.nextElement()));
+//        }
+        certs = sequence;
     }
 
     public static SES_CertList getInstance(Object o) {
@@ -35,9 +36,10 @@ public class SES_CertList extends ASN1Object {
     @Override
     public ASN1Primitive toASN1Primitive() {
         ASN1EncodableVector vector = new ASN1EncodableVector();
-        for(DERIA5String cert:certs){
-            vector.add(cert);
-        }
+//        for(DERIA5String cert:certs){
+//            vector.add(cert);
+//        }
+        vector.add(this.certs);
         return new DERSequence(vector);
     }
 }
