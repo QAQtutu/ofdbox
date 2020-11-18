@@ -1,2 +1,4 @@
 楷体,KaiTi
 宋体,SimSun
+仿宋,FangSong
+小标宋体,FZXiaoBiaoSong-B05S

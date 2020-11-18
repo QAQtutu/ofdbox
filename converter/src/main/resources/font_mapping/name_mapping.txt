@@ -1,3 +1,5 @@
 楷体,KaiTi
 宋体,SimSun
+仿宋,FangSong
+小标宋体,FZXBSJW--GB1-0
 Courier New,CourierNewPSMT

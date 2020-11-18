@@ -12,6 +12,7 @@ import com.ofdbox.core.xmlobj.base.ofd.NDocBody;
 import com.ofdbox.core.xmlobj.base.res.*;
 import com.ofdbox.core.xmlobj.object.text.CT_Font;
 import com.ofdbox.core.xmlobj.pagedesc.CT_DrawParam;
+import com.ofdbox.core.xmlobj.pagedesc.color.CT_ColorSpace;
 import com.ofdbox.core.xmlobj.st.ST_Loc;
 import lombok.Data;
 import lombok.Getter;
@@ -69,6 +70,20 @@ public class Document {
                     if (ctDrawParam.getId().getId().equals(id)) {
 
                         return ctDrawParam;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public CT_ColorSpace getColorSpace(Integer id) {
+        for (XRes xRes : allRes()) {
+            if (xRes.getColorSpaces() == null) continue;
+            for (NColorSpaces nColorSpaces : xRes.getColorSpaces()) {
+                for (CT_ColorSpace ctColorSpace : nColorSpaces.getList()) {
+                    if (ctColorSpace.getId().getId().equals(id)) {
+                        return ctColorSpace;
                     }
                 }
             }

@@ -17,8 +17,10 @@ import com.ofdbox.core.xmlobj.annotation.XPageAnnot;
 import com.ofdbox.core.xmlobj.base.page.CT_PageBlock;
 import com.ofdbox.core.xmlobj.base.page.NLayer;
 import com.ofdbox.core.xmlobj.base.page.NTemplate;
+import com.ofdbox.core.xmlobj.enums.ColorSpaceType;
 import com.ofdbox.core.xmlobj.enums.LayerType;
 import com.ofdbox.core.xmlobj.graphic.CT_Path;
+import com.ofdbox.core.xmlobj.object.composite.CT_Composite;
 import com.ofdbox.core.xmlobj.object.image.CT_Image;
 import com.ofdbox.core.xmlobj.object.text.CT_CGTransform;
 import com.ofdbox.core.xmlobj.object.text.CT_Font;
@@ -27,6 +29,7 @@ import com.ofdbox.core.xmlobj.object.text.NTextCode;
 import com.ofdbox.core.xmlobj.pagedesc.CT_DrawParam;
 import com.ofdbox.core.xmlobj.pagedesc.CT_GraphicUnit;
 import com.ofdbox.core.xmlobj.pagedesc.color.CT_Color;
+import com.ofdbox.core.xmlobj.pagedesc.color.CT_ColorSpace;
 import com.ofdbox.core.xmlobj.signature.NStampAnnot;
 import com.ofdbox.core.xmlobj.st.ST_Box;
 import com.ofdbox.core.xmlobj.st.ST_Loc;
@@ -195,13 +198,13 @@ public class Ofd2Img {
                     com.ofdbox.signature.gm.v1.SES_Signature ses_signature = Gm.readV1(in);
                     picType = ses_signature.getToSign().getEseal().getESealInfo().getPicture().getType().getString();
                     picData = ses_signature.getToSign().getEseal().getESealInfo().getPicture().getData().getOctets();
-                }catch (Exception e1) {
+                } catch (Exception e1) {
                     e1.printStackTrace();
                 }
             }
             if (picData == null) continue;
             BufferedImage image = null;
-            switch (picType) {
+            switch (picType.toLowerCase()) {
                 case "png":
                 case "jpg":
                 case "gif":
@@ -529,10 +532,10 @@ public class Ofd2Img {
                         ct_color = getStrokeColor(document, stack);
                     }
                     if (ct_color != null && ct_color.getValue() != null) {
-                        color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255,
-                                Float.valueOf(ct_color.getValue()[1]) / 255,
-                                Float.valueOf(ct_color.getValue()[2]) / 255);
-                    } else {
+                        color = getColor(document, ct_color);
+
+                    }
+                    if (color == null) {
                         color = Color.black;
                     }
                     graphics.setColor(color);
@@ -553,9 +556,8 @@ public class Ofd2Img {
                         ct_color = getFillColor(document, stack);
                     }
                     if (ct_color != null && ct_color.getValue() != null) {
-                        color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255,
-                                Float.valueOf(ct_color.getValue()[1]) / 255,
-                                Float.valueOf(ct_color.getValue()[2]) / 255);
+                        color = getColor(document, ct_color);
+                        if (color == null) return;
                     } else {
                         graphics.setBackground(null);
                         return;
@@ -564,15 +566,14 @@ public class Ofd2Img {
                     graphics.fill(path);
                     graphics.setBackground(Color.white);
                 }
-
-
             }
 
             //TODO
-//            @Override
-//            public void onComposite(CT_Composite ctComposite, Stack<CT_PageBlock> stack) {
-//                Matrix baseMatrix = renderBoundaryAndSetClip(graphics, ctComposite, stack, dpi);
-//            }
+            @Override
+            public void onComposite(CT_Composite ctComposite, Stack<CT_PageBlock> stack) {
+                Matrix baseMatrix = renderBoundaryAndSetClip(graphics, ctComposite, stack, dpi);
+
+            }
         }.walk();
     }
 
@@ -632,6 +633,9 @@ public class Ofd2Img {
     private Matrix chatMatrix(CT_Text ctText, Double deltaX, Double deltaY, Double fontSize, List<Number> fontMatrix, Matrix baseMatrix) {
         Matrix m = MatrixUtils.base();
         m = MatrixUtils.imageMatrix(m, 0, 1, 0);
+        if (ctText.getHScale() != null) {
+            m = MatrixUtils.scale(m, ctText.getHScale(), 1);
+        }
         m = m.mtimes(MatrixUtils.create(fontMatrix.get(0).doubleValue(), fontMatrix.get(1).doubleValue(),
                 fontMatrix.get(2).doubleValue(), fontMatrix.get(3).doubleValue(),
                 fontMatrix.get(4).doubleValue(), fontMatrix.get(5).doubleValue()));
@@ -672,13 +676,14 @@ public class Ofd2Img {
                 ct_color = getFillColor(document, pageBlocks);
             }
             if (ct_color != null && ct_color.getValue() != null && ct_color.getValue().length >= 3) {
-                color = new Color(Float.valueOf(ct_color.getValue()[0]) / 255,
-                        Float.valueOf(ct_color.getValue()[1]) / 255,
-                        Float.valueOf(ct_color.getValue()[2]) / 255);
-                graphics.setColor(color);
-            } else {
-                graphics.setColor(Color.BLACK);
+                color = getColor(document, ct_color);
             }
+            if (color == null) {
+                graphics.setColor(Color.BLACK);
+            } else {
+                graphics.setColor(color);
+            }
+
             graphics.fill(shape);
         }
 
@@ -730,6 +735,45 @@ public class Ofd2Img {
             }
         }
         return null;
+    }
+
+    public Color getColor(Document document, CT_Color ctColor) {
+        String[] color = ctColor.getValue();
+
+        ColorSpaceType type = ColorSpaceType.RGB;
+        if (ctColor.getColorSpace() != null) {
+            CT_ColorSpace ctColorSpace = document.getColorSpace(ctColor.getColorSpace().getId());
+            if (ctColorSpace.getType() != null) {
+                type = ctColorSpace.getType();
+            }
+            if (color == null && ctColor.getIndex() != null
+                    && ctColorSpace.getPalette() != null
+                    && ctColor.getIndex() < ctColorSpace.getPalette().getCvs().size()) {
+                color = ctColorSpace.getPalette().getCvs().get(ctColor.getIndex());
+            }
+        }
+        if (color == null) return null;
+        int[] color_ = new int[color.length];
+        for (int i = 0; i < color.length; i++) {
+            String s = color[i];
+            if (s.startsWith("#")) {
+                color_[i] = Integer.parseInt(s.replaceAll("#", ""), 16);
+            } else {
+                color_[i] = Integer.valueOf(s);
+            }
+        }
+        switch (type) {
+            case GRAY:
+                return new Color(color_[0], color_[0], color_[0]);
+            case CMYK:
+                int r = 255 * (100 - color_[0]) * (100 - color_[3]) / 10000;
+                int g = 255 * (100 - color_[1]) * (100 - color_[3]) / 10000;
+                int b = 255 * (100 - color_[2]) * (100 - color_[3]) / 10000;
+                return new Color(r, g, b);
+            case RGB:
+            default:
+                return new Color(color_[0], color_[1], color_[2]);
+        }
     }
 
     private TrueTypeFont defaultFont = null;

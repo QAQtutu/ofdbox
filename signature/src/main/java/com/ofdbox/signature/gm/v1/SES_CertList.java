@@ -14,13 +14,13 @@ import java.util.List;
 @AllArgsConstructor
 public class SES_CertList extends ASN1Object {
 
-    private List<ASN1OctetString> certs;
+    private List<DERIA5String> certs;
 
     private SES_CertList(ASN1Sequence sequence){
         certs=new ArrayList<>();
         Enumeration<Object> emu = sequence.getObjects();
         while (emu.hasMoreElements()){
-            certs.add(ASN1OctetString.getInstance(emu.nextElement()));
+            certs.add(DERIA5String.getInstance(emu.nextElement()));
         }
     }
 
@@ -35,7 +35,7 @@ public class SES_CertList extends ASN1Object {
     @Override
     public ASN1Primitive toASN1Primitive() {
         ASN1EncodableVector vector = new ASN1EncodableVector();
-        for(ASN1OctetString cert:certs){
+        for(DERIA5String cert:certs){
             vector.add(cert);
         }
         return new DERSequence(vector);
