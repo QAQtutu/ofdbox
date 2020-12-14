@@ -13,9 +13,10 @@ import java.util.Set;
  * @author: 张家尧
  * @create: 2020/10/01 17:09
  */
-public class MemoryFileManager implements FileManager{
+public class MemoryFileManager implements FileManager {
 
-    private Map<String,byte[]> store=new HashMap<>();
+    private Map<String, byte[]> store = new HashMap<>();
+
     @Override
     public void write(String loc, InputStream in) throws IOException {
 
@@ -28,30 +29,33 @@ public class MemoryFileManager implements FileManager{
 
         byte[] in2b = swapStream.toByteArray();
 
-        store.put(loc,in2b);
+        store.put(loc, in2b);
     }
 
     @Override
     public InputStream read(String loc) {
-        byte[] bytes=store.get(loc);
-        if(bytes==null){
-            loc=loc.toLowerCase();
-            for(Map.Entry<String,byte[]> entry:store.entrySet()){
-                if(entry.getKey().toLowerCase().equals(loc))
-                    bytes=entry.getValue();
+        byte[] bytes = store.get(loc);
+        if (bytes == null) {
+            loc = loc.toLowerCase();
+            if (loc.startsWith("/")) {
+                loc = loc.substring(1);
+            }
+            for (Map.Entry<String, byte[]> entry : store.entrySet()) {
+                if (entry.getKey().toLowerCase().equals(loc))
+                    bytes = entry.getValue();
             }
         }
-        ByteArrayInputStream in=new ByteArrayInputStream(bytes);
+        ByteArrayInputStream in = new ByteArrayInputStream(bytes);
         return in;
     }
 
     @Override
     public byte[] readBytes(String loc) {
-        byte[] bytes=store.get(loc);
-        if(bytes==null){
-            loc=loc.toLowerCase();
-            for(Map.Entry<String,byte[]> entry:store.entrySet()){
-                if(entry.getKey().toLowerCase().equals(loc))
+        byte[] bytes = store.get(loc);
+        if (bytes == null) {
+            loc = loc.toLowerCase();
+            for (Map.Entry<String, byte[]> entry : store.entrySet()) {
+                if (entry.getKey().toLowerCase().equals(loc))
                     return entry.getValue();
             }
         }

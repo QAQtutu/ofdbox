@@ -192,14 +192,15 @@ public class Ofd2Img {
                 picType = ses_signature.getToSign().getEseal().getESealInfo().getPicture().getType().getString();
                 picData = ses_signature.getToSign().getEseal().getESealInfo().getPicture().getData().getOctets();
             } catch (Exception e) {
-                e.printStackTrace();
+//                e.printStackTrace();
+                log.error("以V4标准加载签章失败 " + e.getMessage());
                 try {
                     in.reset();
                     com.ofdbox.signature.gm.v1.SES_Signature ses_signature = Gm.readV1(in);
                     picType = ses_signature.getToSign().getEseal().getESealInfo().getPicture().getType().getString();
                     picData = ses_signature.getToSign().getEseal().getESealInfo().getPicture().getData().getOctets();
                 } catch (Exception e1) {
-                    e1.printStackTrace();
+                    log.error("以V1标准加载签章失败 " + e1.getMessage());
                 }
             }
             if (picData == null) continue;
