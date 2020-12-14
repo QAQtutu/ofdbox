@@ -6,59 +6,30 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.fontbox.ttf.*;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 public class FontUtils {
     private static Map<String, String> pathMapping = new HashMap<>();
     private static Map<String, String> nameMapping = new HashMap<>();
-    private static Map<String, String> familyNameMapping = new HashMap<>();
+
+
+    private static final String DEFAULT_FONT_DIR_MAC = "/System/Library/Fonts";
+    private static final String DEFAULT_FONT_DIR_WINDOWS = "C:/Windows/Fonts";
+    private static final String DEFAULT_FONT_DIR_LINUX = "/usr/share/fonts";
 
     static {
-        String fontLocation = null;
         if (OSinfo.isWindows()) {
-            fontLocation = "/font_mapping/windows.txt";
+            scanFontDir(new File(DEFAULT_FONT_DIR_WINDOWS));
+        } else if (OSinfo.isMacOS()) {
+            scanFontDir(new File(DEFAULT_FONT_DIR_MAC));
+        } else if (OSinfo.isMacOSX()) {
+            scanFontDir(new File(DEFAULT_FONT_DIR_MAC));
+        } else if (OSinfo.isLinux()) {
+            scanFontDir(new File(DEFAULT_FONT_DIR_LINUX));
         }
-        if (fontLocation != null) {
-            List<String[]> pathMappings = readConfig(fontLocation);
-            for (String[] s : pathMappings) {
-                addSystemFontMapping(s[0], s[1], s[2]);
-            }
-        }
-        List<String[]> nameMappings = readConfig("/font_mapping/name_mapping.txt");
-        for (String[] s : nameMappings) {
-            nameMapping.put(s[0], s[1]);
-        }
-        List<String[]> familyNameMappings = readConfig("/font_mapping/family_name_mapping.txt");
-        for (String[] s : familyNameMappings) {
-            familyNameMapping.put(s[0], s[1]);
-        }
-
     }
 
-    private static List<String[]> readConfig(String path) {
-        List<String[]> arr = new ArrayList<>();
-        InputStream in = FontUtils.class.getResourceAsStream(path);
-        InputStreamReader readStream = null;
-        try {
-            readStream = new InputStreamReader(in, "UTF-8");
-            BufferedReader reader = new BufferedReader(readStream);
-            String temp = null;
-            while ((temp = reader.readLine()) != null) {
-                String[] s = temp.split(",");
-                arr.add(s);
-
-            }
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return arr;
-    }
 
     public static void addSystemFontMapping(String familyName, String fontName, String fontFilePath) {
         if (StringUtils.isBlank(familyName) || StringUtils.isBlank(fontName) || StringUtils.isBlank(fontFilePath)) {
@@ -83,16 +54,17 @@ public class FontUtils {
         if (familyName == null) {
             familyName = fontName;
         }
-        if (StringUtils.isBlank(fontName)) {
-            return null;
+//        if (StringUtils.isBlank(fontName)) {
+//            return null;
+//        }
+//        if (familyNameMapping.get(familyName) != null) {
+//            familyName = familyNameMapping.get(familyName);
+//        }
+        String key = familyName + "$$$$" + fontName;
+        if (nameMapping.get(key) != null) {
+            fontName = nameMapping.get(key);
         }
-        if (familyNameMapping.get(familyName) != null) {
-            familyName = familyNameMapping.get(familyName);
-        }
-        if (nameMapping.get(fontName) != null) {
-            fontName = nameMapping.get(fontName);
-        }
-        String fontFilePath = pathMapping.get(familyName + "$$$$" + fontName);
+        String fontFilePath = pathMapping.get(key);
         if (fontFilePath == null) {
             return null;
         }
@@ -126,11 +98,15 @@ public class FontUtils {
         return null;
     }
 
-    public static void scanFontDir(File fontDir) {
-        if (fontDir == null || !fontDir.exists())
+    public static void scanFontDir(File dir) {
+        if (dir == null || !dir.exists() || !dir.isDirectory())
             return;
-        for (File file : fontDir.listFiles()) {
-            loadFont(file);
+        for (File file : dir.listFiles()) {
+            if (file.isDirectory()) {
+                scanFontDir(file);
+            } else {
+                loadFont(file);
+            }
         }
     }
 
@@ -142,9 +118,7 @@ public class FontUtils {
                     @Override
                     public void process(TrueTypeFont trueTypeFont) throws IOException {
                         NamingTable namingTable = trueTypeFont.getNaming();
-                        log.info(String.format("加载字体 %s,%s,%s", namingTable.getFontFamily(), namingTable.getPostScriptName(), file.getAbsoluteFile()));
-
-                        addSystemFontMapping(namingTable.getFontFamily(), namingTable.getPostScriptName(), file.getAbsolutePath());
+                        addSystemFontMapping(namingTable, file.getPath());
                     }
                 });
             } catch (IOException e) {
@@ -158,16 +132,62 @@ public class FontUtils {
             OTFParser parser = new OTFParser(true);
             OpenTypeFont openTypeFont = parser.parse(file);
             NamingTable namingTable = openTypeFont.getNaming();
-            log.info(String.format("加载字体 %s,%s,%s", namingTable.getFontFamily(), namingTable.getPostScriptName(), file.getAbsoluteFile()));
-            addSystemFontMapping(namingTable.getFontFamily(), namingTable.getPostScriptName(), file.getAbsolutePath());
+            addSystemFontMapping(namingTable, file.getPath());
         } catch (Exception e) {
             log.warn("加载字体失败：" + file.getAbsolutePath());
         }
     }
 
+    private static void addSystemFontMapping(NamingTable namingTable, String path) {
+//        String family = null;
+        String name = null;
+//        String cnFamily = null;
+//        String cnName = null;
+        Set<String> familyNames = new HashSet<>();
+        Set<String> fontNames = new HashSet<>();
+        familyNames.add(namingTable.getFontFamily());
+        fontNames.add(namingTable.getPostScriptName());
+        name = namingTable.getPostScriptName();
+        for (NameRecord record : namingTable.getNameRecords()) {
+            if (record.getNameId() == 1) {
+                familyNames.add(record.getString());
+            } else if (record.getNameId() == 4) {
+                fontNames.add(record.getString());
+            }
+            if (record.getLanguageId() == 0) {
+//                if (record.getNameId() == 1) {
+//                    family = record.getString();
+//                } else
+                if (record.getNameId() == 4) {
+                    name = record.getString();
+                }
+            }
+//            if (record.getLanguageId() == 2052) {
+//                if (record.getNameId() == 1) {
+//                    cnFamily = record.getString();
+//                } else if (record.getNameId() == 4) {
+//                    cnName = record.getString();
+//                }
+//            }
+
+        }
+        String finalName = name;
+        familyNames.forEach(familyName -> {
+            fontNames.forEach(fontName -> {
+                nameMapping.put(familyName + "$$$$" + fontName, finalName);
+                log.info(String.format("注册字体 %s,%s,%s", familyName, fontName, path));
+                addSystemFontMapping(familyName, fontName, path);
+            });
+        });
+//        System.out.println(String.format("%s %s %s %s", family, name, cnFamily, cnName));
+    }
+
     public static void main(String[] args) throws IOException {
-//        scanFontDir(new File("C:\\Windows\\Fonts"));
-        loadFont(new File("C:\\Users\\hututu\\AppData\\Local\\Microsoft\\Windows\\Fonts\\方正小标宋简体.ttf"));
+        FontUtils.scanFontDir(new File("C:/Windows/Fonts"));
+        System.out.println(FontUtils.loadSystemFont("Microsoft YaHei", "MicrosoftYaHei"));
+        System.out.println(FontUtils.loadSystemFont("Microsoft YaHei", "微软雅黑"));
+        System.out.println(FontUtils.loadSystemFont("微软雅黑", "MicrosoftYaHei"));
+        System.out.println(FontUtils.loadSystemFont("微软雅黑", "微软雅黑"));
     }
 
 }

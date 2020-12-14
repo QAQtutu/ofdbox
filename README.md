@@ -34,7 +34,16 @@ BufferedImage image = ofd2Img.toImage(ofd.getDocuments().get(0).getPages().get(0
 ImageIO.write(image, "JPEG", new FileOutputStream("test.jpg"));
 ```
 可参考项目ofdbox实现的简易ofd后端渲染例程 https://github.com/QAQtutu/ofdbox-viewer
-#### 转pdf
+
+#### 系统字体加载
+现在不需要手动配置系统字体名映射了，可自动加载系统字体并配置字体名的英文名称与中文名称的映射。
+windows会扫描C:/Windows/Fonts目录，mac是/System/Library/Fonts，linux是/usr/share/fonts。如需加载其他目录的字体，请在程序开始运行之前手动扫描目录。
+```
+FontUtils.scanFontDir(new File("C:/Windows/Fonts"));
+```
+
+### 转pdf暂时停止开发
+##### 转pdf
 ```
 OFDReader reader = new OFDReader();
 OFD ofd = reader.read(new File("test.ofd"));
