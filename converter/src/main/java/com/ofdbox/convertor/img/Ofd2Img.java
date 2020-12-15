@@ -49,8 +49,7 @@ import java.awt.*;
 import java.awt.geom.Path2D;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -63,6 +62,7 @@ import java.util.stream.Collectors;
 public class Ofd2Img {
 
     private Config config = new Config();
+    private Map<String, TrueTypeFont> embeddedCache = new HashMap<>();
 
     public Config getConfig() {
         return config;
@@ -311,11 +311,17 @@ public class Ofd2Img {
                     OTFParser parser = new OTFParser(true);
                     try {
                         String loc = font.getFontFile().getFullLoc();
-                        byte[] fontData = document.getOfd().getFileManager().readBytes(loc);
-                        if (fontData != null) {
-                            typeFont = parser.parse(new ByteArrayInputStream(fontData));
-                        } else {
-                            log.error("找不到字体：" + loc);
+                        typeFont = embeddedCache.get(loc);
+                        if (typeFont == null) {
+                            byte[] fontData = document.getOfd().getFileManager().readBytes(loc);
+                            if (fontData != null) {
+                                typeFont = parser.parse(new ByteArrayInputStream(fontData));
+                                embeddedCache.put(loc, typeFont);
+                            } else {
+                                log.error("找不到字体：" + loc);
+                            }
+                        }else{
+                            log.debug("缓存命中："+loc);
                         }
                     } catch (IOException e) {
                         log.error("加载字体出错：" + e.getMessage());
@@ -339,7 +345,7 @@ public class Ofd2Img {
                 }
                 log.debug("字体是否加载失败：" + loadErr);
                 if (loadErr) {
-                    log.debug("原字体：" + loadErr);
+                    log.debug("原字体：" + font.getFontFile().getFullLoc());
                 }
                 try {
                     log.debug("字体名称：" + typeFont.getPostScript());

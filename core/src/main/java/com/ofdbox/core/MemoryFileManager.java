@@ -37,14 +37,13 @@ public class MemoryFileManager implements FileManager {
         byte[] bytes = store.get(loc);
         if (bytes == null) {
             loc = loc.toLowerCase();
-            if (loc.startsWith("/")) {
-                loc = loc.substring(1);
-            }
+
             for (Map.Entry<String, byte[]> entry : store.entrySet()) {
                 if (entry.getKey().toLowerCase().equals(loc))
                     bytes = entry.getValue();
             }
         }
+        if (bytes == null) throw new RuntimeException("文件不存在："+loc);
         ByteArrayInputStream in = new ByteArrayInputStream(bytes);
         return in;
     }
