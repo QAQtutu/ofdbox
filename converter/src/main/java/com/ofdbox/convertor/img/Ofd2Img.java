@@ -342,7 +342,7 @@ public class Ofd2Img {
                     log.debug("原字体：" + loadErr);
                 }
                 try {
-                    log.debug("字体名称：" + typeFont.getName());
+                    log.debug("字体名称：" + typeFont.getPostScript());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

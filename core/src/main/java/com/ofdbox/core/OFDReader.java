@@ -210,6 +210,8 @@ public class OFDReader {
                         signature.setNSignature(nSignature);
                         signature.setXSignature(xSignature);
 
+                        xSignature.getSignedValue().setParent(signatureLoc);
+
                         signatures.getSignatureList().add(signature);
                     }
                 }
