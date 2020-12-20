@@ -42,7 +42,7 @@ public class FontUtils {
         if (file.isDirectory()) {
             log.error(String.format("添加系统字体映射失败，%s 不是一个文件", fontFilePath));
         }
-        if (!file.getName().endsWith("otf") && !file.getName().endsWith("ttf") && !file.getName().endsWith("ttc")) {
+        if (!file.getName().toLowerCase().endsWith("otf") && !file.getName().toLowerCase().endsWith("ttf") && !file.getName().toLowerCase().endsWith("ttc")) {
             log.error(String.format("添加系统字体映射失败，%s 不是一个OpenType字体文件", fontFilePath));
         }
         synchronized (pathMapping) {
@@ -52,7 +52,7 @@ public class FontUtils {
 
     public static TrueTypeFont loadSystemFont(String familyName, String fontName) {
         if (familyName == null) {
-            familyName = fontName;
+            familyName = "null";
         }
 //        if (StringUtils.isBlank(fontName)) {
 //            return null;
@@ -111,7 +111,7 @@ public class FontUtils {
     }
 
     public static void loadFont(File file) {
-        if (file.getName().endsWith("ttc")) {
+        if (file.getName().toLowerCase().endsWith("ttc")) {
             try {
                 TrueTypeCollection trueTypeCollection = new TrueTypeCollection(file);
                 trueTypeCollection.processAllFonts(new TrueTypeCollection.TrueTypeFontProcessor() {
@@ -125,7 +125,7 @@ public class FontUtils {
                 log.warn("加载字体失败：" + file.getAbsolutePath());
             }
         }
-        if (!file.getName().endsWith("otf") && !file.getName().endsWith("ttf")) {
+        if (!file.getName().toLowerCase().endsWith("otf") && !file.getName().toLowerCase().endsWith("ttf")) {
             return;
         }
         try {
@@ -175,8 +175,10 @@ public class FontUtils {
         familyNames.forEach(familyName -> {
             fontNames.forEach(fontName -> {
                 nameMapping.put(familyName + "$$$$" + fontName, finalName);
+                nameMapping.put("null$$$$" + fontName, finalName);
                 log.info(String.format("注册字体 %s,%s,%s", familyName, fontName, path));
                 addSystemFontMapping(familyName, fontName, path);
+                addSystemFontMapping("null", fontName, path);
             });
         });
 //        System.out.println(String.format("%s %s %s %s", family, name, cnFamily, cnName));
