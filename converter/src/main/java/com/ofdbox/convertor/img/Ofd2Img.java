@@ -320,8 +320,8 @@ public class Ofd2Img {
                             } else {
                                 log.error("找不到字体：" + loc);
                             }
-                        }else{
-                            log.debug("缓存命中："+loc);
+                        } else {
+                            log.debug("缓存命中：" + loc);
                         }
                     } catch (IOException e) {
                         log.error("加载字体出错：" + e.getMessage());
@@ -345,7 +345,7 @@ public class Ofd2Img {
                 }
                 log.debug("字体是否加载失败：" + loadErr);
                 if (loadErr) {
-                    log.debug("原字体：" + font.getFontFile().getFullLoc());
+                    log.debug("原字体：" + (font.getFontFile() != null ? font.getFontFile().getFullLoc() : "Null"));
                 }
                 try {
                     log.debug("字体名称：" + typeFont.getPostScript());
@@ -354,10 +354,10 @@ public class Ofd2Img {
                 }
 
                 Double[] ctm = ctText.getCtm();
-                BoundingBox fontBox = null;
+//                BoundingBox fontBox = null;
                 List<Number> fontMatrix = null;
                 try {
-                    fontBox = typeFont.getFontBBox();
+//                    fontBox = typeFont.getFontBBox();
                     fontMatrix = typeFont.getFontMatrix();
                 } catch (IOException e) {
                     e.printStackTrace();
