@@ -768,7 +768,10 @@ public class Ofd2Img {
             if (s.startsWith("#")) {
                 color_[i] = Integer.parseInt(s.replaceAll("#", ""), 16);
             } else {
-                color_[i] = Integer.valueOf(s);
+                if ("0.0".equals(s))
+                    color_[i] = 0;
+                else
+                    color_[i] = Integer.valueOf(s);
             }
         }
         switch (type) {
