@@ -7,7 +7,6 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -35,7 +34,7 @@ public class NSignedInfo {
     private NReferences references;
 
     @XmlElement(name = "ofd:StampAnnot")
-    private List<NStampAnnot> stampAnnots=new ArrayList<>();
+    private List<NStampAnnot> stampAnnots =new ArrayList<>();
 
     @XmlElement(name = "ofd:Seal")
     private NSeal seal;
