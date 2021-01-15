@@ -36,7 +36,8 @@ public class FontUtils {
         String key1 = familyName + Separator + fontName;
         String key2 = aliasFamilyName + Separator + aliasFontName;
         if (nameMapping.get(key2) == null || pathMapping.get(key2) == null) {
-            throw new RuntimeException("要设置别名的字体不存在");
+            log.error("要设置别名的字体不存在");
+            return;
         }
         aliasMapping.put(key1, key2);
     }
