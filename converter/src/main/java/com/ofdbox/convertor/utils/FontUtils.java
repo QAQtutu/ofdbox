@@ -12,6 +12,8 @@ import java.util.*;
 public class FontUtils {
     private static Map<String, String> pathMapping = new HashMap<>();
     private static Map<String, String> nameMapping = new HashMap<>();
+    private static Map<String, String> aliasMapping = new HashMap<>();
+    public static final String Separator = "$$$$";
 
 
     private static final String DEFAULT_FONT_DIR_MAC = "/System/Library/Fonts";
@@ -30,6 +32,14 @@ public class FontUtils {
         }
     }
 
+    public static void addAliasMapping(String familyName, String fontName, String aliasFamilyName, String aliasFontName) {
+        String key1 = familyName + Separator + fontName;
+        String key2 = aliasFamilyName + Separator + aliasFontName;
+        if (nameMapping.get(key2) == null || pathMapping.get(key2) == null) {
+            throw new RuntimeException("要设置别名的字体不存在");
+        }
+        aliasMapping.put(key1, key2);
+    }
 
     public static void addSystemFontMapping(String familyName, String fontName, String fontFilePath) {
         if (StringUtils.isBlank(familyName) || StringUtils.isBlank(fontName) || StringUtils.isBlank(fontFilePath)) {
@@ -46,7 +56,7 @@ public class FontUtils {
             log.error(String.format("添加系统字体映射失败，%s 不是一个OpenType字体文件", fontFilePath));
         }
         synchronized (pathMapping) {
-            pathMapping.put(familyName + "$$$$" + fontName, fontFilePath);
+            pathMapping.put(familyName + Separator + fontName, fontFilePath);
         }
     }
 
@@ -60,7 +70,12 @@ public class FontUtils {
 //        if (familyNameMapping.get(familyName) != null) {
 //            familyName = familyNameMapping.get(familyName);
 //        }
-        String key = familyName + "$$$$" + fontName;
+        String key = familyName + Separator + fontName;
+
+        if (aliasMapping.get(key) != null) {
+            key = aliasMapping.get(key);
+        }
+
         if (nameMapping.get(key) != null) {
             fontName = nameMapping.get(key);
         }
@@ -174,7 +189,7 @@ public class FontUtils {
         String finalName = name;
         familyNames.forEach(familyName -> {
             fontNames.forEach(fontName -> {
-                nameMapping.put(familyName + "$$$$" + fontName, finalName);
+                nameMapping.put(familyName + Separator + fontName, finalName);
                 nameMapping.put("null$$$$" + fontName, finalName);
                 log.info(String.format("注册字体 %s,%s,%s", familyName, fontName, path));
                 addSystemFontMapping(familyName, fontName, path);
