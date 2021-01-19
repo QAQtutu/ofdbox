@@ -16,7 +16,7 @@
 * ofd转pdf
 * ofd内建对象包装，提供更易用的API
 ### QuickStart
-暂未提供maven仓库，请自行打包
+暂未提供maven仓库，请自行打包。本项目需要安装lombok插件。
 
 #### 解析ofd
 ```
