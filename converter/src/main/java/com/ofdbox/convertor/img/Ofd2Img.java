@@ -391,7 +391,9 @@ public class Ofd2Img {
                     List<Double> deltaX = FormatUtils.parseDelta(textCode.getDeltaX());
                     List<Double> deltaY = FormatUtils.parseDelta(textCode.getDeltaY());
                     Double x = textCode.getX();
+                    if (x == null) x = 0.0;
                     Double y = textCode.getY();
+                    if (y == null) y = 0.0;
                     for (int j = 0; j < textCode.getContent().length(); j++) {
                         // 没有Transforms或者还没到Transforms
                         if (transPoint == -1 || globalPoint < ctText.getTransforms().get(transPoint)
