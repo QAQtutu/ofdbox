@@ -282,7 +282,16 @@ public class Ofd2Img {
                 m = m.mtimes(baseMatrix);
                 graphics.setTransform(MatrixUtils.createAffineTransform(MatrixUtils.base()));
 
+                float alpha = 1;
+                if (ctImage.getAlpha() != null) {
+                    alpha = ctImage.getAlpha() / 255.0f;
+                }
+
+                Composite oldComposite = graphics.getComposite();
+                graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, alpha));
+                graphics.setTransform(MatrixUtils.createAffineTransform(MatrixUtils.base()));
                 graphics.drawImage(targetImg, MatrixUtils.createAffineTransform(m), null);
+                graphics.setComposite(oldComposite);
             }
 
             @Override
