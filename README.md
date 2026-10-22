@@ -1,5 +1,6 @@
 # 项目停止更新，转图片功能已贡献至 ofdrw项目，请使用ofdrw1.8.0之后的版本
 
+# Rust编写的OFD库 (ofdbox/ofdbox)[https://github.com/ofdbox/ofdbox]
 
 # OFDBox
 这是一个简易的ofd解析库。
